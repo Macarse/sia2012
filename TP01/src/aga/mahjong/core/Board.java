@@ -14,6 +14,29 @@ public class Board implements Serializable {
 	private int layerCount, rowCount, columnCount;
 	private int tilesCount, payersCount;
 
+	public static String getMove(Board a, Board b) {
+
+	  StringBuilder sb = new StringBuilder();
+	  for (int i = 0; i < a.layerCount; i++) {
+      for (int j = 0; j < a.rowCount; j++) {
+        for (int k = 0; k < a.columnCount; k++) {
+
+          Tile tile1 = a.getItem(i, j, k);
+          Tile tile2 = b.getItem(i, j, k);
+
+          if ( tile1 == null && tile2 != null ) {
+            sb.append(String.format("tile: %s [%d, %d, %d]\n", tile2.toString(), i, j, k));
+          } else if ( tile1 != null && tile2 == null ) {
+            sb.append(String.format("tile: %s [%d, %d, %d]\n", tile1.toString(), i, j, k));
+          }
+        }
+      }
+	  }
+
+	  sb.append("\n");
+	  return sb.toString();
+	}
+
 	public boolean isValid() {
 	  HashMap<String, Integer> map = new HashMap<String, Integer>();
 	  for (int i = 0; i < layerCount; i++) {

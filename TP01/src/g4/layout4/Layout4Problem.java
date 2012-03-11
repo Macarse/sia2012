@@ -7,6 +7,7 @@ import gps.api.GPSRule;
 import gps.api.GPSState;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import aga.mahjong.core.Board;
@@ -56,6 +57,7 @@ public class Layout4Problem implements GPSProblem {
 
     System.out.println("rules count: " + rules.size());
 
+    Collections.shuffle(rules);
     return rules;
   }
 

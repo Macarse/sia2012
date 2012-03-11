@@ -1,6 +1,8 @@
 package gps;
 
+import g4.MahjongGPSState;
 import gps.api.GPSState;
+import aga.mahjong.core.Board;
 
 public class GPSNode {
 
@@ -90,6 +92,19 @@ public class GPSNode {
     } else if (!state.equals(other.state))
       return false;
     return true;
+  }
+
+  public void printDiff() {
+    if (this.parent == null) {
+      return;
+    }
+
+    String moved = Board.getMove(((MahjongGPSState)this.state).getBoard(),
+        ((MahjongGPSState)this.parent.state).getBoard());
+
+    this.parent.printDiff();
+    System.out.println( moved);
+
   }
 
 }

@@ -44,6 +44,7 @@ public abstract class GPSEngine {
 				if (isGoal(currentNode)) {
 					finished = true;
 					System.out.println(currentNode.getSolution());
+					currentNode.printDiff();
 					System.out.println("Expanded nodes: " + explosionCounter);
 				} else {
 					explosionCounter++;
