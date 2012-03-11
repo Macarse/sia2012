@@ -13,8 +13,6 @@ import aga.mahjong.core.Board;
 
 public class Layout3Problem implements GPSProblem {
 
-  private List<GPSRule> rules;
-
   @Override
   public GPSState getInitState() {
     MahjongGPSState gpsState = new MahjongGPSState();
@@ -22,8 +20,16 @@ public class Layout3Problem implements GPSProblem {
     Layout3Arrange arrange = new Layout3Arrange();
     arrange.arrange(board);
     gpsState.setBoard(board);
-    
-    assert(board.getPayersCount() > 0);
+
+    if ( board.getPayersCount() == 0 ) {
+      System.out.println("ERROR: Payers count == 0");
+      return null;
+    }
+
+    if ( !board.isValid() ) {
+      return null;
+    }
+
     return gpsState;
   }
 
@@ -38,21 +44,17 @@ public class Layout3Problem implements GPSProblem {
   }
 
   @Override
-  public List<GPSRule> getRules() {
-    if ( rules != null ) {
-      return rules;
-    }
+  public List<GPSRule> getRules(GPSState state) {
+    List<GPSRule> rules = new ArrayList<GPSRule>();
 
-    rules = new ArrayList<GPSRule>();
+    MahjongGPSState gpsState = (MahjongGPSState) state;
+    int count = gpsState.getBoard().getPayersCount();
 
-    MahjongGPSState gpsState = (MahjongGPSState) getInitState();
-    int count = gpsState.getBoard().getTilesCount();
-
-    for (int i = 0 ; i < count * .5 + 1 ; i++ ) {
+    for (int i = 0 ; i < count ; i++ ) {
       rules.add(new MahjongGPSRule(i));
     }
 
-    System.out.println("rules count: " + count);
+    System.out.println("rules count: " + rules.size());
 
     return rules;
   }

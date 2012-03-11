@@ -11,8 +11,8 @@ public class Layout3 extends Layout {
   public Layout3() {
     name = "Layout1";
     layerCount = 1;
-    rowCount = 13;
-    columnCount = 13;
+    rowCount = 14;
+    columnCount = 14;
 
     positions = new ArrayList<Position>();
 
@@ -27,7 +27,7 @@ public class Layout3 extends Layout {
 
     positions.add(new Position(0, 8, 4));
     positions.add(new Position(0, 12, 4));
-    
+
     positions.add(new Position(0, 6, 6));
     positions.add(new Position(0, 10, 6));
     positions.add(new Position(0, 12, 6));
@@ -40,8 +40,8 @@ public class Layout3 extends Layout {
     positions.add(new Position(0, 12, 10));
 
     positions.add(new Position(0, 0, 12));
-    positions.add(new Position(0, 6, 12));
-    positions.add(new Position(0, 10, 12));
+//    positions.add(new Position(0, 6, 12));
+//    positions.add(new Position(0, 10, 12));
 
 
   }

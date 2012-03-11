@@ -38,21 +38,17 @@ public class Layout2Problem implements GPSProblem {
   }
 
   @Override
-  public List<GPSRule> getRules() {
-    if ( rules != null ) {
-      return rules;
-    }
+  public List<GPSRule> getRules(GPSState state) {
+    List<GPSRule> rules = new ArrayList<GPSRule>();
 
-    rules = new ArrayList<GPSRule>();
+    MahjongGPSState gpsState = (MahjongGPSState) state;
+    int count = gpsState.getBoard().getPayersCount();
 
-    MahjongGPSState gpsState = (MahjongGPSState) getInitState();
-    int count = gpsState.getBoard().getTilesCount();
-
-    for (int i = 0 ; i < count * .5 + 1 ; i++ ) {
+    for (int i = 0 ; i < count ; i++ ) {
       rules.add(new MahjongGPSRule(i));
     }
 
-    System.out.println("rules count: " + count);
+    System.out.println("rules count: " + rules.size());
 
     return rules;
   }

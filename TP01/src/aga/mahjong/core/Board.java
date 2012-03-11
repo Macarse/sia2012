@@ -2,6 +2,7 @@ package aga.mahjong.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Board implements Serializable {
@@ -12,6 +13,41 @@ public class Board implements Serializable {
 	private Tile[][][] tiles;
 	private int layerCount, rowCount, columnCount;
 	private int tilesCount, payersCount;
+
+	public boolean isValid() {
+	  HashMap<String, Integer> map = new HashMap<String, Integer>();
+	  for (int i = 0; i < layerCount; i++) {
+      for (int j = 0; j < rowCount; j++) {
+        for (int k = 0; k < columnCount; k++) {
+
+          Tile tile = getItem(i, j, k);
+          if ( tile == null ) {
+            continue;
+          }
+
+          Integer amount = map.get(tile.toString());
+          if ( amount == null ) {
+            map.put(tile.toString(), 1);
+          } else {
+            map.put(tile.toString(), amount + 1);
+          }
+        }
+      }
+    }
+
+	  boolean ret = true;
+	  
+	  for (String key : map.keySet()) {
+      Integer amount = map.get(key);
+      if ( amount % 2 != 0 ) {
+        System.out.println("ERROR: Tile: " + key + " amount: " + amount);
+        ret = false;
+        break;
+      }
+    }
+
+	  return ret;
+	}
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {
@@ -179,6 +215,7 @@ public class Board implements Serializable {
 					res.add(new Pair(p.getPosition(), q.getPosition()));
 			}
 		}
+
 		return res.toArray(new Pair[res.size()]);
 	}
 

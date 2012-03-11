@@ -11,8 +11,8 @@ public class Layout2 extends Layout {
   public Layout2() {
     name = "Layout2";
     layerCount = 4;
-    rowCount = 15;
-    columnCount = 29;
+    rowCount = 16;
+    columnCount = 30;
 
     positions = new ArrayList<Position>();
     positions.add(new Position(0, 0, 7));

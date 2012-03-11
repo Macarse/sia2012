@@ -28,7 +28,15 @@ public class MahjongGPSRule implements GPSRule {
   public GPSState evalRule(GPSState state) throws NotAppliableException {
     MahjongGPSState original = (MahjongGPSState) state;
 
-    if ( this.indexToUse >= original.getBoard().getPayersCount() ) {
+    if ( original.getBoard().getPayersCount() == 0 ) {
+      throw new NotAppliableException();
+    }
+
+    @SuppressWarnings("unused")
+    Pair pair = null;
+    try {
+      pair = original.getBoard().getPairs()[indexToUse];
+    } catch (IndexOutOfBoundsException e) {
       throw new NotAppliableException();
     }
 

@@ -1,15 +1,15 @@
 package g4.layout1;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import aga.mahjong.core.Board;
-
 import g4.MahjongGPSRule;
 import g4.MahjongGPSState;
 import gps.api.GPSProblem;
 import gps.api.GPSRule;
 import gps.api.GPSState;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import aga.mahjong.core.Board;
 
 public class Layout1Problem implements GPSProblem {
 
@@ -21,7 +21,15 @@ public class Layout1Problem implements GPSProblem {
     arrange.arrange(board);
     gpsState.setBoard(board);
     
-    assert(board.getPayersCount() > 0);
+    if ( board.getPayersCount() == 0 ) {
+      System.out.println("ERROR: Payers count == 0");
+      return null;
+    }
+
+    if ( !board.isValid() ) {
+      return null;
+    }
+
     return gpsState;
   }
 
@@ -36,14 +44,17 @@ public class Layout1Problem implements GPSProblem {
   }
 
   @Override
-  public List<GPSRule> getRules() {
+  public List<GPSRule> getRules(GPSState state) {
     List<GPSRule> rules = new ArrayList<GPSRule>();
 
-    rules.add(new MahjongGPSRule(0));
-    rules.add(new MahjongGPSRule(1));
-    rules.add(new MahjongGPSRule(2));
-    rules.add(new MahjongGPSRule(3));
-    rules.add(new MahjongGPSRule(4));
+    MahjongGPSState gpsState = (MahjongGPSState) state;
+    int count = gpsState.getBoard().getPayersCount();
+
+    for (int i = 0 ; i < count ; i++ ) {
+      rules.add(new MahjongGPSRule(i));
+    }
+
+    System.out.println("rules count: " + rules.size());
 
     return rules;
   }
