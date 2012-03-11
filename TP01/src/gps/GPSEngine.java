@@ -1,5 +1,6 @@
 package gps;
 
+import g4.MahjongGPSState;
 import gps.api.GPSProblem;
 import gps.api.GPSRule;
 import gps.api.GPSState;
@@ -67,6 +68,8 @@ public abstract class GPSEngine {
 			return false;
 		}
 		
+		MahjongGPSState state = (MahjongGPSState) node.getState();
+		System.out.println("Payers Count: " + state.getBoard().getPayersCount() + " Tiles Count: " + state.getBoard().getTilesCount());
 		for (GPSRule rule : problem.getRules()) {
 			GPSState newState = null;
 			try {
