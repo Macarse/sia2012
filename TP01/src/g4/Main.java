@@ -1,7 +1,5 @@
 package g4;
 
-import g4.layout2.Layout2Problem;
-import g4.layout3.Layout3Problem;
 import g4.layout4.Layout4Problem;
 import gps.SearchStrategy;
 

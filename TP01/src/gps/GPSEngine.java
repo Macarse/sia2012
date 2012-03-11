@@ -107,7 +107,12 @@ public abstract class GPSEngine {
 		return false;
 	}
 
+<<<<<<< Updated upstream
 	private  boolean checkBranch(GPSNode parent, GPSState state) {
+=======
+	private  boolean checkBranch(GPSNode parent, GPSState state, int altura) {
+//	  System.out.println("altura: " + altura);
+>>>>>>> Stashed changes
 		if (parent == null) {
 			return false;
 		}
