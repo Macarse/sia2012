@@ -25,11 +25,20 @@ public class Board implements Serializable {
             continue;
           }
 
-          Integer amount = map.get(tile.toString());
-          if ( amount == null ) {
-            map.put(tile.toString(), 1);
+          String key = null;
+          if ( tile.toString().contains("S") ) {
+            key = "S";
+          } else if (tile.toString().contains("F") ) {
+            key = "F";
           } else {
-            map.put(tile.toString(), amount + 1);
+            key = tile.toString();
+          }
+
+          Integer amount = map.get(key);
+          if ( amount == null ) {
+            map.put(key, 1);
+          } else {
+            map.put(key, amount + 1);
           }
         }
       }
@@ -41,7 +50,7 @@ public class Board implements Serializable {
       Integer amount = map.get(key);
       if ( amount % 2 != 0 ) {
         System.out.println("ERROR: Tile: " + key + " amount: " + amount);
-        ret = true;
+        ret = false;
         break;
       }
     }
