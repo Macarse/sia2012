@@ -1,10 +1,10 @@
-﻿package aga.mahjong.core;
+package aga.mahjong.core;
 
 import java.io.Serializable;
 
 public final class Cell implements Serializable {
 	private static final long serialVersionUID = 2303277354058270968L;
-	
+
 	private final Position position;
 	private final Tile tile;
 
@@ -57,5 +57,5 @@ public final class Cell implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }

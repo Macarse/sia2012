@@ -1,10 +1,10 @@
-﻿package aga.mahjong.core;
+package aga.mahjong.core;
 
 import java.io.Serializable;
 
 public final class Tile implements Serializable {
 	private static final long serialVersionUID = -1138962143340254654L;
-	
+
 	private final TileKind kind;
 	private final int number;
 

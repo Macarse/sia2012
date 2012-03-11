@@ -1,4 +1,4 @@
-﻿package aga.mahjong.core;
+package aga.mahjong.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 public class Board implements Serializable {
 	private static final long serialVersionUID = -5903179874925723302L;
-	
+
 	private ArrayList<Position> selection = new ArrayList<Position>();
 	private final Layout layout;
 	private Tile[][][] tiles;
@@ -14,45 +14,45 @@ public class Board implements Serializable {
 	private int tilesCount, payersCount;
 
 	@Override
-  public Object clone() throws CloneNotSupportedException {
-	  Board clone = new Board(layout);
+	public Object clone() throws CloneNotSupportedException {
+		Board clone = new Board(layout);
 
-	  for ( int i = 0 ; i < layerCount ; i++) {
-	    for ( int j = 0 ; j < rowCount ; j++ ) {
-	      for ( int k = 0 ; k < columnCount ; k++ ) {
-	        clone.tiles[i][j][k] = tiles[i][j][k];
-	      }
-	    }
-	  }
+		for (int i = 0; i < layerCount; i++) {
+			for (int j = 0; j < rowCount; j++) {
+				for (int k = 0; k < columnCount; k++) {
+					clone.tiles[i][j][k] = tiles[i][j][k];
+				}
+			}
+		}
 
-	  clone.layerCount = layerCount;
-	  clone. rowCount = rowCount;
-	  clone.columnCount = columnCount;
+		clone.layerCount = layerCount;
+		clone.rowCount = rowCount;
+		clone.columnCount = columnCount;
 
-	  clone.tilesCount = tilesCount;
-	  clone.payersCount = payersCount;
+		clone.tilesCount = tilesCount;
+		clone.payersCount = payersCount;
 
-	  return clone;
+		return clone;
 	}
 
 	@Override
 	public String toString() {
-	  StringBuilder sb = new StringBuilder();
-	   for ( int i = 0 ; i < layerCount ; i++) {
-	      for ( int j = 0 ; j < rowCount ; j++ ) {
-	        for ( int k = 0 ; k < columnCount ; k++ ) {
-	          if ( tiles[i][j][k] == null ) {
-	            sb.append("-");
-	          } else {
-	            sb.append(tiles[i][j][k].toString());
-	          }
-	        }
-	        sb.append("\n");
-	      }
-	      sb.append("\n*\n");
-	    }
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < layerCount; i++) {
+			for (int j = 0; j < rowCount; j++) {
+				for (int k = 0; k < columnCount; k++) {
+					if (tiles[i][j][k] == null) {
+						sb.append("-");
+					} else {
+						sb.append(tiles[i][j][k].toString());
+					}
+				}
+				sb.append("\n");
+			}
+			sb.append("\n*\n");
+		}
 
-	   return sb.toString();
+		return sb.toString();
 	}
 
 	public Tile getItem(Position pos) {
@@ -122,7 +122,8 @@ public class Board implements Serializable {
 
 	public Board(Layout layout) {
 		this.layout = layout;
-		tiles = new Tile[layout.getLayerCount()][layout.getRowCount()][layout.getColumnCount()];
+		tiles = new Tile[layout.getLayerCount()][layout.getRowCount()][layout
+				.getColumnCount()];
 		layerCount = layout.getLayerCount();
 		rowCount = layout.getRowCount();
 		columnCount = layout.getColumnCount();

@@ -1,4 +1,4 @@
-﻿package aga.mahjong.core;
+package aga.mahjong.core;
 
 public class Pair {
 	private final Position position1;

@@ -2,10 +2,9 @@ package aga.mahjong.core;
 
 import java.util.ArrayList;
 
-
 public class SolvableArrange implements IArrangeStrategy {
 	public void arrange(Board board) {
-		//TODO: implement
+		// TODO: implement
 		java.util.Random rnd = new java.util.Random();
 		ArrayList<Tile> initLayout = new ArrayList<Tile>();
 		ArrayList<Tile> tiles = new ArrayList<Tile>(TileSet.getAllTiles());

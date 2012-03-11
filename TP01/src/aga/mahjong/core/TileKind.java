@@ -1,4 +1,4 @@
-﻿package aga.mahjong.core;
+package aga.mahjong.core;
 
 public enum TileKind {
 	None, Dot, Character, Bamboo, Wind, Dragon, Season, Flower;

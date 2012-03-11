@@ -1,4 +1,4 @@
-﻿package aga.mahjong.core;
+package aga.mahjong.core;
 
 import java.util.ArrayList;
 
@@ -9,16 +9,16 @@ public class RandomArrange implements IArrangeStrategy {
 		ArrayList<Tile> tiles = new ArrayList<Tile>(TileSet.getAllTiles());
 
 		for (Position pos : board.getAllPositions()) {
-		  if ( pos.getLayer() > 0 ) {
-		    break;
-		  }
+			if (pos.getLayer() > 0) {
+				break;
+			}
 
-		  if ( pos.getRow() == 0 ) {
-		    int i = rnd.nextInt(tiles.size());
-		    board.setItem(pos, tiles.get(i));
-		    initLayout.add(tiles.get(i));
-		    tiles.remove(i);
-		  }
+			if (pos.getRow() == 0) {
+				int i = rnd.nextInt(tiles.size());
+				board.setItem(pos, tiles.get(i));
+				initLayout.add(tiles.get(i));
+				tiles.remove(i);
+			}
 		}
 	}
 }
