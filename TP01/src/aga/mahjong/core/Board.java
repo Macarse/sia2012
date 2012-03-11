@@ -94,7 +94,7 @@ public class Board implements Serializable {
 				}
 				sb.append("\n");
 			}
-			sb.append("\n*\n");
+			sb.append("\n***** Layer " + i + " ******\n");
 		}
 
 		return sb.toString();

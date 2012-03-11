@@ -13,8 +13,6 @@ import gps.api.GPSState;
 
 public class Layout2Problem implements GPSProblem {
 
-  private List<GPSRule> rules;
-
   @Override
   public GPSState getInitState() {
     MahjongGPSState gpsState = new MahjongGPSState();
