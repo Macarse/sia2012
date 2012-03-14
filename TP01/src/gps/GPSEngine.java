@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class GPSEngine {
+  private static final long TIME_LIMIT = 1000 * 60 * 5;
 
 	protected List<GPSNode> open = new LinkedList<GPSNode>();
 
@@ -24,40 +25,56 @@ public abstract class GPSEngine {
 	protected SearchStrategy strategy;
 
   public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
-
     problem = myProblem;
     strategy = myStrategy;
 
     rootNode = new GPSNode(problem.getInitState(), 0);
     boolean finished = false;
     boolean failed = false;
+    boolean timeUp = false;
+    long start = System.currentTimeMillis();
     long explosionCounter = 0;
+    GPSNode currentNode = null;
 
     open.add(rootNode);
-    while (!failed && !finished) {
+    while (!failed && !finished && !timeUp) {
       if (open.size() <= 0) {
         failed = true;
       } else {
-        GPSNode currentNode = open.get(0);
+        currentNode = open.get(0);
         closed.add(currentNode);
         open.remove(0);
         if (isGoal(currentNode)) {
           finished = true;
           System.out.println(currentNode.getSolution());
           currentNode.printDiff();
+          System.out.println("solution height: " + currentNode.getHeight(0));
+          System.out.println("opened size: " + open.size());
+          System.out.println("closed size: " + closed.size());
           System.out.println("Expanded nodes: " + explosionCounter);
         } else {
           explosionCounter++;
           explode(currentNode);
         }
       }
+
+      if ( (System.currentTimeMillis() - start) >= TIME_LIMIT ) {
+        timeUp = true;
+      }
     }
 
     if (finished) {
+      System.out.println("time: " + (System.currentTimeMillis() - start));
       System.out.println("OK! solution found!");
     } else if (failed) {
       System.err.println("FAILED! solution not found!");
+    } else if (timeUp) {
+      System.err.println("Time's up!");
+      System.out.println("opened size: " + open.size());
+      System.out.println("closed size: " + closed.size());
+      System.out.println("Expanded nodes: " + explosionCounter);
     }
+      
   }
 
 	private  boolean isGoal(GPSNode currentNode) {
