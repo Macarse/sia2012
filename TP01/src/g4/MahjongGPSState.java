@@ -1,4 +1,4 @@
-package g4.layout1;
+package g4;
 
 import gps.api.GPSState;
 import aga.mahjong.core.Board;
