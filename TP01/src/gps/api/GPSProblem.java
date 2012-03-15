@@ -25,7 +25,7 @@ public interface GPSProblem {
 	 * These rules are state independent.
 	 * @return The initial state of the problem to be solved.
 	 */	
-	List<GPSRule> getRules();
+	List<GPSRule> getRules(GPSState state);
 	
 	/**
 	 * Computes the value of the Heuristic for the given state.

@@ -22,10 +22,6 @@ public class G4GPSEngine extends GPSEngine {
   @Override
   public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
     generatedNodes = 0;
-
-    rootNode = new GPSNode(myProblem.getInitState(), 0);
-    open.add(rootNode);
-
     super.engine(myProblem, myStrategy);
   }
 

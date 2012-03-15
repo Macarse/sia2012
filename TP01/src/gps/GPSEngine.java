@@ -18,6 +18,8 @@ public abstract class GPSEngine {
 
 	protected GPSProblem problem;
 
+	protected GPSNode rootNode;
+
 	// Use this variable in the addNode implementation
 	protected SearchStrategy strategy;
 
@@ -26,7 +28,7 @@ public abstract class GPSEngine {
 		problem = myProblem;
 		strategy = myStrategy;
 
-		GPSNode rootNode = new GPSNode(problem.getInitState(), 0);
+		rootNode = new GPSNode(problem.getInitState(), 0);
 		boolean finished = false;
 		boolean failed = false;
 		long explosionCounter = 0;
@@ -63,14 +65,15 @@ public abstract class GPSEngine {
 	}
 
 	private  boolean explode(GPSNode node) {
-		if(problem.getRules() == null){
-			System.err.println("No rules!");
-			return false;
-		}
-		
+
 		MahjongGPSState state = (MahjongGPSState) node.getState();
-		System.out.println("Payers Count: " + state.getBoard().getPayersCount() + " Tiles Count: " + state.getBoard().getTilesCount());
-		for (GPSRule rule : problem.getRules()) {
+		System.out.println("nodo: "+state);
+		System.out.println("Payers Count: " + state.getBoard().getPayersCount() + 
+		    " Tiles Count: " + state.getBoard().getTilesCount() +
+		    " Pairs count: " + state.getBoard().getPairs().length
+		    );
+		int n = 0;
+		for (GPSRule rule : problem.getRules(node.getState())) {
 			GPSState newState = null;
 			try {
 				newState = rule.evalRule(node.getState());
@@ -78,12 +81,13 @@ public abstract class GPSEngine {
 				// Do nothing
 			}
 			if (newState != null
-					&& !checkBranch(node, newState)
+					&& !checkBranch(node, newState, 0)
 					&& !checkOpenAndClosed(node.getCost() + rule.getCost(),
 							newState)) {
 				GPSNode newNode = new GPSNode(newState, node.getCost()
 						+ rule.getCost());
 				newNode.setParent(node);
+				System.out.println("hijo " + n++ + " state: " + newState);
 				addNode(newNode);
 			}
 		}
@@ -105,11 +109,12 @@ public abstract class GPSEngine {
 		return false;
 	}
 
-	private  boolean checkBranch(GPSNode parent, GPSState state) {
+	private  boolean checkBranch(GPSNode parent, GPSState state, int altura) {
+	  System.out.println("altura: " + altura);
 		if (parent == null) {
 			return false;
 		}
-		return checkBranch(parent.getParent(), state)
+		return checkBranch(parent.getParent(), state, altura + 1)
 				|| state.compare(parent.getState());
 	}
 

@@ -51,7 +51,7 @@ public class JarsProblem implements GPSProblem {
 	}
 
 	@Override
-	public List<GPSRule> getRules() {
+	public List<GPSRule> getRules(GPSState state) {
 		ArrayList<GPSRule> ret = new ArrayList<GPSRule>(9);
 		ret.add(new DropTen());
 		ret.add(new DropSeven());
