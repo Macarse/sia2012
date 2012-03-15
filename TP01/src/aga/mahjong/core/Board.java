@@ -37,6 +37,41 @@ public class Board implements Serializable {
 	  return sb.toString();
 	}
 
+	public static Pair getMoveInPair(Board a, Board b) {
+
+	  Position pos1 = null;
+	  Position pos2 = null;
+
+    for (int i = 0; i < a.layerCount; i++) {
+      for (int j = 0; j < a.rowCount; j++) {
+        for (int k = 0; k < a.columnCount; k++) {
+
+          Tile tile1 = a.getItem(i, j, k);
+          Tile tile2 = b.getItem(i, j, k);
+
+          if ( tile1 == null && tile2 != null ) {
+            if ( pos1 == null ) {
+              pos1 = new Position(i, j, k);
+            } else {
+              pos2 =  new Position(i, j, k);
+              break;
+            }
+
+          } else if ( tile1 != null && tile2 == null ) {
+            if ( pos1 == null ) {
+              pos1 = new Position(i, j, k);
+            } else {
+              pos2 =  new Position(i, j, k);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    return new Pair(pos1, pos2);
+  }
+
 	public boolean isValid() {
 	  HashMap<String, Integer> map = new HashMap<String, Integer>();
 	  for (int i = 0; i < layerCount; i++) {
