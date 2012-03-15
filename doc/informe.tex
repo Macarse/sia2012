@@ -32,7 +32,7 @@
 
 \section*{Reglas del Mahjong-Solitaire}
 	El juego \textbf{Mahjong-Solitaire} consiste en eliminar todas las fichas de un tablero de 144 fichas. \\
-	Una ficha puede ser removida siempre que no se encuentre bloqueada y ademas cumpla con la condici\'on de que las fichas son del mismo tipo. Las fichas existentes son:
+	Las fichas deben ser removidas de a pares y solo si cumplen con las siguientes condiciones: No deben encontrarse bloqueadas y el par debe estar compuesto por fichas que sean del mismo tipo, y posean el mismo identificador. Las fichas existentes son:
 
 \begin{table}[h]
 \begin{center}
@@ -54,11 +54,11 @@
 \label{tab:tiles}
 \end{table}
 
-	Existe una excepci\'on en la remoci\'on de las fichas del tipo \textit{Season} o \textit{Flowers}. La excepci\'on esta basada en que cualquier par de fichas \textit{Season} o \textit{Flowers} puede ser removidas utilizando cualquier combinaci\'on entre las mismas, esto se debe a que existen unicamente 4 fichas de cada tipo. \\
-	Una ficha bloqueada puede estar en forma \textit{Horizontal}, \textit{Vertical} o \textit{Ambos}. Estos bloqueos se definen del siguiente modo:
+	Existe una excepci\'on en la remoci\'on de las fichas del tipo \textit{Season} o \textit{Flowers}. La excepci\'on esta basada en que cualquier par de fichas \textit{Season} o \textit{Flowers} puede ser removidas utilizando cualquier combinaci\'on entre las mismas, esto se debe a que, al existir solo una ficha con con el mismo tipo e identificador, no se pueden generar pares. \\
+	Una ficha puede estar bloqueada en forma \textit{Horizontal}, \textit{Vertical} o \textit{Ambos}. Estos bloqueos se definen del siguiente modo:
 	\begin{itemize}
 		\item \textbf{Horizontal}: La ficha elegida posee una ficha a su izquierda y derecha.
-		\item \textbf{Vertical}: La ficha elegida posee una ficha encima de ella.		
+		\item \textbf{Vertical}: La ficha elegida posee una ficha encima de ella (tanto parcial como totalmente).		
 	\end{itemize}
 	En la Figura \ref{fig:blocking} se puede observar distintas posibilidades de bloqueos.
 \section*{Desarrollo}
@@ -77,27 +77,30 @@
 
 \section*{Heur\'isticas}
 
-	Se considera \textit{Pair} a todo par de fichas posibles a retirar del tablero en un estado y \textit{Payers} a todo conjunto de \textit{Pares} de fichas posibles a retirar en un estado del juego. \\
+	Se considera \textit{Pair} a todo par de fichas que podr\'ian ser retiradas del tablero en un estado y \textit{Payers} a todo conjunto de todo estos \textit{Pares} con posibilidad de ser retirados en un estado del juego. \\
 	Se proponen las siguientes heur\'isticas (para desarrollar en las estrat\'egias de b\'usquedas informadas):
 	\begin{itemize}
 
 		\item \textbf{M\'as Alta} \textit{(h1)}: Se libera el \textit{Pair} de m\'as alto nivel. En el mejor de los casos la remoci\'on de una ficha en el nivel m\'as alto puede liberar como m\'aximo 4 fichas, los cual explota nuevas posibilidades de generar mas \textit{Payers}.
 		
-		\item \textbf{Mayor cantidad de fichas horizontales} \textit{(h2)}: Esta heur\'istica busca reducir la posibilidad de eliminar una fila del tabler. La heur\'istica se basa en calcular la cantidad de fichas que posee cada una del \textit{Pair} en la fila en la que se encuentra, esto se calcula como:
+		\item \textbf{Mayor cantidad de fichas horizontales} \textit{(h2)}: Esta heur\'istica busca reducir la posibilidad de eliminar una fila del tabler. La heur\'istica se basa en calcular la cantidad de fichas que posee cada fila en la que se encuentran cada ficha que compone el \textit{Pair} , esto se calcula como:
 			\begin{eqnarray}
-				X_{1}  & = & \# Fichas_{izq}+ \# Fichas_{der} \\
-				X_{2}  & = & \# Fichas_{izq}+ \# Fichas_{der} \\
-				\textbf{h2} & = & X_{1} + X{2}
+				X_{1}  & = & \# Fichas_{Fila de F_{1}} \\
+				X_{2}  & = & \# Fichas_{Fila de F_{2}} \\
+				\textbf{h2} & = & X_{1} + X_{2}
 			\end{eqnarray}
-		donde $X_{1}$ y $X_{2}$ es un \textit{Pair}. Esta heur\'istica se basa en reducir la posibilidad de eliminar las filas que se encuentran en los niveles mas bajos, debido a que no liberan nuevos \textit{Payers}.
-		
+		donde $F_{1}$ y $F_{2}$ son las fichas que componen el \textit{Pair}. Esta heur\'istica puede ser mejorada para priorizar le remoci\'on de las fichas de niveles superiores agregando un modificador seg\'un el nivel en que se encuentre, por ejemplo:
+			\begin{eqnarray}
+				\textbf{h2} & = &( X_{1} + X_{2} ) * (N_{1} * C + N_{2} * C)
+			\end{eqnarray}
+				donde $N_{1}$ y $N_{2}$ son los niveles de las fichas $F_{1}$ y $F_{2}$ respectivamente, y $C$ hace referencia a una constante positiva la cual determina el grado de relevancia que se le quiera dar al nivel en que se encuentre la ficha.
 		\item \textbf{Generador M\'aximo de \textit{Payers}} \textit{(h3)}: Esta heur\'isitca se basa en eliminar los \textit{Pairs} que generen mayor cantidad de \textit{Payers} en el pr\'oximo estado.
 		
 	\end{itemize}
 
 \section*{Resultados y Conclusiones}	
 En la tabla \ref{tab:cost} se ven los distintos resultados para distintas estrat\'egias de b\'usquedas para algoritmos no informados. \\
-Se ve que para la estrategia \emph{DFS} se logran mejores resultados que para \emph{BFS} y \emph{Profundizaci\'on iterativa}, en el sentido del tiempo promedio y nodos expandidos, dado que todos llegan a la soluci\'on en un tablero de nivel f\'acil ya que en tableros mas complejos (con 144 fichas) no se alcanza una soluci\'on. Esto podr\'ia deberse a que para el problema que se trata, siempre se necesita ir hasta el final del \'arbol de b\'usqueda, dado que se busca el camino que cubra todo el tablero y no m\'as de all\'i. Es por eso que si \emph{DFS} entra en la rama de la soluc\'ion, seguro llega a esta y no expande m\'as nodos. En cambio, \emph{BFS} no encontrar\'a la soluci\'on hasta explorar el \'ultimo nivel y lo mismo sucede con \emph{Profundizaci\'on iterativa}. Por estos motivos, las estrategias de b\'usqueda informadas son comparadas con \emph{DFS}. \\
+Se puede observar a simple vista que para la estrategia \emph{DFS} se logran mejores resultados tanto para \emph{BFS} como para \emph{Profundizaci\'on iterativa}, en el sentido del tiempo promedio y nodos expandidos. Si bien todas las estrategias llegan a una soluci\'on en un tablero de nivel f\'acil, al agregar complejidad y cantidad de fichas (Por ejemplo, con 144 fichas) no se alcanza una soluci\'on. Esto podr\'ia deberse a que para el problema que se trata, siempre se necesita ir hasta el final del \'arbol de b\'usqueda, dado que se busca el camino que cubra todo el tablero y no m\'as de all\'i. Es por eso que si \emph{DFS} entra en la rama de la soluc\'ion, seguro llega a esta y no expande m\'as nodos. En cambio, \emph{BFS} no encontrar\'a la soluci\'on hasta explorar el \'ultimo nivel y lo mismo sucede con \emph{Profundizaci\'on iterativa}. Por estos motivos, las estrategias de b\'usqueda informadas son comparadas con \emph{DFS}. \\
 En los tableros \ref{fig:layout3} y \ref{fig:layout4} utilizando \emph{BFS} y \emph{Profundizaci\'on Iteratica} se observa que es necesario expandir todo el \'arbol, por lo que en un tiempo aproximado de 5 minutos no se puede llegar a la soluci\'on. De todos modos se realizaron pruebas con ord\'enes de magnitud mas grandes a este tiempo (7 horas y 30 minutos aprox.) y se concluy\'o a que \emph{BFS} no termina ya que debe expandir hasta el \'ultimo nivel para obtener una soluci\'on.
 
 \onecolumn
