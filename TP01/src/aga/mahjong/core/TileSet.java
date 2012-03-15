@@ -1,4 +1,4 @@
-﻿package aga.mahjong.core;
+package aga.mahjong.core;
 
 import java.util.ArrayList;
 import java.util.Collection;

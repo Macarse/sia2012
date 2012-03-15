@@ -1,4 +1,4 @@
-﻿package aga.mahjong.core;
+package aga.mahjong.core;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public final class Position implements Serializable {
 	private static final long serialVersionUID = -3293495485141107663L;
-	
+
 	private final int row;
 	private final int column;
 	private final int layer;

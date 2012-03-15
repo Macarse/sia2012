@@ -1,4 +1,4 @@
-﻿package aga.mahjong.core;
+package aga.mahjong.core;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Layout implements Serializable {
 	private static final long serialVersionUID = -3732566188318873821L;
-	
+
 	protected ArrayList<Position> positions = new ArrayList<Position>();
 	protected String name;
 	protected int layerCount;
