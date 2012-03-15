@@ -7,12 +7,11 @@ import gps.api.GPSState;
 import gps.exception.NotAppliableException;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class GPSEngine {
+  private static final long TIME_LIMIT = 1000 * 60 * 5;
 
 	protected List<GPSNode> open = new LinkedList<GPSNode>();
 
@@ -25,77 +24,58 @@ public abstract class GPSEngine {
 	// Use this variable in the addNode implementation
 	protected SearchStrategy strategy;
 
-	public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
+  public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
+    problem = myProblem;
+    strategy = myStrategy;
 
-		problem = myProblem;
-		strategy = myStrategy;
+    rootNode = new GPSNode(problem.getInitState(), 0);
+    boolean finished = false;
+    boolean failed = false;
+    boolean timeUp = false;
+    long start = System.currentTimeMillis();
+    long explosionCounter = 0;
+    GPSNode currentNode = null;
 
-		rootNode = new GPSNode(problem.getInitState(), 0);
-		boolean finished = false;
-		boolean failed = false;
-		long explosionCounter = 0;
-
-		open.add(rootNode);
-		while (!failed && !finished) {
-			if (open.size() <= 0) {
-				failed = true;
-			} else {
-				GPSNode currentNode = open.get(0);
-
-			  MahjongGPSState state = (MahjongGPSState) currentNode.getState();
-			  if ( state.getBoard().getPayersCount() == 0 &&
-			      strategy == SearchStrategy.DFS2 &&
-			      !isGoal(currentNode) ) {
-
-			    GPSNode rootToDelete = onLeaf(currentNode);
-
-			    if ( rootToDelete != null ) {
-			      GPSNode toDelete = currentNode;
-
-			      while ( !toDelete.equals(rootToDelete) ) {
-			        open.remove(toDelete);
-			        Iterator<GPSNode> iter = open.iterator();
-			        while ( iter.hasNext() ) {
-			          GPSNode opened = iter.next();
-			          if ( opened.getParent().equals(toDelete) ) {
-			            System.out.println("REMOVING!");
-			            closed.add(opened);
-			            iter.remove();
-			          }
-			        }
-
-			        closed.add(toDelete);
-			        toDelete = toDelete.getParent();
-			      }
-
-			    } else {
-			      closed.add(currentNode);
-	          open.remove(0);
-			    }
-
-			  } else {
-          closed.add(currentNode);
-          open.remove(0);
+    open.add(rootNode);
+    while (!failed && !finished && !timeUp) {
+      if (open.size() <= 0) {
+        failed = true;
+      } else {
+        currentNode = open.get(0);
+        closed.add(currentNode);
+        open.remove(0);
+        if (isGoal(currentNode)) {
+          finished = true;
+          System.out.println(currentNode.getSolution());
+          currentNode.printDiff();
+          System.out.println("solution height: " + currentNode.getHeight(0));
+          System.out.println("opened size: " + open.size());
+          System.out.println("closed size: " + closed.size());
+          System.out.println("Expanded nodes: " + explosionCounter);
+        } else {
+          explosionCounter++;
+          explode(currentNode);
         }
+      }
 
-				if (isGoal(currentNode)) {
-					finished = true;
-					//System.out.println(currentNode.getSolution());
-					//currentNode.printDiff();
-					System.out.println("Expanded nodes: " + explosionCounter);
-				} else {
-					explosionCounter++;
-					explode(currentNode);
-				}
-			}
-		}
+      if ( (System.currentTimeMillis() - start) >= TIME_LIMIT ) {
+        timeUp = true;
+      }
+    }
 
-		if (finished) {
-			System.out.println("OK! solution found!");
-		} else if (failed) {
-			System.err.println("FAILED! solution not found!");
-		}
-	}
+    if (finished) {
+      System.out.println("time: " + (System.currentTimeMillis() - start));
+      System.out.println("OK! solution found!");
+    } else if (failed) {
+      System.err.println("FAILED! solution not found!");
+    } else if (timeUp) {
+      System.err.println("Time's up!");
+      System.out.println("opened size: " + open.size());
+      System.out.println("closed size: " + closed.size());
+      System.out.println("Expanded nodes: " + explosionCounter);
+    }
+      
+  }
 
 	private  boolean isGoal(GPSNode currentNode) {
 		return currentNode.getState() != null
@@ -154,8 +134,6 @@ public abstract class GPSEngine {
 	}
 
 	public abstract void addNode(GPSNode node);
-
-	protected abstract GPSNode onLeaf(GPSNode node);
 
 }
 
