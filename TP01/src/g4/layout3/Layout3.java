@@ -40,8 +40,8 @@ public class Layout3 extends Layout {
     positions.add(new Position(0, 12, 10));
 
     positions.add(new Position(0, 0, 12));
-//    positions.add(new Position(0, 6, 12));
-//    positions.add(new Position(0, 10, 12));
+    positions.add(new Position(0, 6, 12));
+    positions.add(new Position(0, 10, 12));
 
 
   }
