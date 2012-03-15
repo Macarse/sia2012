@@ -32,13 +32,35 @@
 
 \section*{Reglas del Mahjong-Solitaire}
 	El juego \textbf{Mahjong-Solitaire} consiste en eliminar todas las fichas de un tablero de 144 fichas. \\
-	Una ficha puede ser removida siempre que no se encuentre bloqueada y ademas cumpla con la condici\'on de que las fichas son del mismo tipo. La cantidad y tipos de fichas se encuentra definido, como lo muestra la Figura \ref{fig:tiles}. Existe una excepci\'on en la remoci\'on de las fichas del tipo \textit{Season} o \textit{Flowers}. La excepci\'on esta basada en que cualquier par de fichas \textit{Season} o \textit{Flowers} puede ser removidas utilizando cualquier combinaci\'on entre las mismas, esto se debe a que existen unicamente 4 fichas de cada tipo. \\
+	Una ficha puede ser removida siempre que no se encuentre bloqueada y ademas cumpla con la condici\'on de que las fichas son del mismo tipo. Las fichas existentes son:
+
+\begin{table}[h]
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+	\hline
+	 Tipo de Ficha & Identificador & Cantidad\\
+	\hline \hline
+	\textit{Character} & 9 & 4 de c$\setminus$u \\
+	\textit{Bamboo} & 9 & 4 de  c$\setminus$u  \\
+	\textit{Circles} & 9 & 4 de  c$\setminus$u  \\
+	\textit{Dragons} & 3 & 4 de  c$\setminus$u  \\	
+	\textit{Winds} & 4 & 4 de  c$\setminus$u  \\
+	\textit{Season} & 4 & 1 de c$\setminus$u \\
+	\textit{Flowers} & 4 & 1 de  c$\setminus$u  \\
+	\hline
+	\end{tabular}
+\end{center}
+\caption{Distribuci\'on de fichas}
+\label{tab:tiles}
+\end{table}
+
+	Existe una excepci\'on en la remoci\'on de las fichas del tipo \textit{Season} o \textit{Flowers}. La excepci\'on esta basada en que cualquier par de fichas \textit{Season} o \textit{Flowers} puede ser removidas utilizando cualquier combinaci\'on entre las mismas, esto se debe a que existen unicamente 4 fichas de cada tipo. \\
 	Una ficha bloqueada puede estar en forma \textit{Horizontal}, \textit{Vertical} o \textit{Ambos}. Estos bloqueos se definen del siguiente modo:
 	\begin{itemize}
 		\item \textbf{Horizontal}: La ficha elegida posee una ficha a su izquierda y derecha.
 		\item \textbf{Vertical}: La ficha elegida posee una ficha encima de ella.		
 	\end{itemize}
-	
+	En la Figura \ref{fig:blocking} se puede observar distintas posibilidades de bloqueos.
 \section*{Desarrollo}
 
 	Se representa un estado del juego como un vector de vectores en donde cada celda posee una \textit{Tile}. Esta vector de vectores es del tipo:
@@ -55,16 +77,77 @@
 
 \section*{Heur\'isticas}
 
+	Se considera \textit{Pair} a todo par de fichas posibles a retirar del tablero en un estado y \textit{Payers} a todo conjunto de \textit{Pares} de fichas posibles a retirar en un estado del juego. \\
+	Se proponen las siguientes heur\'isticas (para desarrollar en las estrat\'egias de b\'usquedas informadas):
+	\begin{itemize}
 
+		\item \textbf{M\'as Alta} \textit{(h1)}: Se libera el \textit{Pair} de m\'as alto nivel. En el mejor de los casos la remoci\'on de una ficha en el nivel m\'as alto puede liberar como m\'aximo 4 fichas, los cual explota nuevas posibilidades de generar mas \textit{Payers}.
+		
+		\item \textbf{Mayor cantidad de fichas horizontales} \textit{(h2)}: Esta heur\'istica busca reducir la posibilidad de eliminar una fila del tabler. La heur\'istica se basa en calcular la cantidad de fichas que posee cada una del \textit{Pair} en la fila en la que se encuentra, esto se calcula como:
+			\begin{eqnarray}
+				X_{1}  & = & \# Fichas_{izq}+ \# Fichas_{der} \\
+				X_{2}  & = & \# Fichas_{izq}+ \# Fichas_{der} \\
+				\textbf{h2} & = & X_{1} + X{2}
+			\end{eqnarray}
+		donde $X_{1}$ y $X_{2}$ es un \textit{Pair}. Esta heur\'istica se basa en reducir la posibilidad de eliminar las filas que se encuentran en los niveles mas bajos, debido a que no liberan nuevos \textit{Payers}.
+		
+		\item \textbf{Generador M\'aximo de \textit{Payers}} \textit{(h3)}: Esta heur\'isitca se basa en eliminar los \textit{Pairs} que generen mayor cantidad de \textit{Payers} en el pr\'oximo estado.
+		
+	\end{itemize}
 
 \section*{Resultados y Conclusiones}	
 
 \onecolumn
+
 \begin{figure}[h!]
   \begin{center}
-  	\includegraphics[scale=0.5]{images/tiles.png}
+  	\includegraphics[scale=0.3]{images/blocking.png}
   \end{center}
-  \caption{Distribuci\'on de fichas.}
-  \label{fig:tiles}
+  \caption{Ficha 2 es bloqueada por la 1 y 3. La ficha 4-7 estan bloqueadas por la 8. El resto de las fichas son movibles.}
+  \label{fig:blocking}
 \end{figure}
+
+\begin{figure}[h!]
+  \begin{center}
+      \subfigure[Tablero 1]{\label{fig:layout1}\includegraphics[scale=0.3]{Boards/Layout1.png}}
+    \hspace{20pt}
+    \subfigure[Tablero 2]{\label{fig:layout3}\includegraphics[scale=0.2]{Boards/Layout3.png}}
+    \hspace{20pt}
+    \subfigure[Tablero 3]{\label{fig:layout4}\includegraphics[scale=0.2]{Boards/Layout4White.png}}
+  \end{center}
+  \caption{Distintos tableros}
+  \label{fig:layouts}
+\end{figure}
+	
+	
+\begin{table}[h]
+\begin{center}
+	\begin{tabular}{|p{2.3cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{4cm}|}
+	\hline
+	 Algoritmo & Nodos expandidos & Nodos en la frontera & Nodos generados & Profundidad de la Soluci\'on & Tiempo de Procesamiento\\
+	\hline \hline
+		 \multicolumn{6}{|c|}{Layout 1} \\
+	\hline
+	\textit{DFS} & 6 & 0 & 6 & 4 & 32ms \\
+	\textit{BFS} & 7 & 0 & 6 & 4 & 10ms \\
+	\textit{Produndizaci\'on Iterativa} & 7 & 7 & 19 & 4 & 12ms \\
+	\hline
+		 \multicolumn{6}{|c|}{Layout 2} \\
+	\hline
+	\textit{DFS} & 11 & 57 & 10 & 10 & 74ms \\
+	\textit{BFS} &5944 & 34491 & 5944 & ? & 5' \\
+	\textit{Produndizaci\'on Iterativa} & 7550 & 33571 & 5696 & ? & 5' \\
+	\hline
+		 \multicolumn{6}{|c|}{Layout 3} \\
+	\hline
+	\textit{DFS} & 73 & 1438 & 72 & 72 & 2' 708ms \\
+	\textit{BFS} & 641 & 15705 & 641 & ? & 5' \\
+	\textit{Produndizaci\'on Iterativa} & 620 & 14964 & 587 & ? & 5' \\
+	\hline
+	\end{tabular}
+\end{center}
+\caption{Resultados de resolver el problema de los tableros \ref{fig:layout1}, \ref{fig:layout3} y \ref{fig:layout4} con distintos algoritmos no informados}
+\label{tab:cost}
+\end{table}
+
 \end{document}
