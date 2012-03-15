@@ -48,7 +48,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>g4.impl.Fullboard</mainClass>
+							<mainClass>g4.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
