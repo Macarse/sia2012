@@ -96,6 +96,9 @@
 	\end{itemize}
 
 \section*{Resultados y Conclusiones}	
+En la tabla \ref{tab:cost} se ven los distintos resultados para distintas estrat\'egias de b\'usquedas para algoritmos no informados. \\
+Se ve que para la estrategia \emph{DFS} se logran mejores resultados que para \emph{BFS} y \emph{Profundizaci\'on iterativa}, en el sentido del tiempo promedio y nodos expandidos, dado que todos llegan a la soluci\'on en un tablero de nivel f\'acil ya que en tableros mas complejos (con 144 fichas) no se alcanza una soluci\'on. Esto podr\'ia deberse a que para el problema que se trata, siempre se necesita ir hasta el final del \'arbol de b\'usqueda, dado que se busca el camino que cubra todo el tablero y no m\'as de all\'i. Es por eso que si \emph{DFS} entra en la rama de la soluc\'ion, seguro llega a esta y no expande m\'as nodos. En cambio, \emph{BFS} no encontrar\'a la soluci\'on hasta explorar el \'ultimo nivel y lo mismo sucede con \emph{Profundizaci\'on iterativa}. Por estos motivos, las estrategias de b\'usqueda informadas son comparadas con \emph{DFS}. \\
+En los tableros \ref{fig:layout3} y \ref{fig:layout4} utilizando \emph{BFS} y \emph{Profundizaci\'on Iteratica} se observa que es necesario expandir todo el \'arbol, por lo que en un tiempo aproximado de 5 minutos no se puede llegar a la soluci\'on. De todos modos se realizaron pruebas con ord\'enes de magnitud mas grandes a este tiempo (7 horas y 30 minutos aprox.) y se concluy\'o a que \emph{BFS} no termina ya que debe expandir hasta el \'ultimo nivel para obtener una soluci\'on.
 
 \onecolumn
 
