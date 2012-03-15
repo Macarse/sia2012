@@ -32,7 +32,6 @@ public class MahjongGPSRule implements GPSRule {
       throw new NotAppliableException();
     }
 
-    @SuppressWarnings("unused")
     Pair pair = null;
     try {
       pair = original.getBoard().getPairs()[indexToUse];
@@ -52,6 +51,7 @@ public class MahjongGPSRule implements GPSRule {
 
     board.setItem(toRemove.getPosition1(), null);
     board.setItem(toRemove.getPosition2(), null);
+    clone.setMove(pair);
 
     return clone;
   }
