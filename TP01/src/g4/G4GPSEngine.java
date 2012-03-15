@@ -15,7 +15,7 @@ import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 
 public class G4GPSEngine extends GPSEngine {
-  protected int depthLevel = 72;
+  protected int depthLevel = 0;
   protected int generatedNodes;
 
   @Override
