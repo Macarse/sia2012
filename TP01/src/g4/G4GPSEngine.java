@@ -15,7 +15,7 @@ import gps.SearchStrategy;
 import gps.api.GPSProblem;
 
 public class G4GPSEngine extends GPSEngine {
-  protected int depthLevel = 0;
+  protected int depthLevel = 72;
   protected int generatedNodes;
 
   @Override
