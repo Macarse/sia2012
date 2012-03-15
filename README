@@ -1,0 +1,9 @@
+TP01
+====
+
+Para ejecutar el TP01 ir a la carpeta TP01 y ejecutar `mvn package`.
+Ir a la carpeta target y ejecutar `java -jar TP01-0.0.1-SNAPSHOT.one-jar.jar --help`
+para ver la lista de comandos disponible.
+
+ 
+
