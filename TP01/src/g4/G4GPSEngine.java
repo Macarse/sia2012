@@ -11,11 +11,23 @@ import com.google.common.collect.Lists;
 
 import gps.GPSEngine;
 import gps.GPSNode;
+import gps.SearchStrategy;
+import gps.api.GPSProblem;
 
 public class G4GPSEngine extends GPSEngine {
   protected int depthLevel = 0;
   protected GPSNode rootNode;
   protected int generatedNodes;
+
+  @Override
+  public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
+    generatedNodes = 0;
+
+    rootNode = new GPSNode(myProblem.getInitState(), 0);
+    open.add(rootNode);
+
+    super.engine(myProblem, myStrategy);
+  }
 
   @Override
   public void addNode(GPSNode node) {
