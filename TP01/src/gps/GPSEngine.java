@@ -67,12 +67,11 @@ public abstract class GPSEngine {
 	private  boolean explode(GPSNode node) {
 
 		MahjongGPSState state = (MahjongGPSState) node.getState();
-		System.out.println("nodo: "+state);
 		System.out.println("Payers Count: " + state.getBoard().getPayersCount() + 
 		    " Tiles Count: " + state.getBoard().getTilesCount() +
 		    " Pairs count: " + state.getBoard().getPairs().length
 		    );
-		int n = 0;
+
 		for (GPSRule rule : problem.getRules(node.getState())) {
 			GPSState newState = null;
 			try {
@@ -81,13 +80,12 @@ public abstract class GPSEngine {
 				// Do nothing
 			}
 			if (newState != null
-					&& !checkBranch(node, newState, 0)
+					&& !checkBranch(node, newState)
 					&& !checkOpenAndClosed(node.getCost() + rule.getCost(),
 							newState)) {
 				GPSNode newNode = new GPSNode(newState, node.getCost()
 						+ rule.getCost());
 				newNode.setParent(node);
-				System.out.println("hijo " + n++ + " state: " + newState);
 				addNode(newNode);
 			}
 		}
@@ -109,12 +107,11 @@ public abstract class GPSEngine {
 		return false;
 	}
 
-	private  boolean checkBranch(GPSNode parent, GPSState state, int altura) {
-	  System.out.println("altura: " + altura);
+	private  boolean checkBranch(GPSNode parent, GPSState state) {
 		if (parent == null) {
 			return false;
 		}
-		return checkBranch(parent.getParent(), state, altura + 1)
+		return checkBranch(parent.getParent(), state)
 				|| state.compare(parent.getState());
 	}
 

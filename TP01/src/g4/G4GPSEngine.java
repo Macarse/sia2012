@@ -16,7 +16,6 @@ import gps.api.GPSProblem;
 
 public class G4GPSEngine extends GPSEngine {
   protected int depthLevel = 0;
-  protected GPSNode rootNode;
   protected int generatedNodes;
 
   @Override

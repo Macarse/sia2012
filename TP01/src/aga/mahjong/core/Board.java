@@ -41,7 +41,7 @@ public class Board implements Serializable {
       Integer amount = map.get(key);
       if ( amount % 2 != 0 ) {
         System.out.println("ERROR: Tile: " + key + " amount: " + amount);
-        ret = false;
+        ret = true;
         break;
       }
     }
