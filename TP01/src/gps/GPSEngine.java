@@ -11,14 +11,14 @@ import java.util.List;
 
 public abstract class GPSEngine {
 
-	private List<GPSNode> open = new LinkedList<GPSNode>();
+	protected List<GPSNode> open = new LinkedList<GPSNode>();
 
-	private List<GPSNode> closed = new ArrayList<GPSNode>();
+	protected List<GPSNode> closed = new ArrayList<GPSNode>();
 
-	private GPSProblem problem;
+	protected GPSProblem problem;
 
 	// Use this variable in the addNode implementation
-	private SearchStrategy strategy;
+	protected SearchStrategy strategy;
 
 	public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
 

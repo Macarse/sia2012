@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="output" path="bin"/>
+  <classpathentry kind="src" path="src" including="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/com/google/collections/google-collections/1.0/google-collections-1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/mod4j/org/apache/commons/lang/2.1.0/lang-2.1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/args4j/args4j/2.0.12/args4j-2.0.12.jar"/>
 </classpath>
