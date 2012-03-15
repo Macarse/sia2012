@@ -13,6 +13,48 @@ public class Board implements Serializable {
 	private int layerCount, rowCount, columnCount;
 	private int tilesCount, payersCount;
 
+	@Override
+  public Object clone() throws CloneNotSupportedException {
+	  Board clone = new Board(layout);
+
+	  for ( int i = 0 ; i < layerCount ; i++) {
+	    for ( int j = 0 ; j < rowCount ; j++ ) {
+	      for ( int k = 0 ; k < columnCount ; k++ ) {
+	        clone.tiles[i][j][k] = tiles[i][j][k];
+	      }
+	    }
+	  }
+
+	  clone.layerCount = layerCount;
+	  clone. rowCount = rowCount;
+	  clone.columnCount = columnCount;
+
+	  clone.tilesCount = tilesCount;
+	  clone.payersCount = payersCount;
+
+	  return clone;
+	}
+
+	@Override
+	public String toString() {
+	  StringBuilder sb = new StringBuilder();
+	   for ( int i = 0 ; i < layerCount ; i++) {
+	      for ( int j = 0 ; j < rowCount ; j++ ) {
+	        for ( int k = 0 ; k < columnCount ; k++ ) {
+	          if ( tiles[i][j][k] == null ) {
+	            sb.append("-");
+	          } else {
+	            sb.append(tiles[i][j][k].toString());
+	          }
+	        }
+	        sb.append("\n");
+	      }
+	      sb.append("\n*\n");
+	    }
+
+	   return sb.toString();
+	}
+
 	public Tile getItem(Position pos) {
 		return tiles[pos.getLayer()][pos.getRow()][pos.getColumn()];
 	}

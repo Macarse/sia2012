@@ -9,11 +9,11 @@ import java.util.ArrayList;
 public class Layout implements Serializable {
 	private static final long serialVersionUID = -3732566188318873821L;
 	
-	private ArrayList<Position> positions = new ArrayList<Position>();
-	private String name;
-	private int layerCount;
-	private int rowCount;
-	private int columnCount;
+	protected ArrayList<Position> positions = new ArrayList<Position>();
+	protected String name;
+	protected int layerCount;
+	protected int rowCount;
+	protected int columnCount;
 
 	public java.util.ArrayList<Position> getPositions() {
 		return positions;
