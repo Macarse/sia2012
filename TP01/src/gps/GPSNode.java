@@ -49,6 +49,13 @@ public class GPSNode {
     return state.toString();
   }
 
+  public int getHeight(int height) {
+    if (this.parent == null) {
+      return height;
+    }
+    return this.parent.getHeight(height + 1);
+  }
+
   public String getSolution() {
     if (this.parent == null) {
       return this.state.toString();
@@ -103,7 +110,7 @@ public class GPSNode {
         ((MahjongGPSState)this.parent.state).getBoard());
 
     this.parent.printDiff();
-    System.out.println( moved);
+    System.out.println(moved);
 
   }
 
