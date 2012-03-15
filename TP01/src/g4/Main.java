@@ -1,13 +1,7 @@
 package g4;
 
-import g4.layout4.Layout4Problem;
-import g4.parseLine.CommandLineParser;
-import g4.parseLine.ProblemFactory;
+import g4.layout3.Layout3Problem;
 import gps.SearchStrategy;
-import gps.api.GPSProblem;
-
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.args4j.CmdLineParser;
 
 public class Main {
 
@@ -15,7 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 
 	  G4GPSEngine engine = new G4GPSEngine();
-    engine.engine(new Layout4Problem(), SearchStrategy.Greedy);
+    engine.engine(new Layout3Problem(), SearchStrategy.AStar);
     /*
 		CommandLineParser arguments = new CommandLineParser();
 		CmdLineParser parser = new CmdLineParser(arguments);
