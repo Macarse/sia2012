@@ -28,14 +28,14 @@ public class JarsProblem implements GPSProblem {
 	 * Esta funcion de heuristica no es admisible.
 	 * */
 	@Override
-	public Integer getHValue(GPSState arg0) {
+	public float getHValue(GPSState arg0) {
 		JarsState js = (JarsState) arg0;
 		Jar[] jars = js.getJars();
 
 		int totalQuantity = jars[0].getUsed() + jars[1].getUsed() + jars[2].getUsed();
 
 		if ( totalQuantity < 5 )
-			return Integer.MAX_VALUE;
+			return Float.MAX_VALUE;
 
 		if ( jars[0].getUsed() == 5 ) { 
 			return 0;

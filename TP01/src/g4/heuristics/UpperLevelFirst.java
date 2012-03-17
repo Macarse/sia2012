@@ -8,7 +8,7 @@ import gps.api.GPSState;
 public class UpperLevelFirst implements Heuristic {
 
 	@Override
-	public Integer getValue(GPSState state1) {
+	public float getValue(GPSState state1) {
 
 	    MahjongGPSState state = (MahjongGPSState) state1;
 	    Board board = state.getBoard();
@@ -18,20 +18,20 @@ public class UpperLevelFirst implements Heuristic {
 	    int height = pair.getPosition1().getLayer() +
 	        pair.getPosition2().getLayer();
 
-	    int ret = pairs - height;
+	    float ret = pairs - height;
 
 	    // Goal
 	    if ( pairs == 0 ) {
-	      return 0;
+	      return 0f;
 	    }
 
 	    // Dead end
 	    if ( board.getPayersCount() == 0) {
-	      return Integer.MAX_VALUE;
+	      return Float.MAX_VALUE;
 	    }
 
 
-	    return (ret > 0) ? ret : 1;
+	    return (ret > 0) ? ret : 1f;
 
 	  }
 }

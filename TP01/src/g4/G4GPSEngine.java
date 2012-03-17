@@ -51,9 +51,9 @@ public class G4GPSEngine extends GPSEngine {
 
             @Override
             public int compare(GPSNode o1, GPSNode o2) {
-              Integer f1 = o1.getCost()
+              Float f1 = o1.getCost()
                   + problem.getHValue(o1.getState());
-              Integer f2 = o2.getCost()
+              Float f2 = o2.getCost()
                   + problem.getHValue(o2.getState());
               if (f1 < f2) {
                 return -1;
@@ -89,8 +89,8 @@ public class G4GPSEngine extends GPSEngine {
 
               @Override
               public int compare(GPSNode o1, GPSNode o2) {
-                return problem.getHValue(o1.getState())
-                    - problem.getHValue(o2.getState());
+                return (int) (problem.getHValue(o1.getState())
+                    - problem.getHValue(o2.getState()));
               }
             });
         if (index2 >= 0) {

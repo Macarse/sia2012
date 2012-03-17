@@ -11,7 +11,7 @@ public interface GPSRule {
 	 * Provides the cost of the rule.
 	 * @return The cost of the rule.
 	 */
-	Integer getCost();
+	float getCost();
 	
 	/**
 	 * Provides the name of the rule so it can be

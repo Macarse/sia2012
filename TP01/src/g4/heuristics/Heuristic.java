@@ -4,5 +4,6 @@ import gps.api.GPSState;
 
 public interface Heuristic {
 
-	 public Integer getValue(GPSState state);
+  float getValue(GPSState state);
+
 }

@@ -8,7 +8,7 @@ import gps.api.GPSProblem;
 import gps.api.GPSRule;
 import gps.api.GPSState;
 
-public abstract class MahjongProblem implements GPSProblem{
+public abstract class MahjongProblem implements GPSProblem {
 	
 	protected Heuristic heuristic;
 	
@@ -30,7 +30,7 @@ public abstract class MahjongProblem implements GPSProblem{
 	    return rules;
 	  }
 
-	 public Integer getHValue(GPSState state1){
+	 public float getHValue(GPSState state1){
 		 return heuristic.getValue(state1);
 	 }
 
