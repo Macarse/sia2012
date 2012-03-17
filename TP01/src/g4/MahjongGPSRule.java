@@ -16,7 +16,7 @@ public class MahjongGPSRule implements GPSRule {
 
   @Override
   public float getCost() {
-    return 2;
+    return 0.0000001f;
   }
 
   @Override
