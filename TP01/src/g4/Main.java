@@ -1,6 +1,7 @@
 package g4;
 
 import g4.heuristics.BiggerRowsFirst;
+import g4.heuristics.MorePayers;
 import g4.heuristics.UpperLevelFirst;
 import g4.layouts.layout3.Layout3Problem;
 import g4.layouts.layout4.Layout4Problem;
@@ -12,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 
 	  G4GPSEngine engine = new G4GPSEngine();
-    engine.engine(new Layout4Problem(new BiggerRowsFirst()), SearchStrategy.Greedy);
+    engine.engine(new Layout4Problem(new MorePayers()), SearchStrategy.Greedy);
     /*
 		CommandLineParser arguments = new CommandLineParser();
 		CmdLineParser parser = new CmdLineParser(arguments);
