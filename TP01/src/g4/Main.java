@@ -1,6 +1,8 @@
 package g4;
 
-import g4.layout3.Layout3Problem;
+import g4.heuristics.UpperLevelFirst;
+import g4.layouts.layout3.Layout3Problem;
+import g4.layouts.layout4.Layout4Problem;
 import gps.SearchStrategy;
 
 public class Main {
@@ -9,7 +11,7 @@ public class Main {
 	public static void main(String[] args) {
 
 	  G4GPSEngine engine = new G4GPSEngine();
-    engine.engine(new Layout3Problem(), SearchStrategy.AStar);
+    engine.engine(new Layout3Problem(new UpperLevelFirst()), SearchStrategy.Greedy);
     /*
 		CommandLineParser arguments = new CommandLineParser();
 		CmdLineParser parser = new CmdLineParser(arguments);
