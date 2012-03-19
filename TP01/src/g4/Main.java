@@ -14,7 +14,7 @@ public class Main {
 	public static void main(String[] args) {
 
 	  G4GPSEngine engine = new G4GPSEngine();
-    engine.engine(new Layout4Problem(new UpperLevelFirst()), SearchStrategy.AStar);
+    engine.engine(new Layout4Problem(new MorePayers()), SearchStrategy.AStar);
     /*
 		CommandLineParser arguments = new CommandLineParser();
 		CmdLineParser parser = new CmdLineParser(arguments);

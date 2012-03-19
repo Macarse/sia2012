@@ -31,8 +31,9 @@
 	Como punto de partida para crear el \textit{Sistema de Producci\'on} se dise\~{n}a un sistema de almacenamiento apropiado que represente el problema de la forma m\'as \'optima. Se utilizan 3 estrat\'egias de b\'usqueda no informadas para comparar las distintas soluciones alcanzadas, las cuales se detallan en el transcurso del informe.
 
 \section*{Reglas del Mahjong-Solitaire}
-	El juego \textbf{Mahjong-Solitaire} consiste en eliminar todas las fichas de un tablero de 144 fichas. \\
-	Una ficha puede ser removida siempre que no se encuentre bloqueada y ademas cumpla con la condici\'on de que las fichas son del mismo tipo. Las fichas existentes son:
+	El juego \textbf{Mahjong-Solitaire} consiste en eliminar todas las fichas de un tablero que posee 144 fichas. \\
+	Las fichas deben ser removidas de a pares y solo si cumplen con las siguientes condiciones: No deben encontrarse bloqueadas y el par debe estar compuesto por fichas que sean del mismo tipo, y posean el mismo identificador. Las fichas existentes son:
+
 
 \begin{table}[h]
 \begin{center}
@@ -58,9 +59,10 @@
 	Una ficha bloqueada puede estar en forma \textit{Horizontal}, \textit{Vertical} o \textit{Ambos}. Estos bloqueos se definen del siguiente modo:
 	\begin{itemize}
 		\item \textbf{Horizontal}: La ficha elegida posee una ficha a su izquierda y derecha.
-		\item \textbf{Vertical}: La ficha elegida posee una ficha encima de ella.		
+		\item \textbf{Vertical}: La ficha elegida posee una ficha encima de ella (tanto parcial como totalmente).		
 	\end{itemize}
-	En la Figura \ref{fig:blocking} se puede observar distintas posibilidades de bloqueos.
+	En la Figura \ref{fig:blocking} se puede observar distintas posibilidades de bloqueos.\\
+	Es muy importante destacar, que no todos los tableros tienen una soluci\'on, sino que la distribuci\'on de las fichas debe ser especialmente dise\~nada con tal objetivo. Por ejemplo, es posible crear tableros recorriendo el camino inverso que al resolver el mismo (ir colocando de a pares las fichas en lugares no bloqueados).
 \section*{Desarrollo}
 
 	Se representa un estado del juego como un vector de vectores en donde cada celda posee una \textit{Tile}. Este vector de vectores es del tipo:
@@ -71,24 +73,27 @@
 	
 \section*{Funciones de costo}
 
-	Dado que el objetivo del juego es simplemente retirar todas las fichas del tablero, la funci\'on de costo propuesta es la cantidad de fichas sacadas en cada estado, la cual se denomina \textit{$g_1$}. \\
-	Se debe notar que si las reglas s\'olo sacan fichas de a pares, la funci\'on de costo es constante. Caso contrario, si alguna regla saca m\'as de un par, la funci\'on de costo es variable.
+	Dado que el objetivo del juego es simplemente retirar todas las fichas del tablero, y las mismas deben ser retiradas siempre de a pares, la funci\'on de costo propuesta es constante, haciendo referencia a la remoci\'on de un par del tablero. Dicha funci\'on se denomina \textit{$g_1$}. \\
+	
+	\section*{Heur\'isticas}
 
-\section*{Heur\'isticas}
-
-	Se considera \textit{Pair} a todo par de fichas posibles a retirar del tablero en un estado y \textit{Payers} a la lista de \textit{Pares} que pueden retirarse del tablero. \\
+	Se considera \textit{Pair} a todo par de fichas con posibilidad de ser retiradas del tablero en un estado determinado y \textit{Payers} a la lista de dichos \textit{Pares}. \\
 	Se proponen las siguientes heur\'isticas (para desarrollar en las estrat\'egias de b\'usquedas no informadas):
 	\begin{itemize}
 
 		\item \textbf{M\'as Alta} \textit{(h1)}: Se libera el \textit{Pair} de m\'as alto nivel. En el mejor de los casos la remoci\'on de una ficha en una capa m\'as alta puede liberar cuatro fichas, lo cual aumenta la cantidad de \textbf{Payers} en la siguiente jugada.
 		
-		\item \textbf{Mayor cantidad de fichas horizontales} \textit{(h2)}: Esta heur\'istica busca reducir la posibilidad de eliminar una fila del tablero. La heur\'istica se basa en calcular la cantidad de fichas que posee cada una del \textit{Pair} en la fila en la que se encuentra, esto se calcula como:
+		\item \textbf{Mayor cantidad de fichas horizontales} \textit{(h2)}: Esta heur\'istica busca reducir la posibilidad de eliminar una fila del tabler. La heur\'istica se basa en calcular la cantidad de fichas que posee cada fila en la que se encuentran cada ficha que compone el \textit{Pair} , esto se calcula como:
 			\begin{eqnarray}
-				X_{1}  & = & \# Fichas_{izq}+ \# Fichas_{der} \\
-				X_{2}  & = & \# Fichas_{izq}+ \# Fichas_{der} \\
-				\textbf{h2} & = & X_{1} + X{2}
+				X_{1}  & = & \# Fichas_{Fila de F_{1}} \\
+				X_{2}  & = & \# Fichas_{Fila de F_{2}} \\
+				\textbf{h2} & = & \#(FichasTotales - ( X_{1} + X_{2} )) / 2
 			\end{eqnarray}
-		donde $X_{1}$ y $X_{2}$ es un \textit{Pair}. Esta heur\'istica se basa en reducir la posibilidad de eliminar las filas que se encuentran en los niveles mas bajos, debido a que no liberan nuevos \textit{Payers}.
+		donde $F_{1}$ y $F_{2}$ son las fichas que componen el \textit{Pair}. Esta heur\'istica puede ser mejorada para priorizar le remoci\'on de las fichas de niveles superiores agregando un modificador seg\'un el nivel en que se encuentre, por ejemplo:
+			\begin{eqnarray}
+				\textbf{h2}  = (\#FichasTotales - ( X_{1} * N_{1} * C + X_{2} * N_{2} * C) )/ 2
+			\end{eqnarray}
+				donde $N_{1}$ y $N_{2}$ son los niveles de las fichas $F_{1}$ y $F_{2}$ respectivamente, y $C$ hace referencia a una constante la cual determina el grado de relevancia que se le quiera dar al nivel en que se encuentre la ficha (en nuestro caso 1) y es dividido por 2 para hacer referencia a pares en lugar de fichas.
 		
 		\item \textbf{Generador M\'aximo de \textit{Payers}} \textit{(h3)}: Esta heur\'isitca se basa en eliminar los \textit{Pairs} que generen mayor cantidad de \textit{Payers} en el pr\'oximo estado.
 		

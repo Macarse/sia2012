@@ -16,12 +16,24 @@ public class BiggerRowsFirst implements Heuristic {
     Board board = state.getBoard();
     Pair pair = state.getMove();
 
-    ret = board.getTilesCount() - tileValue(pair.getPosition1(), board)
-        - tileValue(pair.getPosition2(), board);
+    int pairs = board.getTilesCount()  /2;
+    int payersCount = board.getPayersCount();
+    // Goal
+    if ( pairs == 0 ) {
+      return 0f;
+    }
+
+    // Dead end
+    if ( payersCount == 0) {
+      return Float.MAX_VALUE;
+    }
+    ret = (board.getTilesCount() - tileValue(pair.getPosition1(), board)
+        - tileValue(pair.getPosition2(), board)) /2;
 
     if (ret <= 0 && board.getTilesCount() > 0) {
       ret = 1;
     }
+
     return ret;
   }
 
