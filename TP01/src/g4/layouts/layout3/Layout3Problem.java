@@ -1,18 +1,17 @@
-package g4.layout3;
+package g4.layouts.layout3;
 
-import g4.MahjongGPSRule;
 import g4.MahjongGPSState;
-import gps.api.GPSProblem;
-import gps.api.GPSRule;
+import g4.MahjongProblem;
+import g4.heuristics.Heuristic;
 import gps.api.GPSState;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import aga.mahjong.core.Board;
 
-public class Layout3Problem implements GPSProblem {
+public class Layout3Problem extends MahjongProblem {
 
+	public Layout3Problem(Heuristic heuristic1){
+		this.heuristic = heuristic1;
+	}
+	
   @Override
   public GPSState getInitState() {
     MahjongGPSState gpsState = new MahjongGPSState();
@@ -43,25 +42,5 @@ public class Layout3Problem implements GPSProblem {
     return gpsState;
   }
 
-  @Override
-  public List<GPSRule> getRules(GPSState state) {
-    List<GPSRule> rules = new ArrayList<GPSRule>();
-
-    MahjongGPSState gpsState = (MahjongGPSState) state;
-    int count = gpsState.getBoard().getPayersCount();
-
-    for (int i = 0 ; i < count ; i++ ) {
-      rules.add(new MahjongGPSRule(i));
-    }
-
-    System.out.println("rules count: " + rules.size());
-
-    return rules;
-  }
-
-  @Override
-  public Integer getHValue(GPSState state) {
-    return null;
-  }
-
 }
+

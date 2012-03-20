@@ -24,7 +24,7 @@ public class DropThree implements GPSRule{
 	}
 
 	@Override
-	public Integer getCost() {
+	public float getCost() {
 		return 1;
 	}
 

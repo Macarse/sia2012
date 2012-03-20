@@ -8,15 +8,20 @@ import gps.exception.NotAppliableException;
 
 public class MahjongGPSRule implements GPSRule {
 
-  private int indexToUse;
-
+	private static float cost = 1;
+	private int indexToUse;
+   
+  
   public MahjongGPSRule(int indexToUse) {
     this.indexToUse = indexToUse;
   }
 
+  public static void setCost(float cost1){
+	  cost = cost1;
+  }
   @Override
-  public Integer getCost() {
-    return 2;
+  public float getCost() {
+    return cost;
   }
 
   @Override
@@ -32,7 +37,6 @@ public class MahjongGPSRule implements GPSRule {
       throw new NotAppliableException();
     }
 
-    @SuppressWarnings("unused")
     Pair pair = null;
     try {
       pair = original.getBoard().getPairs()[indexToUse];
@@ -52,6 +56,7 @@ public class MahjongGPSRule implements GPSRule {
 
     board.setItem(toRemove.getPosition1(), null);
     board.setItem(toRemove.getPosition2(), null);
+    clone.setMove(pair);
 
     return clone;
   }

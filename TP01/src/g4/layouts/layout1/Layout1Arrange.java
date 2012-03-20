@@ -1,4 +1,4 @@
-package g4.layout1;
+package g4.layouts.layout1;
 
 import aga.mahjong.core.Board;
 import aga.mahjong.core.IArrangeStrategy;

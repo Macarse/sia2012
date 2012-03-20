@@ -1,8 +1,8 @@
 package gps;
 
 public enum SearchStrategy {
-  BFS("BFS"), DFS("DFS"), IterativeDepth("ITERATIVE");
- // AStar("ASTAR"),Greedy("GREEDY");
+  BFS("BFS"), DFS("DFS"), IterativeDepth("ITERATIVE"),
+  AStar("ASTAR"),Greedy("GREEDY");
 
   public String value;
 
