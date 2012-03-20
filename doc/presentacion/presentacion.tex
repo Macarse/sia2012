@@ -126,7 +126,6 @@ Esta heur\'isitca se basa en eliminar los \textit{Pairs} que generen mayor canti
 \frametitle{Tablero Layout1}
 \begin{figure}[hb]
 	\includegraphics[scale=0.3]{../Boards/Layout1.png}
-	 \label{fig:layout1}
 \end{figure}
 \end{frame}
 
@@ -136,19 +135,21 @@ Esta heur\'isitca se basa en eliminar los \textit{Pairs} que generen mayor canti
 \tiny{
 \begin{table}[h]
 \begin{center}
-	\begin{tabular}{|p{1.3cm}|p{1cm}|p{1cm}|p{1cm}|p{2cm}|p{2cm}|}
+	\begin{tabular}{|p{1.3cm}|p{1.0cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{2cm}|}
 	\hline
-	 Algoritmo & Nodos expandidos & Nodos en la frontera & Nodos generados & Profundidad de la Soluci\'on & Tiempo de Procesamiento\\
+	 Algoritmo & Heur\'istica & Nodos expandidos & Nodos en la frontera & Nodos generados & Profundidad de la Soluci\'on & Tiempo de Procesamiento\\
 	\hline \hline
 		 \multicolumn{6}{|c|}{Layout 1} \\
 	\hline
-	\textit{DFS} & 6 & 0 & 6 & 4 & 32ms \\
-	\textit{BFS} & 7 & 0 & 6 & 4 & 10ms \\
-	\textit{Produndizaci\'on Iterativa} & 7 & 7 & 19 & 4 & 12ms \\
+	\textit{DFS} & - & 6 & 0 & 6 & 4 & 32ms \\
+	\textit{BFS} & - & 7 & 0 & 6 & 4 & 10ms \\
+	\textit{Produndizaci\'on Iterativa} & - & 7 &  7 & 19 & 4 & 12ms \\
+	\textit{$A^*$} & h1 & 4 & 2 & 5 & 4 & 14ms \\
+	\textit{$A^*$} & h2 & 4 & 2 & 5 & 4 & 14ms \\
+	\textit{$A^*$} & h3 & 4 & 2 & 5 & 4 & 14ms \\
 	\hline
 	\end{tabular}
 \end{center}
-\caption{Resultados de resolver el problema del tablero \ref{fig:layout1}}
 \label{tab:costLayout1}
 \end{table}}
 
@@ -168,19 +169,21 @@ Esta heur\'isitca se basa en eliminar los \textit{Pairs} que generen mayor canti
 \tiny{
 \begin{table}[h]
 \begin{center}
-	\begin{tabular}{|p{1.3cm}|p{1cm}|p{1cm}|p{1cm}|p{2cm}|p{2cm}|}
+	\begin{tabular}{|p{1.3cm}|p{1.0cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{2cm}|}
 	\hline
-	 Algoritmo & Nodos expandidos & Nodos en la frontera & Nodos generados & Profundidad de la Soluci\'on & Tiempo de Procesamiento\\
+	 Algoritmo & Heur\'istica & Nodos expandidos & Nodos en la frontera & Nodos generados & Profundidad de la Soluci\'on & Tiempo de Procesamiento\\
 	\hline \hline
 		 \multicolumn{6}{|c|}{Layout 2} \\
 	\hline
-	\textit{DFS} & 11 & 57 & 10 & 10 & 74ms \\
-	\textit{BFS} &5944 & 34491 & 5944 & ? & 5' \\
-	\textit{Produndizaci\'on Iterativa} & 7550 & 33571 & 5696 & ? & 5' \\
+	\textit{DFS} & - &  11 & 57 & 10 & 10 & 74ms \\
+	\textit{BFS} & - & 5944 & 34491 & 5944 & ? & 5' \\
+	\textit{Produndizaci\'on Iterativa} &  - & 7550 & 33571 & 5696 & ? & 5' \\	
+	\textit{$A^*$} & h1 & 10 & 57 & 11 & 10 & 130ms \\
+	\textit{$A^*$} & h2 & 10 & 57 & 11 & 10 & 97ms \\
+	\textit{$A^*$} & h3 & 5983 & 34934 & 5983 & ? & 5'\\
 	\hline
 	\end{tabular}
 \end{center}
-\caption{Resultados de resolver el problema del tablero \ref{fig:layout3}}
 \label{tab:costLayout3}
 \end{table}}
 
@@ -200,19 +203,21 @@ Esta heur\'isitca se basa en eliminar los \textit{Pairs} que generen mayor canti
 \tiny{
 \begin{table}[h]
 \begin{center}
-	\begin{tabular}{|p{1.3cm}|p{1cm}|p{1cm}|p{1cm}|p{2cm}|p{2cm}|}
+	\begin{tabular}{|p{1.3cm}|p{1.0cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{2cm}|}
 	\hline
-	 Algoritmo & Nodos expandidos & Nodos en la frontera & Nodos generados & Profundidad de la Soluci\'on & Tiempo de Procesamiento\\
+	 Algoritmo & Heur\'istica & Nodos expandidos & Nodos en la frontera & Nodos generados & Profundidad de la Soluci\'on & Tiempo de Procesamiento\\
 	\hline \hline
 		 \multicolumn{6}{|c|}{Layout 3} \\
 	\hline
-	\textit{DFS} & 73 & 1438 & 72 & 72 & 2' 708ms \\
-	\textit{BFS} & 641 & 15705 & 641 & ? & 5' \\
-	\textit{Produndizaci\'on Iterativa} & 620 & 14964 & 587 & ? & 5' \\	
+	\textit{DFS} & - & 73 & 1438 & 72 & 72 & 2' 708ms \\
+	\textit{BFS} & - & 641 & 15705 & 641 & ? & 5' \\
+	\textit{Produndizaci\'on Iterativa} & - & 620 & 14964 & 587 & ? & 5' \\	
+	\textit{$A^*$} & h1 & 525 &  10660 & 525 & ? & 5' \\
+	\textit{$A^*$} & h2 & 72 & 1438 & 73 & 72 & 2'' 864ms\\
+	\textit{$A^*$} & h3 & 349 & 17903 & 349 & ? & 5' \\	
 	\hline
 	\end{tabular}
 \end{center}
-\caption{Resultados de resolver el problema del tablero \ref{fig:layout4}}
 \label{tab:costLayout4}
 \end{table}}
 
