@@ -28,11 +28,11 @@
 
 \section*{Introducci\'on}
 	Se implementa un \textit{Sistema de Producci\'on} el cual es utilizado para resolver un juego denominado \textbf{Mahjong-Solitaire}, tambi\'en conocido como el \textit{Taipei}. Se utiliza un motor de inferencia en \textit{Java} para la resoluci\'on del problema designado, el cual fue entregado por la c\'atedra. \\
-	Como punto de partida para crear el \textit{Sistema de Producci\'on} se dise\~{n}a un sistema de almacenamiento apropiado que represente el problema de la forma m\'as \'optima. Se utilizan 3 estrategias de b\'usqueda no informadas para comparar las distintas soluciones alcanzadas, las cuales se detallan en el transcurso del informe.
+	Como punto de partida para crear el \textit{Sistema de Producci\'on} se dise\~{n}a un sistema de almacenamiento apropiado que represente el problema de la forma m\'as \'optima. Se utilizan 3 estrategias de b\'usqueda no informadas y 2 estrategias informadas para comparar las distintas soluciones alcanzadas, las cuales se detallan en el transcurso del informe.
 
 \section*{Reglas del Mahjong-Solitaire}
 	El juego \textbf{Mahjong-Solitaire} consiste en eliminar todas las fichas de un tablero que posee 144 fichas. \\
-	Las fichas deben ser removidas de a pares y solo si cumplen con las siguientes condiciones: No deben encontrarse bloqueadas y el par debe estar compuesto por fichas que sean del mismo tipo, y posean el mismo identificador. Las fichas existentes son:
+	Las fichas deben ser removidas de a pares si y solo si cumplen con las siguientes condiciones: No deben encontrarse bloqueadas y el par debe estar compuesto por fichas que sean del mismo tipo, y posean el mismo identificador. Las fichas existentes son:
 
 
 \begin{table}[h]
@@ -83,7 +83,7 @@
 
 		\item \textbf{M\'as Alta} \textit{(h1)}: Se libera el \textit{Pair} de m\'as alto nivel. En el mejor de los casos la remoci\'on de una ficha en una capa m\'as alta puede liberar cuatro fichas, lo cual aumenta la cantidad de \textbf{Payers} en la siguiente jugada.
 		
-		\item \textbf{Mayor cantidad de fichas horizontales} \textit{(h2)}: Esta heur\'istica busca reducir la posibilidad de eliminar una fila del tabler. La heur\'istica se basa en calcular la cantidad de fichas que posee cada fila en la que se encuentran cada ficha que compone el \textit{Pair} , esto se calcula como:
+		\item \textbf{Mayor cantidad de fichas horizontales} \textit{(h2)}: Esta heur\'istica busca reducir la posibilidad de eliminar una fila del tablero. La heur\'istica se basa en calcular la cantidad de fichas que posee cada fila en la que se encuentran cada ficha que compone el \textit{Pair} , esto se calcula como:
 			\begin{eqnarray}
 				X_{1}  & = & \# Fichas_{Fila de F_{1}} \\
 				X_{2}  & = & \# Fichas_{Fila de F_{2}} \\
@@ -93,7 +93,7 @@
 			\begin{eqnarray}
 				\textbf{h2}  = (\#FichasTot. - ( X_{1} * N_{1} * C + X_{2} * N_{2} * C) )/ 2
 			\end{eqnarray}
-				donde $N_{1}$ y $N_{2}$ son los niveles de las fichas $F_{1}$ y $F_{2}$ respectivamente, y $C$ hace referencia a una constante la cual determina el grado de relevancia que se le quiera dar al nivel en que se encuentre la ficha (en nuestro caso 1) y es dividido por 2 para hacer referencia a pares en lugar de fichas. Es importante destacar, que se hacen todos los chequeos necesarios para que no sea negativa ni $0$ en caso erroneo.
+				donde $N_{1}$ y $N_{2}$ son los niveles de las fichas $F_{1}$ y $F_{2}$ respectivamente, y $C$ hace referencia a una constante la cual determina el grado de relevancia que se le quiera dar al nivel en que se encuentre la ficha (en nuestro caso 1) y es dividido por 2 para hacer referencia a pares en lugar de fichas. Es importante destacar, que se hacen todos los chequeos necesarios para que no sea negativa ni $0$ en caso err\'oneo.
 		
 		\item \textbf{Generador M\'aximo de \textit{Payers}} \textit{(h3)}: Esta heur\'isitca se basa en eliminar los \textit{Pairs} que generen mayor cantidad de \textit{Payers} en el pr\'oximo estado.
 		
