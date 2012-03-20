@@ -87,21 +87,40 @@
 			\begin{eqnarray}
 				X_{1}  & = & \# Fichas_{Fila de F_{1}} \\
 				X_{2}  & = & \# Fichas_{Fila de F_{2}} \\
-				\textbf{h2} & = & \#(FichasTotales - ( X_{1} + X_{2} )) / 2
+				\textbf{h2} & = & (\#FichasTot - ( X_{1} + X_{2} )) / 2
 			\end{eqnarray}
 		donde $F_{1}$ y $F_{2}$ son las fichas que componen el \textit{Pair}. Esta heur\'istica puede ser mejorada para priorizar le remoci\'on de las fichas de niveles superiores agregando un modificador seg\'un el nivel en que se encuentre, por ejemplo:
 			\begin{eqnarray}
-				\textbf{h2}  = (\#FichasTotales - ( X_{1} * N_{1} * C + X_{2} * N_{2} * C) )/ 2
+				\textbf{h2}  = (\#FichasTot. - ( X_{1} * N_{1} * C + X_{2} * N_{2} * C) )/ 2
 			\end{eqnarray}
-				donde $N_{1}$ y $N_{2}$ son los niveles de las fichas $F_{1}$ y $F_{2}$ respectivamente, y $C$ hace referencia a una constante la cual determina el grado de relevancia que se le quiera dar al nivel en que se encuentre la ficha (en nuestro caso 1) y es dividido por 2 para hacer referencia a pares en lugar de fichas.
+				donde $N_{1}$ y $N_{2}$ son los niveles de las fichas $F_{1}$ y $F_{2}$ respectivamente, y $C$ hace referencia a una constante la cual determina el grado de relevancia que se le quiera dar al nivel en que se encuentre la ficha (en nuestro caso 1) y es dividido por 2 para hacer referencia a pares en lugar de fichas. Es importante destacar, que se hacen todos los chequeos necesarios para que no sea negativa ni $0$ en caso erroneo.
 		
 		\item \textbf{Generador M\'aximo de \textit{Payers}} \textit{(h3)}: Esta heur\'isitca se basa en eliminar los \textit{Pairs} que generen mayor cantidad de \textit{Payers} en el pr\'oximo estado.
 		
 	\end{itemize}
+	
+\section*{Modificaciones en el motor de inferencia}
+Con el objetivo de obtener amoldar el motor a los requerimientos de este problema en particular, y con el objetivo de aumentar su presici\'on, performance y flexibilidad se  le han introducido los siguientes modificaciones:
+\begin{itemize}
+	\item Se ha modificado de \emph{Integer} a \emph{float} el retorno de la funci\'on que devuelve la heur\'istica de un estado, con el objetivo de, por un lado evitar el boxing y unboxing de \emph{int} a \emph{Integer} y para lograr una mayor granularidad en las heur\'isticas.
+	\item Se ha decidido modificar la funci\'on de costos tami\'en para mantener correlaci\'on con la heur\'istica, aumentar la flexibilidad y hacer algunas pruebas con costos decimales.
+	\item Se ha modificado la funci\'on encargada de retornar las reglas aplicables, al requerir un nuevo par\'ametro que representa el estado, para que la funci\'on solo devuelva las reglas aplicables en dicho estado. De esta forma se reduce mucho el set de reglas a aplicar, reduciendo la memoria y procesamiento requerido.
+	\end{itemize}
 
-\section*{Resultados y Conclusiones}	
+\section*{Resultados y Conclusiones}
+\subsection*{Algoritmos no informados}	
 En la tabla \ref{tab:cost} se ven los distintos resultados para distintas estrategias de b\'usqueda	 en algoritmos no informados. \\
-Se ve que para la estrategia \emph{DFS} se logran mejores resultados que para \emph{BFS} y \emph{Profundizaci\'on iterativa}, en el sentido del tiempo promedio y nodos expandidos, dado que todos llegan a la soluci\'on en un tablero de nivel f\'acil ya que en tableros mas complejos (con 144 fichas) no se alcanza una soluci\'on. Esto se debe a que todas las posibles soluciones del problema se encuentran a la misma altura. Mientras que \emph{BFS} y \emph{Profundizaci\'on Iterativa} explotan nodos donde no est\'a la soluci\'on, DFS alcanza m\'as r\'apido las hojas. Dada la naturaleza del problema, no existen soluciones sub\'optimas, por lo tanto si se encuentra una soluci\'on, sabemos que es la mejor.\\
+Debido, a que cualquier soluci\'on es \'optima y para llegar a la misma se debe alcanzar los nodos hojas, que se encuentran a una profundidad constante, la estrat\'egia  \emph{DFS} es la m\'as \'optima, al expandirse primero hacia las hojas y luego a lo ancho. Por lo contrario, tanto \emph{BFS} y \emph{Profundizaci\'on iterativa} tienden a encontrar soluciones muy lentamente y en varios casos sin encontrar resultados debido a falta de memoria o time out. \\
+\subsection*{Algoritmos informados}
+Si bien el resultado general es m\'as alentador, algo similar ocurre con los algoritmos inform\'daos, al obtener mejores resultados los que se caracterizan por recorrer en profundidad tales como \emph{Greedy} en contraposici\'on con los que tienden a expandir por nivel tales como \emph{Astar} como se puede observar en la tabla TABLAAAAAAAA\\
+
+
+A PARTIR DE ACA NO VA
+
+Esto se debe, a que cualquier soluci\'on es \'optima y para llegar a la misma se debe alcanzar los nodos hojas, que se encuentran a una profundidad constante. \emph{DFS} 
+
+
+ dado que todos llegan a la soluci\'on en un tablero de nivel f\'acil ya que en tableros mas complejos (con 144 fichas) no se alcanza una soluci\'on. Esto se debe a que todas las posibles soluciones del problema se encuentran a la misma altura. Mientras que \emph{BFS} y \emph{Profundizaci\'on Iterativa} explotan nodos donde no est\'a la soluci\'on, DFS alcanza m\'as r\'apido las hojas. Dada la naturaleza del problema, no existen soluciones sub\'optimas, por lo tanto si se encuentra una soluci\'on, sabemos que es la mejor.\\
  Es por eso que si \emph{DFS} entra en la rama de la soluc\'ion, seguro llega a esta y no expande m\'as nodos. En cambio, \emph{BFS} no encontrar\'a la soluci\'on hasta explorar el \'ultimo nivel y lo mismo sucede con \emph{Profundizaci\'on iterativa}. \\
 En los tableros \ref{fig:layout3} y \ref{fig:layout4} utilizando \emph{BFS} y \emph{Profundizaci\'on Iteratica} se observa que es necesario expandir todo el \'arbol, por lo que en un tiempo aproximado de 5 minutos no se puede llegar a la soluci\'on. De todos modos se realizaron pruebas con \'ordenes de magnitud mas grandes a este tiempo (7 horas y 30 minutos aprox.) y se concluy\'o a que \emph{BFS} no termina ya que debe expandir hasta el \'ultimo nivel para obtener una soluci\'on.
 
