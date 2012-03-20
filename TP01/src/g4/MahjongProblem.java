@@ -25,7 +25,7 @@ public abstract class MahjongProblem implements GPSProblem {
       rules.add(new MahjongGPSRule(i));
     }
 
-    //Collections.shuffle(rules, new Random(1337));
+    Collections.shuffle(rules, new Random(692151));
 
     return rules;
   }
