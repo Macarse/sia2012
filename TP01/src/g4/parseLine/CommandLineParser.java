@@ -16,6 +16,9 @@ public class CommandLineParser {
 	@Option(name="-h", aliases={"--heuristic"}, usage="Select the heuristic [ BiggerRowsFirst | MorePayers | UpperLevelFirst | HStar ]")
 	private String heuristic;
 	
+	@Option(name="-c", aliases={"--cost"}, usage="Select the const that will be used in each pair removale (default 1)")
+	private Float cost;
+	
 	private boolean hasToDraw = false;
 	
 	public boolean help = false;
@@ -24,6 +27,9 @@ public class CommandLineParser {
 		return strategies;
 	}
 
+	public Float getCost(){
+		return cost;
+	}
 	
 	public int getLevel(){
 		return level;

@@ -8,15 +8,20 @@ import gps.exception.NotAppliableException;
 
 public class MahjongGPSRule implements GPSRule {
 
-  private int indexToUse;
-
+	private static float cost = 1;
+	private int indexToUse;
+   
+  
   public MahjongGPSRule(int indexToUse) {
     this.indexToUse = indexToUse;
   }
 
+  public static void setCost(float cost1){
+	  cost = cost1;
+  }
   @Override
   public float getCost() {
-    return 0.0001f;
+    return cost;
   }
 
   @Override

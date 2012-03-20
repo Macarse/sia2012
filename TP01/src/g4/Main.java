@@ -59,7 +59,10 @@ public class Main {
 
 			}
 		}
-			SearchStrategy strategy = arguments.getStrategy();
+		if(arguments.getCost() != null){
+			MahjongGPSRule.setCost(arguments.getCost());
+		}
+		SearchStrategy strategy = arguments.getStrategy();
 
 		GPSProblem problem = ProblemFactory.createProblem(arguments.getLevel(), heuristic);
 
