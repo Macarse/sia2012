@@ -2,22 +2,25 @@ package g4;
 
 import g4.heuristics.BiggerRowsFirst;
 import g4.heuristics.HStar;
-import g4.heuristics.MorePayers;
-import g4.heuristics.UpperLevelFirst;
-import g4.layouts.layout1.Layout1Problem;
-import g4.layouts.layout2.Layout2Problem;
-import g4.layouts.layout3.Layout3Problem;
+import g4.heuristics.Heuristic;
 import g4.layouts.layout4.Layout4Problem;
+import g4.parseLine.CommandLineParser;
+import g4.parseLine.HeuristicFactory;
+import g4.parseLine.ProblemFactory;
 import gps.SearchStrategy;
+import gps.api.GPSProblem;
+
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
 
 public class Main {
 
 
 	public static void main(String[] args) {
 
-	  G4GPSEngine engine = new G4GPSEngine();
-    engine.engine(new Layout4Problem(new HStar()), SearchStrategy.AStar);
-    /*
+	//  G4GPSEngine engine = new G4GPSEngine();
+ //   engine.engine(new Layout4Problem(new HStar()), SearchStrategy.AStar);
+    
 		CommandLineParser arguments = new CommandLineParser();
 		CmdLineParser parser = new CmdLineParser(arguments);
 		try {
@@ -38,9 +41,27 @@ public class Main {
 			parser.printUsage(System.err);
 			System.exit(1);
 		}
-		SearchStrategy strategy = arguments.getStrategy();
+		if(arguments.getHeuristic() == null && arguments.getStrategy() != SearchStrategy.DFS && arguments.getStrategy() != SearchStrategy.BFS
+				&& arguments.getStrategy() != SearchStrategy.IterativeDepth){
+			System.err.println("Es necesario ingresar una Heuristica para este algoritmo de busqueda");
+			parser.printUsage(System.err);
+			System.exit(1);
 
-		GPSProblem problem = ProblemFactory.createProblem(arguments.getLevel());
+		}
+		Heuristic heuristic = null;
+		if(arguments.getStrategy() != SearchStrategy.DFS && arguments.getStrategy() != SearchStrategy.BFS
+				&& arguments.getStrategy() != SearchStrategy.IterativeDepth ){
+			heuristic = HeuristicFactory.createHeuristicFromString(arguments.getHeuristic());
+			if(heuristic == null){
+				System.err.println("Error al crear heuristica, vuelva a intentar");
+				parser.printUsage(System.err);
+				System.exit(1);
+
+			}
+		}
+			SearchStrategy strategy = arguments.getStrategy();
+
+		GPSProblem problem = ProblemFactory.createProblem(arguments.getLevel(), heuristic);
 
 		if(problem == null){
 			System.err.println("Invalid problem level");
@@ -54,7 +75,7 @@ public class Main {
 
 		G4GPSEngine engine = new G4GPSEngine();
 		engine.engine(problem, strategy);
-		*/
+		
 	}
 
 }
