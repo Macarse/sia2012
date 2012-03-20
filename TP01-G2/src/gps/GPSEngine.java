@@ -1,7 +1,4 @@
 package gps;
-
-import g4.MahjongGPSState;
-import g4.SearchStrategy;
 import gps.api.GPSProblem;
 import gps.api.GPSRule;
 import gps.api.GPSState;
@@ -48,7 +45,6 @@ public abstract class GPSEngine {
         if (isGoal(currentNode)) {
           finished = true;
           System.out.println(currentNode.getSolution());
-          currentNode.printDiff();
           System.out.println("solution height: " + currentNode.getHeight(0));
           System.out.println("opened size: " + open.size());
           System.out.println("closed size: " + closed.size());
@@ -79,18 +75,13 @@ public abstract class GPSEngine {
   }
 
 	private  boolean isGoal(GPSNode currentNode) {
-		return currentNode.getState() != null
-				&& currentNode.getState().compare(problem.getGoalState());
+	  return currentNode.getState() != null &&
+	      currentNode.getState().isGoalState();
 	}
 
 	private  boolean explode(GPSNode node) {
 
-		MahjongGPSState state = (MahjongGPSState) node.getState();
-		System.out.println("Payers Count: " + state.getBoard().getPayersCount() + 
-		    " Tiles Count: " + state.getBoard().getTilesCount()
-		    );
-
-		for (GPSRule rule : problem.getRules(node.getState())) {
+		for (GPSRule rule : problem.getRules()) {
 			GPSState newState = null;
 			try {
 				newState = rule.evalRule(node.getState());

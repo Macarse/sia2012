@@ -4,7 +4,6 @@ import g4.heuristics.Heuristic;
 import g4.parseLine.CommandLineParser;
 import g4.parseLine.HeuristicFactory;
 import g4.parseLine.ProblemFactory;
-import gps.SearchStrategy;
 import gps.api.GPSProblem;
 
 import org.kohsuke.args4j.CmdLineException;

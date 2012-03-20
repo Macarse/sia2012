@@ -1,5 +1,6 @@
-package g4;
+package gps;
 
+import edificios.BuildingProblem;
 import gps.GPSEngine;
 import gps.GPSNode;
 import gps.api.GPSProblem;

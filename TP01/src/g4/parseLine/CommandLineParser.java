@@ -1,6 +1,6 @@
 package g4.parseLine;
 
-import gps.SearchStrategy;
+import g4.SearchStrategy;
 
 import org.kohsuke.args4j.Option;
 
