@@ -1,9 +1,6 @@
 package g4;
 
-import g4.heuristics.BiggerRowsFirst;
-import g4.heuristics.HStar;
 import g4.heuristics.Heuristic;
-import g4.layouts.layout4.Layout4Problem;
 import g4.parseLine.CommandLineParser;
 import g4.parseLine.HeuristicFactory;
 import g4.parseLine.ProblemFactory;

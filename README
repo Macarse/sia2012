@@ -5,5 +5,16 @@ Para ejecutar el TP01 ir a la carpeta TP01 y ejecutar `mvn package`.
 Ir a la carpeta target y ejecutar `java -jar TP01-0.0.1-SNAPSHOT.one-jar.jar --help`
 para ver la lista de comandos disponible.
 
- 
+los comandos mas utilizados son:
+ -s: para seleccionar la estrategia para resolver el problema deseada. Las opciones validas son: [BFS | DFS | IterativeDepth | Greedy | Astar] 
 
+ -l: para seleccionar el nivel de dificultad del tablero. En estos momentos hay 4 tableros cargados, de los cuales el numero 2 no tiene solucion
+
+ -h: para seleccionar la heuristica deseada. las opciones son: [ BiggerRowsFirst | MorePayers | UpperLevelFirst | HStar ]
+
+ -c: para seleccionar la funcion de costo constante. Si no se asigna ninguna se escogera la default (1). Este costo puede ser cualquier numero float.
+
+ --help: imprime ayuda
+
+Ejemplo de uso:
+java -jar TP01-0.0.1-SNAPSHOT.one-jar.jar -l 4 -s Greedy -h Biggerrowsfirst

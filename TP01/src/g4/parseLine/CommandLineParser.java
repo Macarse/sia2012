@@ -6,7 +6,7 @@ import org.kohsuke.args4j.Option;
 
 public class CommandLineParser {
 
-	@Option(name="-s", aliases={"--strategy"}, usage="Select the Strategy to solve [BFS | DFS | IterativeDepth ]")
+	@Option(name="-s", aliases={"--strategy"}, usage="Select the Strategy to solve [BFS | DFS | IterativeDepth | Greedy | Astar]")
 	private SearchStrategy strategies;
 	
 
