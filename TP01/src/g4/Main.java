@@ -4,6 +4,8 @@ import g4.heuristics.BiggerRowsFirst;
 import g4.heuristics.HStar;
 import g4.heuristics.MorePayers;
 import g4.heuristics.UpperLevelFirst;
+import g4.layouts.layout1.Layout1Problem;
+import g4.layouts.layout2.Layout2Problem;
 import g4.layouts.layout3.Layout3Problem;
 import g4.layouts.layout4.Layout4Problem;
 import gps.SearchStrategy;
@@ -14,7 +16,7 @@ public class Main {
 	public static void main(String[] args) {
 
 	  G4GPSEngine engine = new G4GPSEngine();
-    engine.engine(new Layout4Problem(new MorePayers()), SearchStrategy.AStar);
+    engine.engine(new Layout4Problem(new HStar()), SearchStrategy.AStar);
     /*
 		CommandLineParser arguments = new CommandLineParser();
 		CmdLineParser parser = new CmdLineParser(arguments);
