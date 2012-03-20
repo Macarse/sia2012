@@ -42,49 +42,5 @@ public class Layout3Problem extends MahjongProblem {
     return gpsState;
   }
 
-//  @Override
-//  public List<GPSRule> getRules(GPSState state) {
-//    List<GPSRule> rules = new ArrayList<GPSRule>();
-//
-//    MahjongGPSState gpsState = (MahjongGPSState) state;
-//    int count = gpsState.getBoard().getPayersCount();
-//
-//    for (int i = 0 ; i < count ; i++ ) {
-//      rules.add(new MahjongGPSRule(i));
-//    }
-//
-//    System.out.println("rules count: " + rules.size());
-//
-//    return rules;
-//  }
-//
-//  @Override
-//  public Integer getHValue(GPSState state1) {
-//
-//    MahjongGPSState state = (MahjongGPSState) state1;
-//    Board board = state.getBoard();
-//
-//    int pairs = board.getTilesCount() / 2;
-//    return pairs;
-//    /*
-//    Pair pair = state.getMove();
-//    int height = pair.getPosition1().getLayer() +
-//        pair.getPosition2().getLayer();
-//
-//    int ret = pairs - height;
-//
-//    // Goal
-//    if ( pairs == 0 ) {
-//      return 0;
-//    }
-//
-//    // Dead end
-//    if ( board.getPayersCount() == 0) {
-//      return Integer.MAX_VALUE;
-//    }
-//
-//    return (ret > 0) ? ret : 1;*/
-//
-//  }
-
 }
+
