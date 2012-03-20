@@ -55,7 +55,7 @@
 \label{tab:tiles}
 \end{table}
 
-	Existe una excepci\'on en la remoci\'on de las fichas del tipo \textit{Season} o \textit{Flowers}. La excepci\'on esta basada en que cualquier ficha de \textit{Season} o \textit{Flowers} puede ser removida en conjunto con otra del mismo grupo por más que no sea igual. Ejemplo: Summer con Winter. \\
+	Existe una excepci\'on en la remoci\'on de las fichas del tipo \textit{Season} o \textit{Flowers}. La excepci\'on esta basada en que cualquier ficha de \textit{Season} o \textit{Flowers} puede ser removida en conjunto con otra del mismo grupo por m\'as que no sea igual. Ejemplo: Summer con Winter. \\
 	Una ficha bloqueada puede estar en forma \textit{Horizontal}, \textit{Vertical} o \textit{Ambos}. Estos bloqueos se definen del siguiente modo:
 	\begin{itemize}
 		\item \textbf{Horizontal}: La ficha elegida posee una ficha a su izquierda y derecha.
@@ -113,7 +113,13 @@ En la tabla \ref{tab:cost} se ven los distintos resultados para distintas estrat
 Debido, a que cualquier soluci\'on es \'optima y para llegar a la misma se debe alcanzar los nodos hojas, que se encuentran a una profundidad constante, la estrategia  \emph{DFS} es la m\'as \'optima, al expandirse primero hacia las hojas y luego a lo ancho. Por lo contrario, tanto \emph{BFS} y \emph{Profundizaci\'on iterativa} tienden a encontrar soluciones muy lentamente y en varios casos sin encontrar resultados debido a falta de memoria o time out. \\
 
 \subsection*{Algoritmos informados}
-Si bien el resultado general es m\'as alentador, algo similar ocurre con los algoritmos informados, al obtener mejores resultados los que se caracterizan por recorrer en profundidad tales como \emph{Greedy}, en contraposici\'on con los que tienden a expandir por nivel tales como \emph{$A^*$} como se puede observar en la tabla \ref{tab:costHeuristic}.
+Si bien el resultado general es m\'as alentador que con los no informados, siguen teniendo una similitud, al obtener mejores resultados los que se caracterizan por recorrer en profundidad tales como \emph{Greedy}, en contraposici\'on con los que tienden a expandir por nivel tales como \emph{$A^*$} como se puede observar en la tabla \ref{tab:costHeuristic}. A su vez, se puede observar que depende mucho de la heur\'istica utilizada. Por ejemplo, hay heur\'isticas que tienden a no ser muy buenas cuando se tiene un tablero grandes, pero que son superadas por otras cuando la cantidad de fichas se disminuye. Un claro ejemplo es como la \emph{h2} es muy buena en tableros grandes, pero que a medida que el tablero disminuye la cantidad de fichas presentes pierde terreno frente a las otras heur\'isticas hasta ser superada.\\
+Otra dato a tener en cuenta, es el beneficio que se logra utilizando un algoritmo informado frente a los no informados. Otra vez, debido a la naturaleza del problema, es buena idea separar entre algoritmos que tienden a explorar por nivel (\emph{$A^*$}, \emph{BFS}, \emph{Profundizaci\'on Iterativa}) y los que tienden a ir  hacia las hojas (\emph{Greedy} y \emph{DFS}).\\
+En el primer grupo, se puede observar como, si bien los algoritmos no informados se equiparan en performance a \emph{$A^*$} en tableros con pocas fichas, este \'ultimo los supera ampliamente en tableros m\'as complejos consiguiendo terminar para varias heur\'isticas en tiempos aceptables.\\
+Para el segundo grupo de algoritmos, \emph{DFS} se comporta excelentemente debido a lo ya explicado anteriormente referido a su velocidad en alcanzar las hojas. Es por eso que no se ven mejoras tan marcadas como en el caso anterior. Sin embargo, se puede observar que \emph{Greedy} logra superarlo si se utilizan buenas heur\'isticas en tableros m\'as grandes (\emph{Greedy} utilizando la heur\'istica \emph{h2} tarda $30\%$ menos de tiempo y expande casi la mitad de nodos que \emph{DFS} en el tablero con 144 fichas) .\\
+En resumen, para este problema, los algoritmos que mejor se desepe\~nan son aquellos que llegan r\'apidamente a las hojas, aumentando la eficiencia si se utilizan algoritmos de este tipo informados. Por otro lado, los algoritmos que se expanden por nivel tienden a tener una performance muy baja, especialmente con tableros con muchas fichas. Este problema puede ser mejorado parcialmente al aplicar algoritmos informados de este tipo con las heur\'isticas correctas.\\
+
+
 
 \onecolumn
 
