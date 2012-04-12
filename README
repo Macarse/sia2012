@@ -18,3 +18,29 @@ los comandos mas utilizados son:
 
 Ejemplo de uso:
 java -jar TP01-0.0.1-SNAPSHOT.one-jar.jar -l 4 -s Greedy -h Biggerrowsfirst
+
+TP02
+====
+
+PRIMERA ENTREGA
+===============
+
+REQUIREMENTS:
+This program needs to be executed in Matlab!
+
+EXECUTION:
+1. Open Matlab and navigate to the folder that contains all the .m files.
+
+How to execute generate the graphics:
+
+ - In the matlab-console tipe: 
+ [in, out, w, er] = plotter(N, error, @input, @function, @derivated_function, @seed);
+ 	where: 	N = number of entries of the perceptron (in our case between 2 and 5)
+ 			error = desired error 
+ 			input = function that creates the input of the perceptron (@createAndInput, @createOrInput for "AND" and "OR")
+ 			function = activation function (@step , @lineal, @no_lineal_tanh )
+ 			derivated_function = the activation function derivated.
+ 			seed = you can provide a constant seed in order to be able to reproduce scenarios or compare functions (@constant_seed) or a variable one (@variable_seed)
+
+ Example:
+ 	[in, out, w, er] = plotter(5, 0.01, @createAndInput, @step, @step_deriv, @constant_seed);
