@@ -44,3 +44,32 @@ How to execute generate the graphics:
 
  Example:
  	[in, out, w, er] = plotter(5, 0.01, @createAndInput, @step, @step_deriv, @constant_seed);
+
+
+SEGUNDA ENTREGA
+===============
+
+REQUIREMENTS:
+This program needs to be executed in Matlab!
+
+EXECUTION:
+1. Open Matlab and navigate to the folder that contains all the .m files.
+
+How to execute generate the graphics:
+
+- In the matlab-console tipe: 
+plotter(g, g_deriv, N, input_gen, epsilon, eta);
+
+where:
+
+ - g = activation function (@step , @lineal, @no_lineal_tanh )
+ - g_deriv = the activation function derivated.
+ - N = number of entries of the perceptron (in our case between 2 and 5)
+ - input_gen = function that creates the input of the perceptron (@generateSymmetricIndexes_stepWrap, @generateSymmetricIndexes_stepWrap)
+ - epsilon = desired error
+ - eta 
+
+Example:
+
+plotter(@no_lineal_exp, @no_lineal_deriv_exp, 5, @generateSymmetricIndexes_stepWrap, 0.001, 0.02);
+
