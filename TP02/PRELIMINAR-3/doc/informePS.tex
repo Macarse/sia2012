@@ -48,13 +48,14 @@
 
 	En la figura \ref{fig:symN5} se puede ver como utilizando la tangente hiperb\'olica como funci\'on de activaci\'on para el problema de la \textit{Simetr\'ia} se logra un mejor error que utilizando la exponencial.\\
 	En la figura \ref{fig:parN5} se puede observar como el problema de \textit{Paridad} utilizando la funci\'on de activaci\'on exponencial no se llega a entrenar la red con un error menor al deseado, \textit{0.01}, en un lapso de 5000 \'epocas a diferencia de la funci\'on tangencial, donde la red logra entrenarse en 1487 \'epocas. El motivo por el cual la funci\'on de activaci\'on exponencial no termina en 5000 \'epocas es porque no se realiza ninguna correcci\'on de los pesos ya que es 0 el valor de la funci\'on. \\
-	Como se observa en las figuras \ref{fig:tanhAllVsLinealLast} y \ref{fig:tanhAllVsLinealLastSymetric} al poner una funci\'o lineal en la \'ultima capa la red es entrenada en menos tiempo, es decir en menos \'epocas. Esto se debe a que en la \'ultima capa la estructura de la red se comporta como un perceptron simple y el problema en ese nivel es linealmente separable. Por este motivo es mejor utilizar una funci\'on \textit{lineal} frente a una \textit{no-lineal}.
+	Como se observa en las figuras \ref{fig:tanhAllVsLinealLast} y \ref{fig:tanhAllVsLinealLastSymetric} al poner una funci\'o lineal en la \'ultima capa la red es entrenada en menos tiempo, es decir en menos \'epocas. Esto se debe a que en la \'ultima capa la estructura de la red se comporta como un perceptron simple y el problema en ese nivel es linealmente separable. Por este motivo es mejor utilizar una funci\'on \textit{lineal} frente a una \textit{no-lineal}.\\
 
 \section*{Conclusiones}
 
 	La primera es que, dado que la salida de la red es binaria, podemos mejorar el tiempo de entrenamiento poniendo una funci\'on de activaci\'on \textit{escal\'on} en la capa de salida. Para aplicar esto debemos realizar la transformaci\'on de la entrada de mapear los $0$ al $-1$.\\
 	El segundo punto a destacar es el peso de la aleatoriedad de los pesos. Por ejemplo, notamos que poniendo distintas semillas se puede lograr que la red con $N=2$ tarde menos en entrenarse que con $N=5$.\\
 	El \'ultimo punto a destacar es la imposibilidad de entrenar la red con funciones de activaci\'on \textit{escal\'on} y \textit{no-lineal} durante su entrenamiento. El motivo por el cual la red no puede ser entrenada con estas funciones es que el problema \textbf{no} es \textit{linealmente separable}.
+	Este es el motivo por el cual se dicide comparar en las figuras las funciones de activaci\'on \textit{sigmoidea} y \textit{exponencial} ya que son las \'unicas funciones que resultan correctas para el entrenamiento de la red neuronal.
 
 \newpage
 

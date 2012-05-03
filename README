@@ -33,7 +33,7 @@ EXECUTION:
 
 How to execute generate the graphics:
 
- - In the matlab-console tipe: 
+ - In the matlab-console type: 
  [in, out, w, er] = plotter(N, error, @input, @function, @derivated_function, @seed);
  	where: 	N = number of entries of the perceptron (in our case between 2 and 5)
  			error = desired error 
@@ -57,7 +57,7 @@ EXECUTION:
 
 How to execute generate the graphics:
 
-- In the matlab-console tipe: 
+- In the matlab-console type: 
 plotter(g, g_deriv, N, input_gen, epsilon, eta);
 
 where:
@@ -73,3 +73,19 @@ Example:
 
 plotter(@no_lineal_exp, @no_lineal_deriv_exp, 5, @generateSymmetricIndexes_stepWrap, 0.001, 0.02);
 
+
+TERCERA ENTREGA
+===============
+
+REQUIREMENTS:
+This program needs to be executed in Matlab!
+
+EXECUTION:
+1. Open Matlab and navigate to the folder that contains all the .m files.
+
+How to execute generate the graphics:
+
+- In the matlab-console type: 
+initial
+
+Inside the initial.m script you will find the variables to modify.

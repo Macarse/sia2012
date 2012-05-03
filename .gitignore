@@ -6,3 +6,6 @@ doc/presentacion/presentacion.nav
 *~
 *.DS_Store
 TP02/PRELIMINAR-2/doc/images/PuriAnd/AND_N3_err001_lineal__error-eps-converted-to.pdf TP02/PRELIMINAR-2/doc/images/PuriAnd/AND_N3_err001_step-eps-converted-to.pdf TP02/PRELIMINAR-2/doc/images/PuriAnd/AND_N3_err001_tanh-eps-converted-to.pdf TP02/PRELIMINAR-2/doc/images/PuriAnd/AND_N5_err001_lineal__error-eps-converted-to.pdf TP02/PRELIMINAR-2/doc/images/PuriAnd/AND_N5_err001_step-eps-converted-to.pdf TP02/PRELIMINAR-2/doc/images/PuriAnd/AND_N5_err001_tanh-eps-converted-to.pdf TP02/PRELIMINAR-2/doc/images/PuriOr/OR_N3_err001_lineal__error-eps-converted-to.pdf TP02/PRELIMINAR-2/doc/images/PuriOr/OR_N3_err001_step-eps-converted-to.pdf TP02/PRELIMINAR-2/doc/images/PuriOr/OR_N3_err001_tanh-eps-converted-to.pdf TP02/PRELIMINAR-2/doc/images/PuriOr/OR_N5_err001_lineal__error-eps-converted-to.pdf TP02/PRELIMINAR-2/doc/images/PuriOr/OR_N5_err001_step-eps-converted-to.pdf TP02/PRELIMINAR-2/doc/images/PuriOr/OR_N5_err001_tanh-eps-converted-to.pdf
+*.aux
+*.log
+*.synctex.gz
