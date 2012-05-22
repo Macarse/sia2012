@@ -110,40 +110,40 @@ while (error > epsilon && debug < M)
         % drawnow
     %end
 
-    if mod(debug,5) == 0
-        figure(1);
-        outputs_test = [];
-        hold off;
-        for i = 1:length(inputs_test(:,1))
-            varaux = calculateOutput(activationFunctions(1,:), allWeights, inputs_test(i,:));
-            outputs_test = [outputs_test varaux{length(neurons_per_layer)-1}(2)];
-        end
-        plot(expected_outputs_test, outputs_test, 'b*');
+    % if mod(debug,5) == 0
+    %     figure(1);
+    %     outputs_test = [];
+    %     hold off;
+    %     for i = 1:length(inputs_test(:,1))
+    %         varaux = calculateOutput(activationFunctions(1,:), allWeights, inputs_test(i,:));
+    %         outputs_test = [outputs_test varaux{length(neurons_per_layer)-1}(2)];
+    %     end
+    %     plot(expected_outputs_test, outputs_test, 'b*');
 
-        hold on;
-        outputs_training = [];
-        for i = 1:length(inputs(:,1))
-            varaux = calculateOutput(activationFunctions(1,:), allWeights, inputs(i,:));
-            outputs_training = [outputs_training varaux{length(neurons_per_layer)-1}(2)];
-        end
-        plot(expected_outputs, outputs_training, 'r*');
-        axis([0 1 0 1]);
+    %     hold on;
+    %     outputs_training = [];
+    %     for i = 1:length(inputs(:,1))
+    %         varaux = calculateOutput(activationFunctions(1,:), allWeights, inputs(i,:));
+    %         outputs_training = [outputs_training varaux{length(neurons_per_layer)-1}(2)];
+    %     end
+    %     % plot(expected_outputs, outputs_training, 'r*');
+    %     axis([0 1 0 1]);
 
-        xlabel('Salida esperada');
-        ylabel('Salida real');
-        hleg1 = legend('Patrones de testeo','Patrones de entrenamiento');
-        set(hleg1,'Location','NorthEast');
+    %     xlabel('Salida esperada');
+    %     ylabel('Salida real');
+    %     hleg1 = legend('Patrones de testeo','Patrones de entrenamiento');
+    %     set(hleg1,'Location','NorthEast');
 
-        figure(2);
-        plot(errors_test_graph, 'b');
-        hold on;
-        plot(errors_graph, 'r');
-        xlabel('Epocas');
-        ylabel('Error');
-        hleg1 = legend('Error de testeo','Error de entrenamiento');
-        set(hleg1,'Location','NorthEast');
-        drawnow;
-    end
+    %     figure(2);
+    %     plot(errors_test_graph, 'b');
+    %     hold on;
+    %     plot(errors_graph, 'r');
+    %     xlabel('Epocas');
+    %     ylabel('Error');
+    %     hleg1 = legend('Error de testeo','Error de entrenamiento');
+    %     set(hleg1,'Location','NorthEast');
+    %     drawnow;
+    % end
 
     fprintf('Epoca: %d\t Error:%g \tError minimo: %g\t Error de testeo: %g\n',debug, error, min_error, error_test);
     

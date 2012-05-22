@@ -89,3 +89,12 @@ How to execute generate the graphics:
 initial
 
 Inside the initial.m script you will find the variables to modify.
+
+TP03
+====
+
+En el archivo initial es el main. 
+
+1. En la variable fileNamesForTesting se ponen los nombres de los archivos para probar.
+
+2. En la carpeta output (valor de la variable output_directory_name) es donde se van a guardar la salida de las imágenes una vez aplicada a la red.

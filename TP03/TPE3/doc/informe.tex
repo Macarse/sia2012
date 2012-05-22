@@ -1,0 +1,690 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass{sig-alternate}
+\usepackage{textcomp}
+\usepackage{graphics}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{subfigure}
+
+\hyphenation{o-pues-tos}
+\begin{document}
+
+\pagenumbering{arabic}
+
+\title{Redes de Hopfield}
+\subtitle{Sistemas de Inteligencia Artifical - ITBA}
+
+\numberofauthors{3}
+
+\author{
+	\alignauthor{Carlos Sessa}\\
+	\alignauthor{Lucas Pizzagalli}\\
+	\alignauthor{Nicolás Purita}\\	
+}
+
+\date{22 de Mayo de 2012}
+
+\maketitle
+
+\section*{Introducción}
+Se implementa una \textit{Red de Hopfield} con memoria asociativa direccionada por el contenido, con una aplicación de las reglas de actualización de forma sincrónica. Esto quiere decir que se actualizan todas las neuronas en simultáneo en cada paso. La red memoriza un subconjunto $\Psi$ de los patrones que se pueden observar en la Figura \ref{fig:patterns}.\\
+Luego, se comprueba que la red haya aprendido correctamente, y que los patrones utilizados sean atractores. Finalmente, se analiza como se comporta la red ante la utlización de patrones de entradas distintos tipos de imágenes.\\
+
+\section*{Desarrollo}
+Como punto de partida para crear la \textit{Red de Hopfield}, se crean funciones en \textit{Matlab} para simular el comportamiento de la red. Se crean redes con distintos conjuntos de patrones con el fin de analizar y comprender el funcionamiento de la misma. El criterio de selección de las imágenes es de acuerdo a sus similitudes, con el fin de disminuir la correlación entre ellas.\\
+Las imágenes poseen un tamaño de $64$ x $64$ px y se encuentran umbralizadas. Esto quiere decir que los únicos colores que tiene la imagen son $0$, negro en RGB, o $255$ blanco en RGB, por lo tanto en todos los canales en la posición \textit{(i,j)} posee los mismos valores. Dada esta característica de las imágenes, se puede tomar un único canal como patrón de entrada de la red. Es necesario hacer una diferenciación entre el negro y el blanco, por lo tanto se realiza una transformación en donde el $0$ es mapeado al $-1$ y el $255$ a $1$.\\
+Luego de poder cargar las imágenes correctamente, se crean métodos para poder componer la matriz de pesos con las imágenes que se desean aprender. Se debe tener mucho cuidado en la elección del conjunto de patrones que se desean memorizar ya que los mismos no deben solaparse en su mayoría, para poder ser aprendidos correctamente. Las imágenes son cargadas desde un directorio general donde se encuentran todas las imágenes de la Figura \ref{fig:patterns}. 
+\section*{Resultados }
+
+Se construyen \textit{Redes de Hopfield} con distintos patrones de entrada para hacer distintos análisis de los resultados.
+
+\subsection*{ Conjunto de letras}
+
+Para comenzar a estudiar la \textit{Red de Hopfield} se toma el conjunto de imágenes que poseen únicamente letras, como se puede ver en la figura \ref{fig:letras}.
+
+	\begin{figure}[h]
+		\begin{center}
+			\subfigure[]{\label{fig:al}\framebox{\includegraphics[scale=0.6]{../images/a.png}}}
+			\hspace{20pt}
+			\subfigure[]{\label{fig:fl}\framebox{\includegraphics[scale=0.6]{../images/f.png}}}
+			\hspace{20pt}
+			\subfigure[]{\label{fig:hl}\framebox{\includegraphics[scale=0.6]{../images/h.png}}}
+		\end{center}
+	\caption{Conjunto de patrones de letras}
+	\label{fig:letras}
+	\end{figure}
+
+ Se observa que estos patrones \textbf{no} son verdaderos \textbf{atractores} ya que al presentar el conjunto de patrones a la red una vez entrenada, se obtiene la salida que se muestra en la figura \ref{fig:outputLetras}. En la misma, se ve como la letra A fue confundida con la H. Para analizar este comportamiento se estudio el \textit{crosstalk} de las figuras, obteniendo como resultado de \ref{fig:al}  $1.3188$, de \ref{fig:fl} $0.8135$ y de \ref{fig:hl} $1.3774$ . Al existir valores mayores a $1$ se puede concluir que estos efectos indeseados son correctos.
+
+	\begin{figure}[h]
+		\begin{center}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../outputLetras/output_a.png}}}
+			\hspace{20pt}
+			\subfigure[]{\label{fig:ofl}\framebox{\includegraphics[scale=0.6]{../outputLetras/output_f.png}}}
+			\hspace{20pt}
+			\subfigure[]{\label{fig:ohl}\framebox{\includegraphics[scale=0.6]{../outputLetras/output_h.png}}}
+		\end{center}
+	\caption{Conjunto de patrones de letras en la salida}
+	\label{fig:outputLetras}
+	\end{figure}
+
+Una vez estudiado este comportamiento de la red se decide modificar la imagen de la figura \ref{fig:al} para obtener el comportamiento deseado de la red que es que actúe como una memoria direccionable por el contenido. Por lo tanto, se hace una modificación en la figura \ref{fig:al} desplazando hacia la derecha, como se muestra en la figura \ref{fig:a_desplazada}. De esta forma disminuye la correlación entre los patrones por lo tanto el \textit{crosstalk} máximo total es de $0.7705$, el cual cumple con la condición de ser menor que $1$ siendo un punto estable y obteniendo, en la salida, los mismos patrones que en las entradas.
+
+	\begin{figure}[h]
+         \begin{center}
+	     	\framebox{\includegraphics[scale=0.6]{../images/a_desplazada.png}}
+         \end{center}
+         \caption{Patr\'on de la figura \ref{fig:al} desplazado a la derecha}
+         \label{fig:a_desplazada}
+	\end{figure}
+
+Para verificar si existen estados espúreos de \textit{Primera clase} se vuelve a utilizar la red con los patrones de entrenamiento de la figura \ref{fig:letras} con la salvedad de que se reemplaza la figura \ref{fig:al} por la figura \ref{fig:a_desplazada}. Luego se presentan los patrones opuestos y se observa que llegaron a los estados espúreos deseados, los cuales se muestran en la figura \ref{fig:letras_espureas}.
+
+	\begin{figure}[h]
+		\begin{center}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../outputLetras/output_a_desplazada_inv.png}}}
+			\hspace{20pt}
+			\subfigure[]{\label{fig:ofl}\framebox{\includegraphics[scale=0.6]{../outputLetras/output_f_inv.png}}}
+			\hspace{20pt}
+			\subfigure[]{\label{fig:ohl}\framebox{\includegraphics[scale=0.6]{../outputLetras/output_h_inv.png}}}
+		\end{center}
+	\caption{Resultado de presentar los patrones inversos a los utilizados para crearla}
+	\label{fig:letras_espureas}
+	\end{figure}
+
+
+\section*{Comparación de patrones}
+
+Con el objetivo de poder realizar mejores comparaciones, se decide tomar tres conjuntos de patrones, $\Psi_1$ compuesto por las imágenes de la figura \ref{fig:psi_1}, $\Psi_2$ compuesto por los patrones de la figura \ref{fig:psi_2} y  $\Psi_3$ como se ve en la figura \ref{fig:psi_3}. Luego de analizar los tres conjuntos, se obtiene que $\Psi_1$ posee un \textit{crosstalk} máximo de $0.7988$,  $\Psi_2$ de $1.0552$ y  $\Psi_3$ de $1.729$. Por lo que se asume que el primer conjunto es en único que tiene todos sus atractores estables. \\
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/a_desplazada.png}}}
+		\hspace{10pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/h.png}}}
+		\hspace{10pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/f.png}}}
+		\hspace{10pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/line2.png}}}
+		\hspace{10pt}
+	\end{center}
+\caption{Patrones de entrenamiento $\Psi_1$}
+\label{fig:psi_1}
+\end{figure}
+	
+	\begin{figure}[ht]
+		\begin{center}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/a.png}}}
+			\hspace{10pt}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/circle1.png}}}
+			\hspace{10pt}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/line2.png}}}
+			\hspace{10pt}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/line1.png}}}
+			\hspace{10pt}
+		\end{center}
+	\caption{Patrones de entrenamiento $\Psi_2$}
+	\label{fig:psi_2}
+\end{figure}
+
+\begin{figure}[ht]
+		\begin{center}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/mac.png}}}
+			\hspace{10pt}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/circle1.png}}}
+			\hspace{10pt}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/line3.png}}}
+			\hspace{10pt}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/line1.png}}}
+			\hspace{10pt}
+		\end{center}
+	\caption{Patrones de entrenamiento $\Psi_3$}
+	\label{fig:psi_3}
+\end{figure}
+
+
+Presentando en cada red, sus respectivos patrones memorizados, se puede observar en la figura \ref{fig:output_psi_1} que $\Psi_1$ logra la salida deseada mientras que $\Psi_2$ logra una salida parecida a los patrones de entrada como se puede ver en la figura \ref{fig:output_psi_2}, aunque  como ya se sabe $\Psi_2$ posee un \textit{crosstalk} mayor a $1$, por lo que se sabe que no es un buen atractor. Por otro lado, en la figura \ref{fig:output_psi_3}, se puede ver como $\Psi_3$ muestra los patrones desdibujados, y no puede considerarse un atractor estable.\\
+ 
+ \section*{Versiones inversas de los patrones aprendidos}
+
+Para verificar si existen estados espúreos de \textit{primera clase} se presentan los patrones opuestos y se observa que la red  $\Psi_1$ llegará a los estados espúreos deseados y nuevamente, $\Psi_2$ se encuentra muy cerca, los cuales se muestran en las figuras \ref{fig:varios_espurios_psi_1} y \ref{fig:varios_espurios_psi_2}.\\
+
+Nuevamente, la red entrenada con $\Psi_3$ no logra pasar la prueba, como se puede observar en la figura \ref{fig:varios_espurios_psi_3}. \\
+
+\section*{Versiones ruidosas}
+
+Para estudiar el desempeño de las redes, y cómo funcionan sus atractores, se decide presentar a cada una de las redes, una entrada con los patrones aprendidos distorsionados. Esto se logra al presentar a cada red ya entrenada, los mismos patrones con los que fueron entrenadas, pero con una cantidad de pixeles invertidos distribuidos en forma aleatoria por la imagen. Las imágenes generadas tiene un ruido que va desde el $10\%$ hasta el $90\%$. Algunos ejemplos de las mismas se pueden observar en la primera columna de las figuras  \ref{fig:noise_input1_psi_1}, \ref{fig:noise_input1_psi_2} y \ref{fig:noise_input1_psi_3}, donde se alteraron el $10\%$ de los pixeles, obteniendo igualmente una imagen legible al ojo humano.  Mientras que en la segunda columna de las mismas se pueden observar las salidas ante dichas entradas\\
+A simple vista, se puede observar como la red entrenada con $\Psi_1$ puede reconocer todas las imágenes, hasta con un $40\%$ de ruido(figura \ref{fig:noise_input4_psi_1}) , mientras que si el ruido sube a más de  $50\%$, la red tiende a cataloga la imagen de entrada, como si fuese su inversa, como se puede apreciar claramente en las figuras \ref{fig:noise_input6_psi_1}, \ref{fig:noise_input6_psi_2} y \ref{fig:noise_input6_psi_3}, para los diferentes $\Psi$ . Esto se debe, a que al existir los estados espúreos de primera clase (los cuales son inversos a los patrones originales, y poseen la misma energía), la entrada es atraída por los mismos (recordar que la inversa de una imagen, se logra al intercambiar todos los pixeles por su opuesto. En este caso, al haber intercambiado más de $50\%$, la imagen de entrada se parece más al inverso que a la original) . Por otro lado, justo en el punto donde se modifica el $50\%$ de las entradas, como en la figura \ref{fig:noise_input5_psi_1} la neurona no es capaz de asociarla con ninguno de los atractores, ni siquiera utilizando el conjunto $\Psi_1$. Esto se debe a que se encuentra equidistante entre el atractor original, y su estado espureo de primera clase.\\
+Por otro lado, se puede observar como las redes entrenadas con los otros dos conjuntos, y en especial la entrenada con $\Psi_3$ no logra identificar correctamente las imágenes. Esto se debe nuevamente a que no poseen patrones que sean buenos atractores.\\
+
+\section*{Patrones que no pertenecen}
+
+Con el objetivo de analizar como reaccionan las redes al presentar patrones con los cuales no fueron entrenadas, se les presenta a las redes el resto de los patrones. Para mostrar el comportamiento  obteniendo, se comparten los patrones de la figura \ref{fig:no_memo_psi_1}, en la que se puede observar en la primera fila, las imágenes que no fueron previamente aprendidas y en la segunda, los resultado obtenido al ser estos patrones presentados a la red entrenada con $\Psi_1$, la cual debe ser la de mejores resultados. En todos los casos se puede observar como las imágenes o bien son asociadas incorrectamente a imágenes ya aprendidas, como en el caso de las dos primeras imágenes, o no son reconocidas correctamente, sino que, son atraídas por estados espúreos de segunda clase, los cuales son estados  mezcla como se puede observar en las cuatro imágenes de la derecha. \\
+
+\section*{Máxima cantidad de patrones posibles a almacenar}
+
+Usando un método de actualización aleatorio y asincrónico, se sabe que la capacidad de una red de Hopfield es $0.15*N$.
+Sin embargo, esto es verdad sólo cuando todos los patrones son ortogonales entre ellos.
+Se dice que un patrón binario es ortogonal con otro cuando el $50\%$ o menos de los pixeles son iguales.\\
+
+En nuestro caso particular sólo logramos agregar seis imágenes manteniendo la red estable.
+Se podría lograr agregar más imágenes modificándolas un poco.
+De la misma manera que se movió la letra A para que se aprenda bien, se podría intentar distribuir mejor las imágenes
+en los $64x64$ pixeles para que cada los patrones sean ortogonales y así lograr agregar más patrones.\\
+
+
+\subsection*{Conclusiones}
+Dado un conjunto pequeño de imágenes para entrenar la red, las cuales generan estados estables, la capacidad de reconocimiento de un patrón es bastante buena.
+La red puede usarse para reconocer patrones “contaminados” con ruido puntual.
+Sin embargo, notamos que la red no sirve para reconocer patrones afectados por otros tipos de ruido en los que la imagen se deforma topológicamente.
+Por ejemplo, si se corre $1$ pixel a la derecha cada pixel de una imagen de testeo, la capacidad de reconocimiento de la red se vuelve muy mala.
+Esto se debe a que la red se basa en que dos patrones son similares si la distancia bit a bit entre ambos es pequeña.
+Por eso, un patrón exactamente igual a otro pero corrido 1 pixel a la derecha es muy diferente al original y puede no ser reconocido por la red.
+
+\clearpage
+
+\onecolumn
+
+\begin{figure}[ht]
+  \begin{center}
+    \subfigure[]{\label{fig:a}\framebox{\includegraphics[scale=0.6]{../images/a.png}}}
+    \subfigure[]{\label{fig:bad-egg}\framebox{\includegraphics[scale=0.83]{../images/bad-egg.png}}}
+    \subfigure[]{\label{fig:circle1}\framebox{\includegraphics[scale=0.8]{../images/circle1.png}}}
+    \subfigure[]{\label{fig:circle2}\framebox{\includegraphics[scale=0.8]{../images/circle2.png}}}
+    \subfigure[]{\label{fig:circle-union}\framebox{\includegraphics[scale=0.83]{../images/circle-union.png}}}
+    \subfigure[]{\label{fig:crouched}\framebox{\includegraphics[scale=0.6]{../images/crouched.png}}}
+    \subfigure[]{\label{fig:donatello}\framebox{\includegraphics[scale=0.83]{../images/donatello.png}}}
+    \subfigure[]{\label{fig:f}\framebox{\includegraphics[scale=0.6]{../images/f.png}}}
+    \subfigure[]{\label{fig:footprint}\framebox{\includegraphics[scale=0.83]{../images/footprint.png}}}
+    \subfigure[]{\label{fig:green-knot}\framebox{\includegraphics[scale=0.83]{../images/green-knot.png}}}
+    \subfigure[]{\label{fig:h}\framebox{\includegraphics[scale=0.83]{../images/h.png}}}
+    \subfigure[]{\label{fig:mac}\framebox{\includegraphics[scale=0.83]{../images/mac.png}}}
+    \subfigure[]{\label{fig:line1}\framebox{\includegraphics[scale=0.6]{../images/line1.png}}}
+    \subfigure[]{\label{fig:line2}\framebox{\includegraphics[scale=0.6]{../images/line2.png}}}
+    \subfigure[]{\label{fig:line3}\framebox{\includegraphics[scale=0.6]{../images/line3.png}}}
+    \subfigure[]{\label{fig:line4}\framebox{\includegraphics[scale=0.6]{../images/line4.png}}}
+    \subfigure[]{\label{fig:midnight-bsd}\framebox{\includegraphics[scale=0.83]{../images/midnight-bsd.png}}}
+    \subfigure[]{\label{fig:ninja}\framebox{\includegraphics[scale=0.83]{../images/ninja.png}}}
+    \subfigure[]{\label{fig:no-clan-avatar}\framebox{\includegraphics[scale=0.83]{../images/no-clan-avatar.png}}}
+    \subfigure[]{\label{fig:pacman}\framebox{\includegraphics[scale=0.83]{../images/pacman.png}}}
+    \subfigure[]{\label{fig:phone}\framebox{\includegraphics[scale=0.8]{../images/phone.png}}}
+    \subfigure[]{\label{fig:picture}\framebox{\includegraphics[scale=0.83]{../images/picture.png}}}
+    \subfigure[]{\label{fig:rss}\framebox{\includegraphics[scale=0.83]{../images/rss.png}}}
+    \subfigure[]{\label{fig:sonic}\framebox{\includegraphics[scale=0.8]{../images/sonic.png}}}
+    \subfigure[]{\label{fig:windows}\framebox{\includegraphics[scale=0.83]{../images/windows.png}}}
+  \end{center}
+  \caption{Patrones sobre los que se trabaja}
+  \label{fig:patterns}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/output_a_desplazada.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/output_h.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/output_f.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/output_line2.png}}}
+		\hspace{20pt}
+	\end{center}
+\caption{Salida de patrones de entrenamiento $\Psi_1$}
+\label{fig:output_psi_1}
+\end{figure}
+
+
+\begin{figure}[ht]
+		\begin{center}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/output_a.png}}}
+			\hspace{20pt}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/output_circle1.png}}}
+			\hspace{20pt}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/output_line2.png}}}
+			\hspace{20pt}
+			\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/output_line1.png}}}
+			\hspace{20pt}
+		\end{center}
+	\caption{Salida de patrones de entrenamiento $\Psi_2$}
+	\label{fig:output_psi_2}
+\end{figure}
+
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/output_mac.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/output_circle2.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/output_line3.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/output_line1.png}}}
+		\hspace{20pt}
+	\end{center}
+\caption{Salida de patrones de entrenamiento $\Psi_3$}
+\label{fig:output_psi_3}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/output_Inverted_a_desplazada.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/output_Inverted_h.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/output_Inverted_f.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/output_Inverted_line2.png}}}
+		\hspace{20pt}
+	\end{center}
+\caption{Salida de patrones invertidos $\Psi_1$}
+\label{fig:varios_espurios_psi_1}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/output_Inverted_a.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/output_Inverted_circle1.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/output_Inverted_line2.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/output_Inverted_line1.png}}}
+		\hspace{20pt}
+	\end{center}
+\caption{Salida de patrones invertidos $\Psi_2$}
+\label{fig:varios_espurios_psi_2}
+\end{figure}
+
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/output_Inverted_mac.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/output_Inverted_circle2.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/output_Inverted_line3.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/output_Inverted_line1.png}}}
+		\hspace{20pt}
+	\end{center}
+\caption{Salida de patrones invertidos $\Psi_3$}
+\label{fig:varios_espurios_psi_3}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_9-a_desplazada.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_9-h.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_9-f.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_9-line2.png}}}
+		
+		\\
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_9-a_desplazada.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_9-h.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_9-f.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_9-line2.png}}}
+
+	\end{center}
+\caption{Entradas y sus respectivas salidas con ruido  del $10\%$para  $\Psi_1$}
+\label{fig:noise_input1_psi_1}
+\end{figure}
+
+%\begin{figure}[ht]
+%	\begin{center}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_6-a_desplazada.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_6-h.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_6-f.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_6-line2.png}}}
+%		\hspace{20pt}
+%	\end{center}
+%\caption{Salidas con ruido  del $40\%$para  $\Psi_1$}
+%\label{fig:noise_output4_psi_1}
+%\end{figure}
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois/altered_9-a.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois/altered_9-circle1.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois/altered_9-line2.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois/altered_9-line1.png}}}
+\\
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_9-a.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_9-circle1.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_9-line2.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_9-line1.png}}}
+	\end{center}
+\caption{Entradas y sus respectivas salidas con ruido del $10\%$ para  $\Psi_2$}
+\label{fig:noise_input1_psi_2}
+\end{figure}
+
+
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois/altered_9-mac.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois/altered_9-circle2.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois/altered_9-line3.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois/altered_9-line1.png}}}
+		\\
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_9-mac.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_9-circle2.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_9-line3.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_9-line1.png}}}
+	\end{center}
+\caption{Entradas y sus respectivas salidas con ruido del $10\%$ para  $\Psi_3$}
+\label{fig:noise_input1_psi_3}
+\end{figure}
+
+
+\clearpage
+
+
+
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_6-a_desplazada.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_6-h.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_6-f.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_6-line2.png}}}
+		
+		\\
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_6-a_desplazada.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_6-h.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_6-f.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_6-line2.png}}}
+
+	\end{center}
+\caption{Entradas y sus respectivas salidas con ruido  del $40\%$para  $\Psi_1$}
+\label{fig:noise_input4_psi_1}
+\end{figure}
+
+%\begin{figure}[ht]
+%	\begin{center}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_6-a_desplazada.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_6-h.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_6-f.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_6-line2.png}}}
+%		\hspace{20pt}
+%	\end{center}
+%\caption{Salidas con ruido  del $40\%$para  $\Psi_1$}
+%\label{fig:noise_output4_psi_1}
+%\end{figure}
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois/altered_6-a.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois/altered_6-circle1.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois/altered_6-line2.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois/altered_6-line1.png}}}
+\\
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_6-a.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_6-circle1.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_7-line2.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_6-line1.png}}}
+	\end{center}
+\caption{Entradas y sus respectivas salidas con ruido del $40\%$ para  $\Psi_2$}
+\label{fig:noise_input4_psi_2}
+\end{figure}
+
+
+
+%\begin{figure}[ht]
+%	\begin{center}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_6-a.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_6-circle1.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_6-line2.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_6-line1.png}}}
+%	\end{center}
+%\caption{Salidas con ruido  del $40\%$para  $\Psi_2$}
+%\label{fig:noise_output4_psi_2}
+%\end{figure}
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois/altered_6-mac.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois/altered_6-circle2.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois/altered_6-line3.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois/altered_6-line1.png}}}
+		\\
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_6-mac.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_6-circle2.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_6-line3.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_6-line1.png}}}
+	\end{center}
+\caption{Entradas y sus respectivas salidas con ruido del $40\%$ para  $\Psi_3$}
+\label{fig:noise_input4_psi_3}
+\end{figure}
+
+%\begin{figure}[ht]
+%	\begin{center}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_6-mac.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_6-circle2.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_6-line3.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_6-line1.png}}}
+%		\hspace{20pt}
+%	\end{center}
+%\caption{Salidas con ruido  del $40\%$para  $\Psi_3$}
+%\label{fig:noise_output4_psi_3}
+%\end{figure}
+
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_5-a_desplazada.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_5-h.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_5-f.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_5-line2.png}}}
+\\
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_5-a_desplazada.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_5-h.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_5-f.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_5-line2.png}}}
+
+	\end{center}
+\caption{Entradas y sus respectivas salidas con ruido  del $50\%$ para  $\Psi_1$}
+\label{fig:noise_input5_psi_1}
+\end{figure}
+
+
+\clearpage
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_4-a_desplazada.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_4-h.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_4-f.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois/altered_4-line2.png}}}
+\\
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_4-a_desplazada.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_4-h.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_4-f.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_4-line2.png}}}
+
+	\end{center}
+\caption{Entradas y sus respectivas salidas con ruido  del $60\%$ para  $\Psi_1$}
+\label{fig:noise_input6_psi_1}
+\end{figure}
+
+%\begin{figure}[ht]
+%	\begin{center}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_4-a_desplazada.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_4-h.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_4-f.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/nois_output/altered_4-line2.png}}}
+%		\hspace{20pt}
+%	\end{center}
+%\caption{Salidas con ruido  del $60\%$para  $\Psi_1$}
+%\label{fig:noise_output6_psi_1}
+%\end{figure}
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois/altered_4-a.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois/altered_4-circle1.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois/altered_4-line2.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois/altered_4-line1.png}}}
+\\
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_4-a.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_4-circle1.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_4-line2.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_4-line1.png}}}
+
+	\end{center}
+\caption{Entradas  y sus respectivas salidas con ruido del $60\%$ para  $\Psi_2$}
+\label{fig:noise_input6_psi_2}
+\end{figure}
+
+%\begin{figure}[ht]
+%\begin{center}
+%	\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_4-a.png}}}
+%	\hspace{20pt}
+%	\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_4-circle1.png}}}
+%	\hspace{20pt}
+%	\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_4-line2.png}}}
+%	\hspace{20pt}
+%	\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_2/nois_output/altered_4-line1.png}}}
+%	\hspace{20pt}
+%\end{center}
+%\caption{Salidas con ruido  del $60\%$para  $\Psi_2$}
+%\label{fig:noise_output6_psi_2}
+%\end{figure}
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois/altered_4-mac.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois/altered_4-circle2.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois/altered_4-line3.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois/altered_4-line1.png}}}
+\\
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_4-mac.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_4-circle2.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_4-line3.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_4-line1.png}}}
+	\end{center}
+\caption{Entradas  y sus respectivas salidas con ruido del $60\%$ para  $\Psi_3$}
+\label{fig:noise_input6_psi_3}
+\end{figure}
+
+
+\begin{figure}[ht]
+	\begin{center}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images//circle2.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/circle1.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/line1.png}}}
+		\hspace{20pt}
+		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/phone.png}}}
+\\
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/output/output_Not_Lerned_circle2.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/output/output_Not_Lerned_circle1.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1/output/output_Not_Lerned_line1.png}}}
+		\hspace{20pt}
+		\subfigure[Salida]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_1//output/output_Not_Lerned_phone.png}}}
+	\end{center}
+\caption{Entradas que no fueron aprendidas y sus respectivas salidas para  $\Psi_3$}
+\label{fig:no_memo_psi_1}
+\end{figure}
+
+
+%\begin{figure}[ht]
+%	\begin{center}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_4-mac.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_4-circle2.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_4-line3.png}}}
+%		\hspace{20pt}
+%		\subfigure[]{\label{fig:oal}\framebox{\includegraphics[scale=0.6]{../images/psi_3/nois_output/altered_4-line1.png}}}
+%		\hspace{20pt}
+%	\end{center}
+%\caption{Salidas con ruido  del $60\%$para  $\Psi_3$}
+%\label{fig:noise_output6_psi_3}
+%\end{figure}
+
+
+
+
+\end{document}
