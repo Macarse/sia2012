@@ -1,0 +1,13 @@
+En el archivo initial empieza todo. 
+
+1. En la variable fileNamesForTesting se ponen los nombres de los archivos para probar.
+
+2. En la carpeta output (lo que diga en la variable output_directory_name) es donde se van a guardar la salida de las imagenes una vez aplicada a la red.
+
+3. La funcion crazyMatrix intercambia todos los puntos de cada patron que le des. Esto nos va a servir para un punto que dice por ahi. Podemos ver el informe mio del cuatri pasado que ahi se explica el porque y estaba bueno eso.
+
+4. Recuerden que si quieren que se los guarde en otra carpeta cambian el nombre de la variable output_directory_name y listo PERO tienen que haber creado la carpeta antes sino les va a tirar que no tiene permisos.
+
+5. Si me acuerdo bien la funcion bestPattern busca la mejor combinacion de patrones para que la red sea la mejor es decir que memorice la mayor cantidad de patrones de tal forma que las imagenes de salida se parezcan con los patrones de entrada. Se entiende?
+
+ME PARECE QUE NADA MAS. SI ALGUIEN QUIERE LEER MI INFORME PASADO AVISEN QUE ESTUVO MUY BUENO, COMO PARA TENER IDEAS.

@@ -1,0 +1,5 @@
+Para entrenar la red basta configurar en el archivo trainNet.m las imagenes con las que se desea entrenar la red y luego ejecutarlo tipeando en la consola:
+>> trainNet
+Para probar que sucede al presentar una imagen a la red, basta con tipear:
+>>testImage(weights, <NOMBRE_IMAGEN>)
+donde <NOMBRE_IMAGEN> debe ser reemplazado por el nombre de la imagen deseada. weights es una variable de entorno que ya fue seteada por trainNet
