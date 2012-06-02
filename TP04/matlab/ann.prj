@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+  
+<project><!--ann.prj-->
+   <MCCProperties>
+      <wrapper>
+         <type>java</type>
+         <component_name>com.g4.matlab.ann</component_name>
+         <default_class>ANN</default_class>
+      </wrapper>
+      <intermediate_dir>$(PROJECTDIR)/com.g4.matlab.ann/src</intermediate_dir>
+      <output_dir>$(PROJECTDIR)/com.g4.matlab.ann/distrib</output_dir>
+      <link>lib</link>
+      <MCR_runtime_options>
+         <share_mcr>false</share_mcr>
+      </MCR_runtime_options>
+      <generate_code_only>false</generate_code_only>
+      <verbose>true</verbose>
+      <create_CTF>false</create_CTF>
+      <options_file/>
+      <debug/>
+      <toolboxes_on_path shortcut="all"/>
+      <warning shortcut="default">
+         <warn name="specified_file_mismatch">enable</warn>
+         <warn name="repeated_file">enable</warn>
+         <warn name="switch_ignored">enable</warn>
+         <warn name="missing_lib_sentinel">enable</warn>
+         <warn name="demo_license">enable</warn>
+      </warning>
+   </MCCProperties>
+   <file_info>
+      <category name="ANN">
+         <file>/Users/macarse/Documents/sia2012/TP02/TPE2/createIndividual.m</file>
+         <file>/Users/macarse/Documents/sia2012/TP02/TPE2/evalANN.m</file>
+         <file>/Users/macarse/Documents/sia2012/TP02/TPE2/generateInputFromFile.m</file>
+      </category>
+      <category name="Other files"><!--Do not modify the value of the name attribute, unless it is a class name.--></category>
+      <category name="C/C++ files"><!--Do not modify the value of the name attribute, unless it is a class name.--></category>
+   </file_info>
+   <packaging>
+      <name>ann_pkg</name>
+      <additional_files/>
+   </packaging>
+   <MATLABPath>
+      <Directory>/Users/macarse/Documents/MATLAB</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/general</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/ops</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/lang</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/elmat</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/randfun</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/elfun</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/specfun</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/matfun</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/datafun</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/polyfun</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/funfun</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/sparfun</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/scribe</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/graph2d</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/graph3d</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/specgraph</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/graphics</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/uitools</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/strfun</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/imagesci</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/iofun</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/audiovideo</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/timefun</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/datatypes</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/verctrl</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/codetools</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/helptools</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/demos</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/timeseries</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/hds</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/guide</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/plottools</Directory>
+      <Directory>$(MATLABROOT)/toolbox/local</Directory>
+      <Directory>$(MATLABROOT)/toolbox/shared/dastudio</Directory>
+      <Directory>$(MATLABROOT)/toolbox/matlab/datamanager</Directory>
+      <Directory>$(MATLABROOT)/toolbox/shared/simulink</Directory>
+      <Directory>$(MATLABROOT)/toolbox/shared/instrument</Directory>
+      <Directory>$(MATLABROOT)/toolbox/compiler</Directory>
+      <Directory>$(MATLABROOT)/toolbox/shared/controllib/general</Directory>
+      <Directory>$(MATLABROOT)/toolbox/shared/controllib/graphics</Directory>
+      <Directory>$(MATLABROOT)/toolbox/javabuilder/javabuilder</Directory>
+   </MATLABPath>
+</project>
