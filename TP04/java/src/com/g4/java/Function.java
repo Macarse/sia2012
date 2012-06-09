@@ -1,5 +1,7 @@
 package com.g4.java;
 
+import com.g4.java.model.Individual;
+import com.g4.java.util.InputValues;
 import com.g4.matlab.ann.ANN;
 import com.mathworks.toolbox.javabuilder.MWException;
 import com.mathworks.toolbox.javabuilder.MWNumericArray;
