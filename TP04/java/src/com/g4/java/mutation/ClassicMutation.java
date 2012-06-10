@@ -16,7 +16,7 @@ public class ClassicMutation implements Mutation {
 		for (int i = 0; i < bits.length; ++i) {
 			double charProba = Math.random();
 			if (charProba < mutationPercentage * 2) {
-				bits[i] = RandomGenerator.getDouble(-2, 2);
+				bits[i] = RandomGenerator.getDouble(-1.5, 1.5);
 			}
 		}
 		return Individual.creator(entity.getData(), bits);
