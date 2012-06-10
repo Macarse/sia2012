@@ -13,6 +13,7 @@ public class ClassicMutation implements Mutation {
 
 	public Individual mutate(Individual entity, int iteration) {
 		double[] bits = entity.getLupusArray();
+
 		for (int i = 0; i < bits.length; ++i) {
 			double charProba = Math.random();
 			if (charProba < mutationPercentage * 2) {
@@ -30,5 +31,9 @@ public class ClassicMutation implements Mutation {
 		double prob = RandomGenerator.getDouble();
 		return prob < mutationPercentage;
 	}
+
+  @Override
+  public void updateMutationProbability(int iteration) {
+  }
 
 }

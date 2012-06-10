@@ -8,8 +8,8 @@ import com.g4.java.crossover.GeneCrossOver;
 import com.g4.java.ending.EndingMethod;
 import com.g4.java.ending.MaxGenerationEnding;
 import com.g4.java.model.Individual;
-import com.g4.java.mutation.ClassicMutation;
 import com.g4.java.mutation.Mutation;
+import com.g4.java.mutation.NotUniformMutation;
 import com.g4.java.reproduction.MonogamousReproduction;
 import com.g4.java.reproduction.Reproduction;
 import com.g4.java.selection.EliteSelection;
@@ -80,14 +80,16 @@ public class FunctionResolver {
 				+ (System.currentTimeMillis() - creationStartTime));
 
 		Selection selection = new EliteSelection(POP_SIZE/2);
-		Mutation mutation = new ClassicMutation(0.01);
+		Mutation mutation = new NotUniformMutation(0.2, 5, .7);
 		Crossover crossover = new GeneCrossOver();
 		Reproduction reproduction = new MonogamousReproduction();
 		EndingMethod ending = new MaxGenerationEnding(MAX_GENERATIONS);
 		Backpropagation backpropagation = new Backpropagation(ann, 30, 0.01);
 		Selection replacement = new EliteSelection(POP_SIZE);
 
-		for (int i = 0; !ending.shouldEnd(population, i) ; ++i) {
+		for (int i = 0; !ending.shouldEnd(population, i) ; i++) {
+		  mutation.updateMutationProbability(i);
+
 			List<Individual> best = selection.select(population, i);
 			List<Individual[]> parents = reproduction.getParents(best);
 			List<Individual> generation = new ArrayList<Individual>();
