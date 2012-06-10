@@ -12,8 +12,8 @@ import com.g4.java.mutation.ClassicMutation;
 import com.g4.java.mutation.Mutation;
 import com.g4.java.reproduction.MonogamousReproduction;
 import com.g4.java.reproduction.Reproduction;
-import com.g4.java.selection.EliteSelection;
 import com.g4.java.selection.Selection;
+import com.g4.java.selection.TournamentSelection;
 import com.g4.java.util.InputValues;
 import com.g4.matlab.ann.ANN;
 import com.mathworks.toolbox.javabuilder.MWArray;
@@ -24,7 +24,7 @@ public class FunctionResolver {
 
   public static final int ARCHITECTURE = 2;
 	private static final int POP_SIZE = 52;
-	private static final int MAX_GENERATIONS = 10;
+	private static final int MAX_GENERATIONS = 100;
 
 	private List<Individual> population = new ArrayList<Individual>(POP_SIZE);
 
@@ -79,7 +79,7 @@ public class FunctionResolver {
 		System.out.println("Whole creation process took: "
 				+ (System.currentTimeMillis() - creationStartTime));
 
-		Selection selection = new EliteSelection();
+		Selection selection = new TournamentSelection(10);
 		Mutation mutation = new ClassicMutation(0.01);
 		Crossover crossover = new GeneCrossOver();
 		Reproduction reproduction = new MonogamousReproduction();
