@@ -36,7 +36,7 @@ public class SinglePointCrossOver implements Crossover {
 	}
 
 	@Override
-	public boolean shouldApplied() {
+	public boolean shouldApply() {
 		return RandomGenerator.getDouble() < this.prob;
 	}
 

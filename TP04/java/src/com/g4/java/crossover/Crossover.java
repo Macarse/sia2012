@@ -6,5 +6,5 @@ public interface Crossover {
 	
   Individual[] cross(Individual[] entities);
   
-  boolean shouldApplied();
+  boolean shouldApply();
 }
