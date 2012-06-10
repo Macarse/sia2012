@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.g4.java.crossover.Crossover;
-import com.g4.java.crossover.SinglePointCrossOver;
+import com.g4.java.crossover.GeneCrossOver;
 import com.g4.java.ending.EndingMethod;
 import com.g4.java.ending.MaxGenerationEnding;
 import com.g4.java.model.Individual;
@@ -12,7 +12,6 @@ import com.g4.java.mutation.ClassicMutation;
 import com.g4.java.mutation.Mutation;
 import com.g4.java.reproduction.MonogamousReproduction;
 import com.g4.java.reproduction.Reproduction;
-import com.g4.java.selection.BoltzmannSelection;
 import com.g4.java.selection.EliteSelection;
 import com.g4.java.selection.Selection;
 import com.g4.java.util.InputValues;
@@ -80,15 +79,16 @@ public class FunctionResolver {
 		System.out.println("Whole creation process took: "
 				+ (System.currentTimeMillis() - creationStartTime));
 
-		Selection selection = new BoltzmannSelection(10000, 1000, 5);
+		Selection selection = new EliteSelection(POP_SIZE/2);
 		Mutation mutation = new ClassicMutation(0.01);
-		Crossover crossover = new SinglePointCrossOver();
+		Crossover crossover = new GeneCrossOver();
 		Reproduction reproduction = new MonogamousReproduction();
 		EndingMethod ending = new MaxGenerationEnding(MAX_GENERATIONS);
-		Backpropagation backpropagation = new Backpropagation(ann, 30, 0.05);
+		Backpropagation backpropagation = new Backpropagation(ann, 30, 0.01);
+		Selection replacement = new EliteSelection(POP_SIZE);
 
 		for (int i = 0; !ending.shouldEnd(population, i) ; ++i) {
-			List<Individual> best = selection.select(population, POP_SIZE / 2, i);
+			List<Individual> best = selection.select(population, i);
 			List<Individual[]> parents = reproduction.getParents(best);
 			List<Individual> generation = new ArrayList<Individual>();
 			List<Individual> sons = new ArrayList<Individual>();
@@ -129,10 +129,10 @@ public class FunctionResolver {
 				individual.setApptitude(function.eval(individual));
 			}
 			
-			population = selection.select(generation, POP_SIZE, i);
+			population = replacement.select(generation, i);
 
-			EliteSelection bestSel = new EliteSelection();
-			System.out.println("Best individual (Apptitude) " + bestSel.select(population, 1, i).get(0).getApptitude());
+			EliteSelection bestSel = new EliteSelection(1);
+			System.out.println("Best individual (Apptitude) " + bestSel.select(population, i).get(0).getApptitude());
 			System.out.println("Worst individual (Apptitude) " + population.get(POP_SIZE-1).getApptitude());
 			System.out.println("Finish Generation " + i);
 		}
