@@ -80,6 +80,7 @@ public class FunctionResolver {
 		Mutation mutation = new ClassicMutation(0.01);
 		Crossover crossover = new SinglePointCrossOver();
 		Reproduction reproduction = new MonogamousReproduction();
+		Backpropagation backpropagation = new Backpropagation(ann, 10, 0.01);
 
 		for (int i = 0; i < MAX_GENERATIONS; ++i) {
 			List<Individual> best = selection.select(population, POP_SIZE / 2);
@@ -101,15 +102,22 @@ public class FunctionResolver {
 				if (mutation.shouldMutate()) {
 					sonsToAdd.add(mutation.mutate(individual, i));
 					individual.getData().dispose();
+				} else if ( backpropagation.shouldApply() ) {
+				  System.out.println("Backpropagation started");
+				  Individual backpropagated = backpropagation.run(individual);
+					sonsToAdd.add(backpropagated);
+					individual.getData().dispose();
+					System.out.println("Backpropagation ended");
 				} else {
-					sonsToAdd.add(individual);
+				  sonsToAdd.add(individual);
 				}
 			}
+
 			sons.clear();
 			sons = null;
 
 			generation.addAll(sonsToAdd);
-			
+
 			for (Individual individual : sonsToAdd) {
 				individual.setApptitude(function.eval(individual));
 			}

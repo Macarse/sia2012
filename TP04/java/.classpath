@@ -3,6 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Applications/MATLAB/MATLAB_Compiler_Runtime/v713/toolbox/javabuilder/jar/javabuilder.jar"/>
-	<classpathentry kind="lib" path="/Users/NicoPuri/Documents/ITBA/Materias/SISTEMAS DE INTELIGENCIA ARTIF.../material/Material Didctico/2012/TPs/tps/sia2012/TP04/matlab/com.g4.matlab.ann/distrib/ann.jar"/>
+	<classpathentry kind="lib" path="../matlab/com.g4.matlab.ann/distrib/ann.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
