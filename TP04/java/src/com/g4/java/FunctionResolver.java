@@ -3,11 +3,15 @@ package com.g4.java;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.g4.java.crossover.Crossover;
 import com.g4.java.crossover.SinglePointCrossOver;
 import com.g4.java.model.Individual;
 import com.g4.java.mutation.ClassicMutation;
+import com.g4.java.mutation.Mutation;
 import com.g4.java.reproduction.MonogamousReproduction;
+import com.g4.java.reproduction.Reproduction;
 import com.g4.java.selection.EliteSelection;
+import com.g4.java.selection.Selection;
 import com.g4.java.util.InputValues;
 import com.g4.matlab.ann.ANN;
 import com.mathworks.toolbox.javabuilder.MWArray;
@@ -16,7 +20,7 @@ import com.mathworks.toolbox.javabuilder.MWException;
 
 public class FunctionResolver {
 
-	private static final int POP_SIZE = 50;
+	private static final int POP_SIZE = 52;
 	private static final int MAX_GENERATIONS = 100;
 
 	private List<Individual> population = new ArrayList<Individual>(POP_SIZE);
@@ -72,13 +76,14 @@ public class FunctionResolver {
 		System.out.println("Whole creation process took: "
 				+ (System.currentTimeMillis() - creationStartTime));
 
-		EliteSelection selection = new EliteSelection();
-		ClassicMutation mutation = new ClassicMutation(0.1);
+		Selection selection = new EliteSelection();
+		Mutation mutation = new ClassicMutation(0.01);
+		Crossover crossover = new SinglePointCrossOver();
+		Reproduction reproduction = new MonogamousReproduction();
 
 		for (int i = 0; i < MAX_GENERATIONS; ++i) {
 			List<Individual> best = selection.select(population, POP_SIZE / 2);
-			List<Individual[]> parents = MonogamousReproduction
-					.getParents(best);
+			List<Individual[]> parents = reproduction.getParents(best);
 			List<Individual> generation = new ArrayList<Individual>();
 			List<Individual> sons = new ArrayList<Individual>();
 
@@ -86,7 +91,7 @@ public class FunctionResolver {
 				generation.add(family[0]);
 				generation.add(family[1]);
 
-				Individual[] childs = SinglePointCrossOver.cross(family);
+				Individual[] childs = crossover.cross(family);
 				sons.add(childs[0]);
 				sons.add(childs[1]);
 			}
@@ -95,6 +100,7 @@ public class FunctionResolver {
 			for (Individual individual : sons) {
 				if (mutation.shouldMutate()) {
 					sonsToAdd.add(mutation.mutate(individual, i));
+					individual.getData().dispose();
 				} else {
 					sonsToAdd.add(individual);
 				}

@@ -7,10 +7,7 @@ import java.util.List;
 
 import com.g4.java.model.Individual;
 
-public class EliteSelection {
-
-  public EliteSelection() {
-  }
+public class EliteSelection implements Selection {
 
   public List<Individual> select(List<Individual> parents,
       final int toSelect) {
