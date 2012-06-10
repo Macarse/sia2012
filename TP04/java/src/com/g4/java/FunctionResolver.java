@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.g4.java.crossover.Crossover;
-import com.g4.java.crossover.SinglePointCrossOver;
+import com.g4.java.crossover.GeneCrossOver;
 import com.g4.java.model.Individual;
 import com.g4.java.mutation.ClassicMutation;
 import com.g4.java.mutation.Mutation;
@@ -78,7 +78,7 @@ public class FunctionResolver {
 
 		Selection selection = new EliteSelection();
 		Mutation mutation = new ClassicMutation(0.01);
-		Crossover crossover = new SinglePointCrossOver();
+		Crossover crossover = new GeneCrossOver();
 		Reproduction reproduction = new MonogamousReproduction();
 		Backpropagation backpropagation = new Backpropagation(ann, 10, 0.01);
 
@@ -100,8 +100,10 @@ public class FunctionResolver {
 			List<Individual> sonsToAdd = new ArrayList<Individual>();
 			for (Individual individual : sons) {
 				if (mutation.shouldMutate()) {
+				  System.out.println("Mutation started");
 					sonsToAdd.add(mutation.mutate(individual, i));
 					individual.getData().dispose();
+					System.out.println("Mutation ended");
 				} else if ( backpropagation.shouldApply() ) {
 				  System.out.println("Backpropagation started");
 				  Individual backpropagated = backpropagation.run(individual);
