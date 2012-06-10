@@ -6,6 +6,6 @@ import com.g4.java.model.Individual;
 
 public interface Selection {
 	
-  List<Individual> select(List<Individual> population, final int toSelect, final int generation);
+  List<Individual> select(List<Individual> population, final int generation);
   
 }

@@ -15,7 +15,7 @@ public class StructuralEnding implements EndingMethod {
 	public StructuralEnding(int iterationsToCheck, int percent, int popSize) {
 		this.iterationsToCheck = iterationsToCheck;
 		this.toBeEqual = (popSize*percent)/100;
-		this.elite = new EliteSelection();
+		this.elite = new EliteSelection(this.toBeEqual);
 	}
 	
 	@Override
@@ -24,7 +24,7 @@ public class StructuralEnding implements EndingMethod {
 			return false;
 		}
 		
-		List<Individual> bests = elite.select(population, this.toBeEqual, 0);
+		List<Individual> bests = elite.select(population, 0);
 		
 		for (Individual ind : bests) {
 			if(bests.get(0).getApptitude() != ind.getApptitude()){

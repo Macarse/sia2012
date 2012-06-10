@@ -8,13 +8,18 @@ import com.g4.java.util.RandomGenerator;
 
 public class RuletteSelection implements Selection {
 
+  protected int toSelect;
+
+  public RuletteSelection(final int toSelect) {
+    this.toSelect = toSelect;
+  }
+
 	protected double filterFitness(double fitness) {
 		return fitness;
 	}
 
 	@Override
-	public List<Individual> select(List<Individual> population, int toSelect,
-			int generation) {
+	public List<Individual> select(List<Individual> population, int generation) {
 		List<Individual> newGeneration = new ArrayList<Individual>(toSelect);
 		double fitnessSum = 0;
 		for (int i = 0; i < population.size(); i++) {
@@ -35,7 +40,6 @@ public class RuletteSelection implements Selection {
 				f += filterFitness(individual.getApptitude());
 			} while (f < r);
 			newGeneration.add(individual);
-//			System.out.println("Adding dude with: " + individual.getApptitude());
 		}
 
 		return newGeneration;
