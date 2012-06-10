@@ -24,7 +24,7 @@ public class StructuralEnding implements EndingMethod {
 			return false;
 		}
 		
-		List<Individual> bests = elite.select(population, this.toBeEqual);
+		List<Individual> bests = elite.select(population, this.toBeEqual, 0);
 		
 		for (Individual ind : bests) {
 			if(bests.get(0).getApptitude() != ind.getApptitude()){

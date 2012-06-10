@@ -9,7 +9,7 @@ import com.g4.java.util.RandomGenerator;
 public class UniversalSelection implements Selection {
 
 	@Override
-	public List<Individual> select(List<Individual> population, int toSelect) {
+	public List<Individual> select(List<Individual> population, int toSelect, int generation) {
 		List<Individual> newGeneration = new ArrayList<Individual>();
 
         double distance = 1.0d / toSelect;
