@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
+import com.g4.java.Backpropagation;
+import com.g4.java.configuration.factories.BackpropagationFactory;
 import com.g4.java.configuration.factories.CrossOverFactory;
 import com.g4.java.configuration.factories.EndingFactory;
 import com.g4.java.configuration.factories.MutationFactory;
@@ -15,55 +17,70 @@ import com.g4.java.crossover.Crossover;
 import com.g4.java.ending.EndingMethod;
 import com.g4.java.mutation.Mutation;
 import com.g4.java.selection.Selection;
+import com.mathworks.toolbox.javabuilder.MWException;
 
 public class Configuration {
 	
 	private Properties properties;
 	
-	private boolean hasToMaximize;
-	private boolean hasToDraw;
-	private List<EndingMethod> endingMethods;
+	private int architecture; 
+	private int popSize;  
+	
+	private EndingMethod ending;
 
 	private Mutation mutation;
-
+	private Backpropagation backpropagation;
+	
 	private List<Selection> selectionMethods;
 	
-	private List<Replacement> replacementMethods;
+	private List<Selection> replacementMethods;
 	private boolean replacementByPopulation = false;
 	
-	private List<Crossover> crossOverMethods;
+	private Crossover crossOver;
 
 	private MutationFactory mutationFactory;
 	private SelectionFactory selectionFactory;
 	private ReplacementFactory replacementFactory;
 	private CrossOverFactory crossOverFactory;
 	private EndingFactory endingFactory;
+	private BackpropagationFactory backpropagationFactory;
 	
-	public Configuration(String propertiesPath) throws FileNotFoundException, IOException {
+	public Configuration(String propertiesPath) throws FileNotFoundException, IOException, MWException {
 		this.properties = new Properties();
 		this.mutationFactory = new MutationFactory(this.properties);
 		this.selectionFactory = new SelectionFactory(this.properties);
 		this.replacementFactory = new ReplacementFactory(this.properties);
 		this.crossOverFactory = new CrossOverFactory(this.properties);
 		this.endingFactory = new EndingFactory(this.properties);
+		this.backpropagationFactory = new BackpropagationFactory(this.properties);
 		
 		this.properties.load(new FileInputStream(System.getProperty("user.dir") + 
 				propertiesPath));
 
 		loadGeneralData();
 		loadMutationData();
+		loadBackpropagationData();
 		loadSelectionData();
 		loadReplacementData();
 		loadCrossOverData();
 		loadEndingData();
 	}
 	
+	private void loadGeneralData() {
+		this.architecture = Integer.valueOf(this.properties.getProperty("architecture"));
+		this.popSize = Integer.valueOf(this.properties.getProperty("popSize"));
+	}
+
+	private void loadBackpropagationData() throws MWException {
+		this.backpropagation = this.backpropagationFactory.loadBackpropagation(); 
+	}
+	
 	private void loadEndingData() {
-		this.endingMethods = this.endingFactory.loadEndingMethods();
+		this.ending = this.endingFactory.loadEnding();
 	}
 
 	private void loadCrossOverData() {
-		this.crossOverMethods = this.crossOverFactory.loadCrossOver();
+		this.crossOver = this.crossOverFactory.loadCrossOver();
 	}
 
 	private void loadReplacementData() {
@@ -83,28 +100,19 @@ public class Configuration {
 		this.mutation = this.mutationFactory.loadMutationList();
 	}
 
-	private void loadGeneralData() {
-		this.hasToDraw = Boolean.valueOf(properties.getProperty("hasToDraw"));
-		this.hasToMaximize = Boolean.valueOf(properties.getProperty("hasToMaximize"));
-	}
-
-	public boolean isHasToDraw() {
-		return hasToDraw;
-	}
-
 	public Mutation getMutation() {
 		return mutation;
 	}
 	
-	public boolean isHasToMaximize() {
-		return hasToMaximize;
+	public Backpropagation getBackpropagation() {
+		return backpropagation;
 	}
 	
 	public List<Selection> getSelectionMethods() {
 		return selectionMethods;
 	}
 	
-	public List<Replacement> getReplacementMethods() {
+	public List<Selection> getReplacementMethods() {
 		return replacementMethods;
 	}
 	
@@ -112,16 +120,24 @@ public class Configuration {
 		return replacementByPopulation;
 	}
 
-	public List<Crossover> getCrossOverMethods() {
-		return crossOverMethods;
+	public Crossover getCrossOverMethods() {
+		return crossOver;
 	}
 
-	public List<EndingMethod> getEndingMethods() {
-		return endingMethods;
+	public EndingMethod getEnding() {
+		return ending;
 	}
 	
 	public boolean replacementIsOnlySuns(){
 		return replacementByPopulation;
+	}
+
+	public int getArchitecture() {
+		return architecture;
+	}
+
+	public int getPopSize() {
+		return popSize;
 	}
 	
 }
