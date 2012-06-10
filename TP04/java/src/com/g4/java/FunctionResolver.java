@@ -13,7 +13,9 @@ import com.g4.java.mutation.Mutation;
 import com.g4.java.reproduction.MonogamousReproduction;
 import com.g4.java.reproduction.Reproduction;
 import com.g4.java.selection.EliteSelection;
+import com.g4.java.selection.RuletteSelection;
 import com.g4.java.selection.Selection;
+import com.g4.java.selection.TournamentSelection;
 import com.g4.java.util.InputValues;
 import com.g4.matlab.ann.ANN;
 import com.mathworks.toolbox.javabuilder.MWArray;
@@ -24,7 +26,7 @@ public class FunctionResolver {
 
   public static final int ARCHITECTURE = 2;
 	private static final int POP_SIZE = 52;
-	private static final int MAX_GENERATIONS = 10;
+	private static final int MAX_GENERATIONS = 100;
 
 	private List<Individual> population = new ArrayList<Individual>(POP_SIZE);
 
@@ -79,7 +81,7 @@ public class FunctionResolver {
 		System.out.println("Whole creation process took: "
 				+ (System.currentTimeMillis() - creationStartTime));
 
-		Selection selection = new EliteSelection();
+		Selection selection = new RuletteSelection();
 		Mutation mutation = new ClassicMutation(0.01);
 		Crossover crossover = new GeneCrossOver();
 		Reproduction reproduction = new MonogamousReproduction();
@@ -129,7 +131,9 @@ public class FunctionResolver {
 			}
 			
 			population = selection.select(generation, POP_SIZE);
-			System.out.println("Best individual (Apptitude) " + population.get(0).getApptitude());
+
+			EliteSelection bestSel = new EliteSelection();
+			System.out.println("Best individual (Apptitude) " + bestSel.select(population, 1).get(0).getApptitude());
 			System.out.println("Worst individual (Apptitude) " + population.get(POP_SIZE-1).getApptitude());
 			System.out.println("Finish Generation " + i);
 		}
