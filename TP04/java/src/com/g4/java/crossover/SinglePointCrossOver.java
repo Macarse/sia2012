@@ -5,30 +5,39 @@ import com.g4.java.util.RandomGenerator;
 
 public class SinglePointCrossOver implements Crossover {
 
-  public Individual[] cross(Individual[] entities) {
-    double[] dad = entities[0].getLupusArray();
-    double[] mom = entities[1].getLupusArray();
-    double[] son1 = new double[dad.length];
-    double[] son2 = new double[dad.length];
+	private double prob;
 
-    int cutPoint = RandomGenerator.getInt(1, dad.length);
+	public SinglePointCrossOver(double prob) {
+		this.prob = prob;
+	}
 
-    for (int i = 0; i < cutPoint; i++) {
-      son1[i] = dad[i];
-      son2[i] = mom[i];
-    }
+	public Individual[] cross(Individual[] entities) {
+		double[] dad = entities[0].getLupusArray();
+		double[] mom = entities[1].getLupusArray();
+		double[] son1 = new double[dad.length];
+		double[] son2 = new double[dad.length];
 
-    for (int i = cutPoint; i < mom.length; i++) {
-      son2[i] = dad[i];
-      son1[i] = mom[i];
-    }
+		int cutPoint = RandomGenerator.getInt(1, dad.length);
 
-    Individual indSon1 = Individual
-        .creator(entities[0].getData(), son1);
-    Individual indSon2 = Individual
-        .creator(entities[0].getData(), son2);
+		for (int i = 0; i < cutPoint; i++) {
+			son1[i] = dad[i];
+			son2[i] = mom[i];
+		}
 
-    return new Individual[] { indSon1, indSon2 };
-  }
+		for (int i = cutPoint; i < mom.length; i++) {
+			son2[i] = dad[i];
+			son1[i] = mom[i];
+		}
+
+		Individual indSon1 = Individual.creator(entities[0].getData(), son1);
+		Individual indSon2 = Individual.creator(entities[0].getData(), son2);
+
+		return new Individual[] { indSon1, indSon2 };
+	}
+
+	@Override
+	public boolean shouldApplied() {
+		return RandomGenerator.getDouble() < this.prob;
+	}
 
 }
