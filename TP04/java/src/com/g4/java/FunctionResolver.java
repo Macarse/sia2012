@@ -20,6 +20,7 @@ import com.mathworks.toolbox.javabuilder.MWException;
 
 public class FunctionResolver {
 
+  public static final int ARCHITECTURE = 2;
 	private static final int POP_SIZE = 52;
 	private static final int MAX_GENERATIONS = 100;
 
@@ -62,7 +63,7 @@ public class FunctionResolver {
 					InputValues.getInstance().getInputs(), InputValues
 							.getInstance().getExpectedOutputs(), InputValues
 							.getInstance().getInputsTest(), InputValues
-							.getInstance().getExpectedOutputsTest());
+							.getInstance().getExpectedOutputsTest(), ARCHITECTURE);
 
 			individual.setData((MWCellArray) createIndividualResult[0]);
 			population.add(individual);

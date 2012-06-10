@@ -1,6 +1,6 @@
 /*
  * MATLAB Compiler: 4.13 (R2010a)
- * Date: Sat Jun  9 21:52:26 2012
+ * Date: Sun Jun 10 00:43:24 2012
  * Arguments: "-B" "macro_default" "-W" "java:com.g4.matlab.ann,ANN" "-T" "link:lib" "-d" 
  * "/Users/macarse/Documents/sia2012/TP04/matlab/com.g4.matlab.ann/src" "-w" 
  * "enable:specified_file_mismatch" "-w" "enable:repeated_file" "-w" 
@@ -44,7 +44,7 @@ public class ANN extends MWComponentInstance<ANN>
         new MWFunctionSignature(/* max outputs = */ 1,
                                 /* has varargout = */ false,
                                 /* function name = */ "backpropagation",
-                                /* max inputs = */ 4,
+                                /* max inputs = */ 5,
                                 /* has varargin = */ false);
     /**
      * Maintains information used in calling the <code>createIndividual</code> M-function.
@@ -53,7 +53,7 @@ public class ANN extends MWComponentInstance<ANN>
         new MWFunctionSignature(/* max outputs = */ 1,
                                 /* has varargout = */ false,
                                 /* function name = */ "createIndividual",
-                                /* max inputs = */ 4,
+                                /* max inputs = */ 5,
                                 /* has varargin = */ false);
     /**
      * Maintains information used in calling the <code>evalANN</code> M-function.
@@ -62,7 +62,7 @@ public class ANN extends MWComponentInstance<ANN>
         new MWFunctionSignature(/* max outputs = */ 2,
                                 /* has varargout = */ false,
                                 /* function name = */ "evalANN",
-                                /* max inputs = */ 5,
+                                /* max inputs = */ 6,
                                 /* has varargin = */ false);
     /**
      * Maintains information used in calling the <code>generateInputFromFile</code> 
@@ -209,7 +209,7 @@ public class ANN extends MWComponentInstance<ANN>
 
     /**
      * Provides the standard interface for calling the <code>backpropagation</code>
-     * M-function with 4 input arguments.
+     * M-function with 5 input arguments.
      * Input arguments may be passed as sub-classes of
      * <code>com.mathworks.toolbox.javabuilder.MWArray</code>, or as arrays of
      * any supported Java type. Arguments passed as Java types are converted to
@@ -278,7 +278,7 @@ public class ANN extends MWComponentInstance<ANN>
 
     /**
      * Provides the standard interface for calling the <code>createIndividual</code>
-     * M-function with 4 input arguments.
+     * M-function with 5 input arguments.
      * Input arguments may be passed as sub-classes of
      * <code>com.mathworks.toolbox.javabuilder.MWArray</code>, or as arrays of
      * any supported Java type. Arguments passed as Java types are converted to
@@ -304,11 +304,6 @@ public class ANN extends MWComponentInstance<ANN>
      * Provides the interface for calling the <code>evalANN</code> M-function 
      * where the first input, an instance of List, receives the output of the M-function and
      * the second input, also an instance of List, provides the input to the M-function.
-     * <p>M-documentation as provided by the author of the M function:
-     * <pre>
-     * %%%%% PARAMETERS DEFINED %%%%%
-     * </pre>
-     * </p>
      * @param lhs List in which to return outputs. Number of outputs (nargout) is
      * determined by allocated size of this List. Outputs are returned as
      * sub-classes of <code>com.mathworks.toolbox.javabuilder.MWArray</code>.
@@ -331,11 +326,6 @@ public class ANN extends MWComponentInstance<ANN>
      * Provides the interface for calling the <code>evalANN</code> M-function 
      * where the first input, an Object array, receives the output of the M-function and
      * the second input, also an Object array, provides the input to the M-function.
-     * <p>M-documentation as provided by the author of the M function:
-     * <pre>
-     * %%%%% PARAMETERS DEFINED %%%%%
-     * </pre>
-     * </p>
      * @param lhs array in which to return outputs. Number of outputs (nargout)
      * is determined by allocated size of this array. Outputs are returned as
      * sub-classes of <code>com.mathworks.toolbox.javabuilder.MWArray</code>.
@@ -357,17 +347,12 @@ public class ANN extends MWComponentInstance<ANN>
 
     /**
      * Provides the standard interface for calling the <code>evalANN</code>
-     * M-function with 5 input arguments.
+     * M-function with 6 input arguments.
      * Input arguments may be passed as sub-classes of
      * <code>com.mathworks.toolbox.javabuilder.MWArray</code>, or as arrays of
      * any supported Java type. Arguments passed as Java types are converted to
      * MATLAB arrays according to default conversion rules.
      *
-     * <p>M-documentation as provided by the author of the M function:
-     * <pre>
-     * %%%%% PARAMETERS DEFINED %%%%%
-     * </pre>
-     * </p>
      * @param nargout Number of outputs to return.
      * @param rhs The inputs to the M function.
      * @return Array of length nargout containing the function outputs. Outputs
