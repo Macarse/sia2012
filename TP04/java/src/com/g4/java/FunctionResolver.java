@@ -16,8 +16,8 @@ import com.mathworks.toolbox.javabuilder.MWException;
 
 public class FunctionResolver {
 
-	private static final int POP_SIZE = 50;
-	private static final int MAX_GENERATIONS = 100;
+	private static final int POP_SIZE = 52;
+	private static final int MAX_GENERATIONS = 1000;
 
 	private List<Individual> population = new ArrayList<Individual>(POP_SIZE);
 
@@ -77,8 +77,7 @@ public class FunctionResolver {
 
 		for (int i = 0; i < MAX_GENERATIONS; ++i) {
 			List<Individual> best = selection.select(population, POP_SIZE / 2);
-			List<Individual[]> parents = MonogamousReproduction
-					.getParents(best);
+			List<Individual[]> parents = MonogamousReproduction.getParents(best);
 			List<Individual> generation = new ArrayList<Individual>();
 			List<Individual> sons = new ArrayList<Individual>();
 
@@ -109,6 +108,7 @@ public class FunctionResolver {
 			}
 			
 			population = selection.select(generation, POP_SIZE);
+			
 			System.out.println("Best individual (Apptitude) " + population.get(0).getApptitude());
 			System.out.println("Worst individual (Apptitude) " + population.get(POP_SIZE-1).getApptitude());
 			System.out.println("Finish Generation " + i);
