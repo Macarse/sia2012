@@ -13,7 +13,7 @@ public class TournamentSelection implements Selection {
   }
 
   @Override
-  public List<Individual> select(List<Individual> population, int toSelect) {
+  public List<Individual> select(List<Individual> population, int toSelect, int generation) {
     List<Individual> selected = new ArrayList<Individual>(toSelect);
 
     for (int i = 0; i < toSelect; ++i) {
