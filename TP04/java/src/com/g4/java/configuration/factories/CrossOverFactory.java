@@ -20,7 +20,7 @@ public class CrossOverFactory {
 	public Crossover loadCrossOver() {
 		Crossover crossover = null;
 		CrossOverEnum crossEnum = CrossOverEnum.getCrossOverEnum(properties
-				.getProperty("crossover"));
+				.getProperty("crossover").toUpperCase());
 		
 		double crossoverProbability = 0.1;
 		if (properties.getProperty("crossoverProbability") != null) {	

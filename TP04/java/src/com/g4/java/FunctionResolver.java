@@ -24,6 +24,7 @@ public class FunctionResolver {
 
 	public static int ARCHITECTURE;
 	private int POP_SIZE;
+	private double generationGap;
 
 	private Configuration configuration;
 
@@ -42,10 +43,13 @@ public class FunctionResolver {
 	public static void main(String[] args) throws FileNotFoundException,
 			IOException, MWException {
 		FunctionResolver resolver = new FunctionResolver();
-		
-		FunctionResolver.ARCHITECTURE = resolver.configuration.getArchitecture();
-		resolver.POP_SIZE = resolver.configuration.getPopSize();
+
 		resolver.configuration = new Configuration(args[0]);
+
+		FunctionResolver.ARCHITECTURE = resolver.configuration
+				.getArchitecture();
+		resolver.POP_SIZE = resolver.configuration.getPopSize();
+		resolver.generationGap = resolver.configuration.getGenerationGap();
 
 		resolver.selection = new MixSelection(
 				resolver.configuration.getSelectionMethods());
@@ -102,9 +106,12 @@ public class FunctionResolver {
 				+ (System.currentTimeMillis() - creationStartTime));
 
 		for (int i = 0; !ending.shouldEnd(population, i); i++) {
+			long initial = System.currentTimeMillis();
+			System.out.println("Starting Generation: " + i);
 			mutation.updateMutationProbability(i);
 
-			List<Individual> best = selection.select(population, i);
+			int toSelect = (int) (POP_SIZE * this.generationGap);
+			List<Individual> best = selection.select(population, i, toSelect);
 			List<Individual[]> parents = reproduction.getParents(best);
 			List<Individual> generation = new ArrayList<Individual>();
 			List<Individual> sons = new ArrayList<Individual>();
@@ -145,20 +152,21 @@ public class FunctionResolver {
 			sons.clear();
 			sons = null;
 
-			generation.addAll(sonsToAdd);
-
 			for (Individual individual : sonsToAdd) {
 				individual.setApptitude(function.eval(individual));
 			}
 
-			population = replacement.select(generation, i);
+			int toSelectOld = (int) (POP_SIZE * (1 - this.generationGap));
+			population = replacement.select(population, i, toSelectOld);
+			population.addAll(sonsToAdd);
 
 			EliteSelection bestSel = new EliteSelection(1);
 			System.out.println("Best individual (Apptitude) "
 					+ bestSel.select(population, i).get(0).getApptitude());
 			System.out.println("Worst individual (Apptitude) "
 					+ population.get(POP_SIZE - 1).getApptitude());
-			System.out.println("Finish Generation " + i);
+			long finish = System.currentTimeMillis();
+			System.out.println("Finish Generation " + i + " in " + (finish - initial)/1000 + " seconds");
 		}
 
 	}

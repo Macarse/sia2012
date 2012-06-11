@@ -20,7 +20,7 @@ public class EndingFactory {
 
 		EndingMethod ending = null;
 		EndingEnum endingEnum = EndingEnum.getEndingEnum(properties
-				.getProperty("ending"));
+				.getProperty("ending").toUpperCase());
 		switch (endingEnum) {
 			case CONTENT:
 				double improvement = 1;

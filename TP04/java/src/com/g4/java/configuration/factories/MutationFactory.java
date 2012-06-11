@@ -15,7 +15,7 @@ public class MutationFactory {
 	}
 
 	public Mutation loadMutationList (){
-		MutationEnum mutEnum = MutationEnum.getMutationEnum(properties.getProperty("mutation"));
+		MutationEnum mutEnum = MutationEnum.getMutationEnum(properties.getProperty("mutation").toUpperCase());
 		
 		Mutation mutation = null;
 		
