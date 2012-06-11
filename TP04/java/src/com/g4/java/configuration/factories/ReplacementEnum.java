@@ -2,8 +2,10 @@ package com.g4.java.configuration.factories;
 
 public enum ReplacementEnum {
 	ELITE("ELITE"),
-	BOLTZMAN("BOLTZMAN"),
-	RULETTE("RULETTE");
+	RULETTE("RULETTE"),
+	UNIVERSAL("UNIVERSAL"),
+	TOURNAMENT("TOURNAMENT"),
+	BOLTZMAN("BOLTZMAN");
 	
 	private String name;
 	

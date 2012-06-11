@@ -2,8 +2,8 @@ package com.g4.java.configuration.factories;
 
 
 public enum MutationEnum {
-	CLASSIC("Classic"),
-	NOT_UNIFORM("Not Uniform");
+	CLASSIC("CLASSIC"),
+	NOT_UNIFORM("NOTUNIFORM");
 	
 	private String name;
 	
