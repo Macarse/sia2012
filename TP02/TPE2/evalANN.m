@@ -1,5 +1,6 @@
 function[error, error_test] = evalANN(allWeights, inputs, expected_outputs, inputs_test, expected_outputs_test, index)
 
+	constant_seed();
 	conf = globalConf;
 
 	params = conf.getParams();
