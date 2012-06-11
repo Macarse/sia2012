@@ -53,6 +53,7 @@ public class SelectionFactory {
 				if( properties.getProperty("Universal.toSelect") != null ) 
 					toSelect = Integer.valueOf(properties.getProperty("Universal.toSelect"));
 				selected.add(new UniversalSelection(toSelect));
+				
 			} else if (selectedMethod.equals(SelectionEnum.BOLTZMAN.getName()) ) {
 				int toSelect = 1;
 				if( properties.getProperty("Boltzman.toSelect") != null ) 

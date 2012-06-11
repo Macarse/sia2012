@@ -128,3 +128,89 @@ export DYLD_LIBRARY_PATH=/Applications/MATLAB/MATLAB_Compiler_Runtime/v713/runti
 
 export XAPPLRESDIR=/Applications/MATLAB/MATLAB_Compiler_Runtime/v713/X11/app-defaults
 
+---------------------------------------------------------------------------------------------------------------------------------------------
+Archivo de configuración
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+El TP04 puede configurarse mediante un archivo .properties. A continuación se detalla todas las posibles configuraciones que se pueden realizar. 
+Aclaraciones:
+ - X.XX Significa un double.
+ - X Significa un entero.
+
+---- General ----
+
+popSize = X
+generationGap = X.XX
+architecture = X (donde x pertenece [1,7]. Seleccionamos distintas arquitecturas de la red)
+
+-------------------
+--- Operadores ---
+
+mutation = (Classic o Not Uniform)
+mutationProbability = X.XX
+
+NotUniform.decreaseConstant = X.XX
+NotUniform.generationToDecrease = X
+
+Backpropagation.probability = X.XX (Por default es 0)
+Backpropagation.iterations = X (Por default es 30)
+
+crossover = Recibe 5 posibles operadores, Classic, Multiple Point, Uniform, Anular y Gene.
+crossoverProbability = X.XX
+
+MultiplePoint.cutPoints = X (default = 1)
+
+Uniform.probability = X.XX (default = 1)
+
+-------------------
+---- Selección ----
+
+selection = Recibe 5 operadores posibles, Elite, Boltzman, Tournament, Universal y Rulette. Si se desea poner mas de uno, se debe dividir con "/" cada uno.
+
+Elite.toSelect = X (default = 1)
+
+Rulette.toSelect = X (default = 1)
+
+Tournament.toSelect = X (default = 1)
+Tournament.tSize = X (default = 1)
+
+Universal.toSelect = X (default = 1)
+
+Boltzman.toSelect = X (default = 1)
+Boltzman.maxTemperature = X.XX (default = 1000)
+Boltzman.minTemperature = X.XX (default = 100)
+Boltzman.decrement = X.XX (default = 5)
+
+-------------------
+---- Reemplazo ----
+
+replacement = Igual que selection
+
+replacement.Elite.toSelect = X (default = 1)
+
+replacement.Rulette.toSelect = X (default = 1)
+
+replacement.Tournament.toSelect = X (default = 1)
+replacement.Tournament.tSize = X (default = 1)
+
+replacement.Universal.toSelect = X (default = 1)
+
+replacement.Boltzman.toSelect = X (default = 1)
+replacement.Boltzman.maxTemperature = X.XX (default = 1000)
+replacement.Boltzman.minTemperature = X.XX (default = 100)
+replacement.Boltzman.decrement = X.XX (default = 5)
+
+----------------------------
+---- Condición de corte ----
+
+Content.improvement = X.XX (default = 1)
+Content.iterationToImprove = X (default = 1)
+
+MaxGeneration.iterationToEnd = X (default = 1)
+
+Optimum.optimum = X.XX (default = 1)
+Optimum.tolerance = X.XX (default = 1)
+
+Structural.iterationsToCheck = X (default = 1)
+Structural.iterationToEnd = X (default = 1)
+Structural.popSize = X (default = 1)

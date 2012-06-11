@@ -8,6 +8,8 @@ import com.g4.java.selection.BoltzmannSelection;
 import com.g4.java.selection.EliteSelection;
 import com.g4.java.selection.RuletteSelection;
 import com.g4.java.selection.Selection;
+import com.g4.java.selection.TournamentSelection;
+import com.g4.java.selection.UniversalSelection;
 
 public class ReplacementFactory {
 
@@ -23,19 +25,34 @@ public class ReplacementFactory {
 		String [] replacements = properties.getProperty("replacement").split("/");
 		for (int i = 0; i < replacements.length; i++) {
 			String replacedMethod = replacements[i].trim().toUpperCase();
-			if (replacedMethod.equals(ReplacementEnum.ELITE.getName())) {
+			if (replacedMethod.equals(SelectionEnum.ELITE.getName())) {
 				int toSelect = 1;
 				if( properties.getProperty("replacement.Elite.toSelect") != null ) 
 					toSelect = Integer.valueOf(properties.getProperty("replacement.Elite.toSelect"));
 				replaced.add(new EliteSelection(toSelect));
 				
-			} else if (replacedMethod.equals(ReplacementEnum.RULETTE.getName())) {
+			} else if (replacedMethod.equals(SelectionEnum.RULETTE.getName())) {
 				int toSelect = 1;
 				if( properties.getProperty("replacement.Rulette.toSelect") != null ) 
 					toSelect = Integer.valueOf(properties.getProperty("replacement.Rulette.toSelect"));
 				replaced.add(new RuletteSelection(toSelect));
 				
-			} else if (replacedMethod.equals(ReplacementEnum.BOLTZMAN.getName())) {
+			} else if (replacedMethod.equals(SelectionEnum.TOURNAMENT.getName())) {
+				int toSelect = 1;
+				if( properties.getProperty("replacement.Tournament.toSelect") != null ) 
+					toSelect = Integer.valueOf(properties.getProperty("replacement.Tournament.toSelect"));
+				int tSize = 1;
+				if( properties.getProperty("replacement.Tournament.tSize") != null ) 
+					tSize = Integer.valueOf(properties.getProperty("replacement.Tournament.tSize"));
+				replaced.add(new TournamentSelection(toSelect, tSize));
+				
+			} else if (replacedMethod.equals(SelectionEnum.UNIVERSAL.getName())) {
+				int toSelect = 1;
+				if( properties.getProperty("replacement.Universal.toSelect") != null ) 
+					toSelect = Integer.valueOf(properties.getProperty("replacement.Universal.toSelect"));
+				replaced.add(new UniversalSelection(toSelect));
+				
+			} else if (replacedMethod.equals(SelectionEnum.BOLTZMAN.getName()) ) {
 				int toSelect = 1;
 				if( properties.getProperty("replacement.Boltzman.toSelect") != null ) 
 					toSelect = Integer.valueOf(properties.getProperty("replacement.Boltzman.toSelect"));
@@ -54,6 +71,7 @@ public class ReplacementFactory {
 				
 				replaced.add(new BoltzmannSelection(maxTemperature, minTemperature, decrement, toSelect));
 			}
+			
 		}
 		return replaced;
 	}

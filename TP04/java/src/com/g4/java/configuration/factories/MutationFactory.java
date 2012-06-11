@@ -29,12 +29,12 @@ public class MutationFactory {
 				break;
 			case NOT_UNIFORM:
 				double  decreaseConstant = 0.95;
-				if (properties.getProperty("NonUniform.decreaseConstant") != null) {	
-					decreaseConstant = Double.valueOf(properties.getProperty("NonUniform.decreaseConstant"));
+				if (properties.getProperty("NotUniform.decreaseConstant") != null) {	
+					decreaseConstant = Double.valueOf(properties.getProperty("NotUniform.decreaseConstant"));
 				}
 				int generationToDecrease = 10;
-				if (properties.getProperty("NonUniform.generationToDecrease") != null) {	
-					generationToDecrease = Integer.valueOf(properties.getProperty("NonUniform.generationToDecrease"));
+				if (properties.getProperty("NotUniform.generationToDecrease") != null) {	
+					generationToDecrease = Integer.valueOf(properties.getProperty("NotUniform.generationToDecrease"));
 				}
 				mutation = new NotUniformMutation(mutationProbability, generationToDecrease, decreaseConstant);
 				break;
