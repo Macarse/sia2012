@@ -132,20 +132,25 @@ export XAPPLRESDIR=/Applications/MATLAB/MATLAB_Compiler_Runtime/v713/X11/app-def
 Archivo de configuración
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
-El TP04 puede configurarse mediante un archivo .properties. A continuación se detalla todas las posibles configuraciones que se pueden realizar. 
+El TP04 puede configurarse mediante un archivo .properties.
+A continuación se detalla todas las posibles configuraciones que se pueden realizar. 
+
 Aclaraciones:
  - X.XX Significa un double.
  - X Significa un entero.
- - El archivo debe ser pasado por parametro al progama. Por ejemplo "configuration/conf.properties"
+ - El archivo debe ser pasado por parametro al programa.
+ Por ejemplo "configuration/conf.properties"
 
----- General ----
-
+-------------------
+----- General -----
+-------------------
 popSize = X
 generationGap = X.XX
 architecture = X (donde x pertenece [1,7]. Seleccionamos distintas arquitecturas de la red)
 
 -------------------
---- Operadores ---
+--- Operadores ----
+-------------------
 
 mutation = (Classic o NotUniform)
 mutationProbability = X.XX
@@ -165,8 +170,11 @@ Uniform.probability = X.XX (default = 1)
 
 -------------------
 ---- Selección ----
+-------------------
 
-selection = Recibe 5 operadores posibles, Elite, Boltzman, Tournament, Universal y Rulette. Si se desea poner mas de uno, se debe dividir con "/" cada uno.
+selection = Recibe 5 operadores posibles:
+Elite, Boltzman, Tournament, Universal y Rulette.
+Si se desea poner más de uno, se debe dividir con "/" cada uno.
 
 Elite.toSelect = X (default = 1)
 
@@ -184,6 +192,7 @@ Boltzman.decrement = X.XX (default = 5)
 
 -------------------
 ---- Reemplazo ----
+-------------------
 
 replacement = Igual que selection
 
@@ -203,8 +212,10 @@ replacement.Boltzman.decrement = X.XX (default = 5)
 
 ----------------------------
 ---- Condición de corte ----
+----------------------------
 
-ending = Recibe 4 posibilidad Content, MaxGeneration, Optimum y Structural.
+ending = Recibe 4 posibilidades:
+Content, MaxGeneration, Optimum y Structural.
 
 Content.improvement = X.XX (default = 1)
 Content.iterationToImprove = X (default = 1)
