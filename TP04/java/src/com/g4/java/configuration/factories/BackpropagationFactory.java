@@ -17,12 +17,12 @@ public class BackpropagationFactory {
 	public Backpropagation loadBackpropagation() throws MWException{
 		double prob = 0;
 		if (properties.getProperty("Backpropagation.probability") != null) {	
-			prob = Double.valueOf(properties.getProperty("LittleMovement.probability"));
+			prob = Double.valueOf(properties.getProperty("Backpropagation.probability"));
 		}
 		
 		int iterations = 30;
 		if (properties.getProperty("Backpropagation.iterations") != null) {	
-			prob = Double.valueOf(properties.getProperty("LittleMovement.iterations"));
+			iterations = Integer.valueOf(properties.getProperty("Backpropagation.iterations"));
 		}
 
 		return new Backpropagation(MatlabSingleton.getInstance().getAnn(), iterations, prob);

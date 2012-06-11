@@ -136,6 +136,7 @@ El TP04 puede configurarse mediante un archivo .properties. A continuación se d
 Aclaraciones:
  - X.XX Significa un double.
  - X Significa un entero.
+ - El archivo debe ser pasado por parametro al progama. Por ejemplo "configuration/conf.properties"
 
 ---- General ----
 
@@ -146,7 +147,7 @@ architecture = X (donde x pertenece [1,7]. Seleccionamos distintas arquitecturas
 -------------------
 --- Operadores ---
 
-mutation = (Classic o Not Uniform)
+mutation = (Classic o NotUniform)
 mutationProbability = X.XX
 
 NotUniform.decreaseConstant = X.XX
@@ -202,6 +203,8 @@ replacement.Boltzman.decrement = X.XX (default = 5)
 
 ----------------------------
 ---- Condición de corte ----
+
+ending = Recibe 4 posibilidad Content, MaxGeneration, Optimum y Structural.
 
 Content.improvement = X.XX (default = 1)
 Content.iterationToImprove = X (default = 1)
