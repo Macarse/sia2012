@@ -2,6 +2,7 @@ package com.g4.java.reproduction;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.g4.java.model.Individual;
 
 public class MonogamousReproduction implements Reproduction {

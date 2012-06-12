@@ -1,18 +1,19 @@
 package com.g4.java;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.g4.java.configuration.Configuration;
 import com.g4.java.crossover.Crossover;
-import com.g4.java.crossover.GeneCrossOver;
 import com.g4.java.ending.EndingMethod;
-import com.g4.java.ending.MaxGenerationEnding;
 import com.g4.java.model.Individual;
 import com.g4.java.mutation.Mutation;
-import com.g4.java.mutation.NotUniformMutation;
 import com.g4.java.reproduction.MonogamousReproduction;
 import com.g4.java.reproduction.Reproduction;
 import com.g4.java.selection.EliteSelection;
+import com.g4.java.selection.MixSelection;
 import com.g4.java.selection.Selection;
 import com.g4.java.util.InputValues;
 import com.g4.matlab.ann.ANN;
@@ -24,15 +25,36 @@ public class FunctionResolver {
 
   public static final int ARCHITECTURE = 2;
 	private static final int POP_SIZE = 52;
-	private static final int MAX_GENERATIONS = 100;
 
+	private Configuration configuration;
+	
+	private MixSelection selection;
+	private Mutation mutation;
+	private Crossover crossover;
+	private Reproduction reproduction = new MonogamousReproduction();
+	private EndingMethod ending;
+	private Backpropagation backpropagation;
+	private Selection replacement; 
+	
 	private List<Individual> population = new ArrayList<Individual>(POP_SIZE);
+	
+	private ANN ann;
 
-	public static void main(String[] args) {
-		FunctionResolver functionResolver = new FunctionResolver();
-
+	public static void main(String[] args) throws FileNotFoundException, IOException, MWException {
+		FunctionResolver resolver = new FunctionResolver();
+		
+		resolver.configuration = new Configuration(args[0]);
+		
+		resolver.selection = new MixSelection(resolver.configuration.getSelectionMethods());
+		resolver.mutation = resolver.configuration.getMutation();
+		resolver.crossover = resolver.configuration.getCrossOverMethods();
+		resolver.ending = resolver.configuration.getEnding();
+		resolver.backpropagation = resolver.configuration.getBackpropagation();
+		resolver.replacement = new MixSelection(resolver.configuration.getReplacementMethods());
+		resolver.ann = MatlabSingleton.getInstance().getAnn();
+		
 		try {
-			functionResolver.run();
+			resolver.run();
 		} catch (MWException e) {
 			System.err.println(e.getCause());
 			System.exit(0);
@@ -40,11 +62,6 @@ public class FunctionResolver {
 	}
 
 	private void run() throws MWException {
-		ANN ann = null;
-
-		// Init the matlab code.
-		ann = new ANN();
-
 		// Create the input values based on samples3.txt
 		Object[] inputResult = ann.generateInputFromFile(4, "samples3.txt",
 				.80f, 0);
@@ -78,14 +95,6 @@ public class FunctionResolver {
 
 		System.out.println("Whole creation process took: "
 				+ (System.currentTimeMillis() - creationStartTime));
-
-		Selection selection = new EliteSelection(POP_SIZE/2);
-		Mutation mutation = new NotUniformMutation(0.2, 5, .7);
-		Crossover crossover = new GeneCrossOver();
-		Reproduction reproduction = new MonogamousReproduction();
-		EndingMethod ending = new MaxGenerationEnding(MAX_GENERATIONS);
-		Backpropagation backpropagation = new Backpropagation(ann, 30, 0.01);
-		Selection replacement = new EliteSelection(POP_SIZE);
 
 		for (int i = 0; !ending.shouldEnd(population, i) ; i++) {
 		  mutation.updateMutationProbability(i);

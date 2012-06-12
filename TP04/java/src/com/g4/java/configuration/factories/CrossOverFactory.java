@@ -1,10 +1,7 @@
 package com.g4.java.configuration.factories;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
-import com.g4.java.configuration.RepresentationEnum;
 import com.g4.java.crossover.AnularCrossover;
 import com.g4.java.crossover.Crossover;
 import com.g4.java.crossover.GeneCrossOver;
@@ -15,47 +12,45 @@ import com.g4.java.crossover.SinglePointCrossOver;
 public class CrossOverFactory {
 
 	private Properties properties;
-	
+
 	public CrossOverFactory(Properties properties) {
 		this.properties = properties;
 	}
-	
-	public List<Crossover> loadCrossOver(){
-		String[] crossOvers = properties.getProperty("crossover").trim().split("/");
-		List<Crossover> crossoversList = new ArrayList<Crossover>();
+
+	public Crossover loadCrossOver() {
+		Crossover crossover = null;
+		CrossOverEnum crossEnum = CrossOverEnum.getCrossOverEnum(properties
+				.getProperty("crossover"));
 		
-		for (int i = 0; i < crossOvers.length; i++) {
-			CrossOverEnum crossEnum = CrossOverEnum.getCrossOverEnum(crossOvers[i]
-		                                                           .trim()
-		                                                           .toUpperCase());
-			switch (crossEnum) {
+		switch (crossEnum) {
 			case ANULAR:
-				crossoversList.add(new AnularCrossover());
+				crossover = new AnularCrossover();
 				break;
 			case MULTIPLE_POINT:
 				int cutPointsQty = 1;
-				if (properties.getProperty("MultiplePoint.cutPoints") != null ) {
-					cutPointsQty = Integer.valueOf(properties.getProperty("MultiplePoint.cutPoints"));
+				if (properties.getProperty("MultiplePoint.cutPoints") != null) {
+					cutPointsQty = Integer.valueOf(properties
+							.getProperty("MultiplePoint.cutPoints"));
 				}
-				crossoversList.add(new MultipleCrossOver(cutPointsQty ));
+				crossover = new MultipleCrossOver(cutPointsQty);
 				break;
 			case UNIFORM:
 				double segmentedProb = 1;
-				if (properties.getProperty("Segmented.probability") != null ) {
-					segmentedProb = Double.valueOf(properties.getProperty("Segmented.probability"));
+				if (properties.getProperty("Uniform.probability") != null) {
+					segmentedProb = Double.valueOf(properties
+							.getProperty("Uniform.probability"));
 				}
-				crossoversList.add(new ParameterizedUniformCrossOver(segmentedProb));
+				crossover = new ParameterizedUniformCrossOver(segmentedProb);
 				break;
 			case CLASSIC:
-				crossoversList.add(new SinglePointCrossOver());
+				crossover = new SinglePointCrossOver();
 				break;
 			case GENE:
-				crossoversList.add(new GeneCrossOver());
+				crossover = new GeneCrossOver();
 				break;
 			}
-		}
-		
-		return crossoversList;
+
+		return crossover;
 	}
 
 }

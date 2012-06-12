@@ -2,6 +2,7 @@ package com.g4.java.selection;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.g4.java.model.Individual;
 
 public class MixSelection implements Selection {

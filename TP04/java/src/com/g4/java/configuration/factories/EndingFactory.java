@@ -1,7 +1,5 @@
 package com.g4.java.configuration.factories;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import com.g4.java.ending.ContentEnding;
@@ -18,12 +16,12 @@ public class EndingFactory {
 		this.properties = properties;
 	}
 
-	public List<EndingMethod> loadEndingMethods() {
-		List<EndingMethod> lists = new ArrayList<EndingMethod>();
-		String[] endings = properties.getProperty("endings").split("/");
-		for (int i = 0; i < endings.length; i++) {
-			EndingEnum endingEnum = EndingEnum.getEndingEnum(endings[i].trim());
-			switch (endingEnum) {
+	public EndingMethod loadEnding() {
+
+		EndingMethod ending = null;
+		EndingEnum endingEnum = EndingEnum.getEndingEnum(properties
+				.getProperty("ending"));
+		switch (endingEnum) {
 			case CONTENT:
 				double improvement = 1;
 				if (properties.getProperty("Content.improvement") != null) {
@@ -35,7 +33,7 @@ public class EndingFactory {
 					iterationsToImprove = Integer.valueOf(properties
 							.getProperty("Content.iterationToImprove"));
 				}
-				lists.add(new ContentEnding(iterationsToImprove, improvement));
+				ending = new ContentEnding(iterationsToImprove, improvement);
 				break;
 			case MAXGENERATION:
 				int iterationsToEnd = 1;
@@ -43,7 +41,7 @@ public class EndingFactory {
 					iterationsToEnd = Integer.valueOf(properties
 							.getProperty("MaxGeneration.iterationToEnd"));
 				}
-				lists.add(new MaxGenerationEnding(iterationsToEnd));
+				ending = new MaxGenerationEnding(iterationsToEnd);
 				break;
 			case OPTIMUM:
 				double optimum = 1;
@@ -56,7 +54,7 @@ public class EndingFactory {
 					tolerance = Double.valueOf(properties
 							.getProperty("Optimum.tolerance"));
 				}
-				lists.add(new OptimumOrFitnessEnding(optimum, tolerance));
+				ending = new OptimumOrFitnessEnding(optimum, tolerance);
 				break;
 			case STRUCTURAL:
 				int iterationsToCheck = 1;
@@ -74,12 +72,11 @@ public class EndingFactory {
 					popSize = Integer.valueOf(properties
 							.getProperty("Structural.popSize"));
 				}
-				lists.add(new StructuralEnding(iterationsToCheck, percent, popSize));
+				ending = new StructuralEnding(iterationsToCheck, percent, popSize);
 				break;
-			}
 		}
 
-		return lists;
+		return ending;
 	}
 
 }
