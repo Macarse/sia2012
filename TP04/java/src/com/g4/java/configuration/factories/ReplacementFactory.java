@@ -67,7 +67,7 @@ public class ReplacementFactory {
 				
 				double decrement = 5;
 				if( properties.getProperty("replacement.Boltzman.decrement") != null ) 
-					decrement = Integer.valueOf(properties.getProperty("replacement.Boltzman.decrement"));
+					decrement = Double.valueOf(properties.getProperty("replacement.Boltzman.decrement"));
 				
 				replaced.add(new BoltzmannSelection(maxTemperature, minTemperature, decrement, toSelect));
 			}
