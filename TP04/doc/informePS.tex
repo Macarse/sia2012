@@ -42,33 +42,45 @@
 	El algoritmo genético se implementó en \textit{Java} y la red neuronal fue realizada en \textit{Matlab}. Utilizando el \textit{MATLAB Compiler Runtime} se realizan las pruebas pertinentes para verificar el funcionamiento de la red.\\
 
 \section{Desarrollo y Problemas encontrados}
-Se han implementado varios operadores genéticos , métodos de selección, condiciones de corte y demás configuraciones que se presentarán en las secciones a continuación. Con el objetivo de facilitar la configura se ha creado un archivo de configuración en el que se debe detallar como se desea entrenar la red. Un ejemplo de dicho archivo se puede observar en \ref{code:simple}.
+Se han implementado varios operadores genéticos, métodos de selección, condiciones de corte y demás configuraciones que se presentarán en las secciones a continuación.
+Con el objetivo de facilitar la configuración se ha creado un archivo de
+\textit{properties} en el que se debe detallar como se desea entrenar la red.
+Un ejemplo de dicho archivo se puede observar en la lista \ref{code:simple}.
+
 	\subsection{Operadores genéticos}
 	\subsubsection{Mutación}
 	Las mutaciones se realizan tomando un número aleatorio definido entre $-1.5$ y $1.5$.
-	Se han implementado las mutaciones del tipo clásicas y no uniformes, la las cuales se les debe asignar cuando debe decrecer y cada cuantas generaciones debe hacerlo.
+	Se han implementado las mutaciones del tipo clásicas y no uniformes.
+
 	\subsubsection{Crossover}
-	Se han decidido implementar los siguientes algoritmos de entrecruzamiento:
+	Se han decidido implementar los siguientes algoritmos de cruzamiento:
 	\begin{itemize}
 		\item cruce de un punto (clásica)
 		\item cruce de dos puntos
 		\item cruce anular
 		\item cruce uniforme parametrizado
-		 \item Gene
-
+		\item Gene
 	\end{itemize}
+
+	\textit{Gene} funciona de manera similar al cruce clásico pero en vez de
+	realizar el cruce en base a un \textit{locus} lo hace reemplazando
+	capas enteras.
+
 	\subsubsection{Backpropagation}
-	Otro operador Backpropagation se agrega al set de operadores al tratarse de un problema  que por sus características dicho algoritmos tiene una muy buena performance como ya pudo ser demostrado en coacciones anteriores. El mismo toma como parámetro la cantidad de épocas que debe entrenar la red.
+	Otro operador utilizado es \textit{Backpropagation}.
+	El mismo toma como parámetro la cantidad de épocas que debe entrenar la red.
+
 	\subsection{Métodos de selección y reemplazo}
-	Para ambos casos se han desarrollado los métodos descriptos a continuación, los cuales pueden ser combinados de a dos:
+	Para ambos casos se han desarrollado los métodos descriptos a
+	continuación, los cuales pueden ser combinados:
 	\begin{itemize}
 		\item Método de elitismo
 		\item Método de torneos
 		 \item Método de Boltzman
 		 \item Método de selección universal estocástica
 	\end{itemize}
-	\subsection{Distintas arquitecturas}
 
+	\subsection{Distintas arquitecturas}
 	Mediante el archivo de configuración se puede seleccionar la arquitectura que se desea utilizar para realizar las pruebas. Las arquitecturas a elegir son las siguientes:
 
 	\begin{center}
@@ -84,9 +96,15 @@ Se han implementado varios operadores genéticos , métodos de selección, condi
 	\end{center}
 
 	\subsection{Representación del individuo}
-Con el objetivo de representar al individuo, se ha elegido transformar la matriz a un vector de números  \textit{doubles} como se muestra en la imagen \ref{fig:indiv} y de esta forma poder aplicar los operadores  pertinentes de una forma rápida y sencilla.
+	Con el objetivo de representar al individuo, se ha elegido transformar
+	la matriz a un vector de números \textit{doubles} como se muestra en
+	la figura \ref{fig:indiv} y de esta forma poder aplicar los operadores
+	pertinentes de una forma rápida y sencilla.
 
-	Esta representación no se adapta a la representación de la matriz en \textit{MATLAB}, por lo tanto se realiza una transformación del individuo. Esta transformación consiste en cambiar el vector de doubles por una matriz y viceversa.
+	Esta representación no se adapta a la representación de la matriz en
+	\textit{MATLAB}, por lo tanto se realiza una transformación del individuo.
+	Esta transformación consiste en cambiar el vector de doubles por una
+	matriz y viceversa.
 
 	\subsubsection{Fidelidad del individuo}
 
@@ -107,20 +125,14 @@ Con el objetivo de representar al individuo, se ha elegido transformar la matriz
 	
 \section{Resultados y Conclusiones}
 	Los resultados se presentadan en dos secciones distintas.
-	En la primera no se utilizara el operador backpropagation y la segunda sí. \\
+	En la primera no se utilizará el operador backpropagation y la segunda sí. \\
 
 	Con el fin de obtener resultados comparables entre sí se define un
 	contexto base para todas las pruebas de cada sección.
 	Luego en cada prueba se reemplaza el caso base con lo que se desea.
 	Debe tenerse en cuenta que el hecho de prefijar algunos parámetros puede
 	hacer que los distintos métodos y operadores a comparar se vean
-	beneficiados o perjudicados por su funcionamiento en conjunto. \\
-
-	Cabe destacar que aparte de los operadores pedidos por la cátedra se
-	implementó un operador de cruce adicional al que denominamos \textit{Gene}.
-	\textit{Gene} funciona de manera similar al cruce clásico pero en vez de
-	realizar el cruce en base a un \textit{locus} lo hace reemplazando
-	capas enteras.
+	beneficiados o perjudicados por su funcionamiento en conjunto.
 
 
 	\subsection{Sin backpropagation}
@@ -204,9 +216,13 @@ arbitrariamente, la probabilidad de mutación tiene libertad de
 moverse según mejor le convenga a cada individuo para mejorar su fitness.
 
 \section{Conclusiones}
-Finalmente, se llega a la conclusión de que, debido a la naturaleza del problema que se desea resolver,
- es necesaria la utilización del operador \textit{backpropagation} 
-para llegar a resultados próximos a los deseados. 
+Finalmente, se llega a la conclusión de que, debido a la naturaleza del
+problema que se desea resolver, es necesaria la utilización del
+operador \textit{backpropagation} para llegar a resultados deseados.
+
+El hecho de correr \textit{backpropagation} generó mejores individuos que
+luego al aplicarle operadores genéticos mejoran notablemente.
+
 \onecolumn
 \begin{figure}[ht]
 		\includegraphics[scale=0.5]{./figures/matrix_to_array.png}
