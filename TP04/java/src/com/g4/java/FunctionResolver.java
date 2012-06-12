@@ -44,7 +44,16 @@ public class FunctionResolver {
 			IOException, MWException {
 		FunctionResolver resolver = new FunctionResolver();
 
-		resolver.configuration = new Configuration(args[0]);
+		if ( args.length != 1 ) {
+		  System.err.println("ERROR: You are missing the config file.");
+		  System.exit(0);
+		}
+		try {
+		  resolver.configuration = new Configuration(args[0]);
+		}catch (FileNotFoundException e) {
+		  System.err.println("ERROR: File not found. Try something like /configuration/conf.properties. Cause: " + e.getCause());
+      System.exit(0);
+    }
 
 		FunctionResolver.ARCHITECTURE = resolver.configuration
 				.getArchitecture();

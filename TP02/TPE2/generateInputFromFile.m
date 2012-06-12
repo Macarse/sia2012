@@ -5,6 +5,7 @@ function [ inputs_train, expected_outputs_train, inputs_test, expected_outputs_t
 % The output is a matrix with all the sequences and the expected output
     
     % Load File.
+    constant_seed();
     values = load(fileName);
 
     % Amount of elements for training and testing.
