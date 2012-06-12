@@ -5,7 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
-\hyphenation{}
+\hyphenation{o-pe-ra-do-res}
 
 \begin{document}
 
@@ -42,13 +42,6 @@
 
 \section{Desarrollo y Problemas encontrados}
 
-	\subsection{Nuevo Operador de Cruce}
-
-	\begin{itemize}
-		\item \textit{Gene}: Funciona eligiendo las capas que se desean cambiar, a diferencia del clásico que toma un \textit{locus} y a partir del mismo en adelante los cruza.
-	\end{itemize}
-
-
 	\subsection{Distintas arquitecturas}
 
 	Mediante el archivo de configuración se puede seleccionar la arquitectura que se desea utilizar para realizar las pruebas. Las arquitecturas a elegir son las siguientes:
@@ -79,17 +72,34 @@
 
 		\item \textbf{Uniformidad}: Se puede concluir que esta representación es uniforme ya que es imposible representar dos individuos distintos con la misma cadena, en caso que esto sucediera esa representación sería exactamente la misma que la otra.	
 
-		\item \textbf{Sencillez}: Convertir matriz de pesos a un vector de doubles es una operación sencilla a nivel operacional, por lo tanto se concluye que la representación es sencilla.
+		\item \textbf{Sencillez}: Convertir matriz de pesos a un vector de doubles es una operación simple.
 
-		\item \textbf{Localidad}: Es local dada que un cambio en un elemento del vector representa un cambio en el peso de la conexión que representa.
+		\item \textbf{Localidad}: Es local dada que un cambio en un elemento
+		del vector genera un cambio en el peso de la conexión que representa.
 
 	\end{itemize}
 	
 \section{Resultados y Conclusiones}
+	Los resultados se van a presentar en dos secciones distintas.
+	La primera no utilizará el operador backpropagation y la segunda sí. \\
 
-	\subsection{Contexto general}
+	Con el fin de obtener resultados comparables entre sí se define un
+	contexto base para todas las pruebas de cada sección.
+	Luego en cada prueba se reemplaza el caso base con lo que se desea.
+	Debe tenerse en cuenta que el hecho de prefijar algunos parámetros puede
+	hacer que los distintos métodos y operadores a comparar se vean
+	beneficiados o perjudicados por su funcionamiento en conjunto. \\
 
-	Con el fin de obtener resultados comparables entre sí se define un contexto en base para todas las pruebas. Luego en cada prueba se reemplaza el caso base con lo que se desea. A continuación se muestra el contexto base:
+	Cabe destacar que aparte de los operadores pedidos por la cátedra se
+	implementó un operador de cruce adicional al que denominamos \textit{Gene}.
+	\textit{Gene} funciona de manera similar al cruce clásico pero en vez de
+	realizar el cruce en base a un \textit{locus} lo hace reemplazando
+	capas enteras.
+
+
+	\subsection{Sin backpropagation}
+	Primero se intenta resolver el problema sin usar el operador backpropagation.
+	El contexto base usado en esta sección es el siguiente:
 
 	\begin{itemize}
 		\item Tamaño de la población es de 52 individuos.
@@ -103,7 +113,27 @@
 		\item Hay dos condiciones de corte, ya sea por \textit{Máxima cantidad de generaciones} (500) y/o \textit{Contenido} (donde la última verifica que si en 50 épocas no mejoro mas de un 0.01 el fitness del individuo finaliza su ejecución).
 	\end{itemize}
 
-	Debe tenerse en cuenta que el hecho de prefijar algunos parámetros puede hacer que los distintos métodos y operadores a comparar se vean beneficiados o perjudicados por su funcionamiento en conjunto.
+	\subsubsection{Mutación clásica}
+	Primero se prueba variar la probabilidad de la mutación clásica.
+	Los resultados se pueden observar en la tabla \ref{table:simple_mutation_prob}.
+
+	\subsubsection{Mutación no uniforme}
+	Luego se prueba variar la probabilidad de la mutación no uniforme.
+	Los resultados se pueden observar en la tabla \ref{table:simple_mutation_no_uniform}.
+
+	\subsubsection{Cruce}
+	Por último se corre el algoritmo usando distintos cruces.
+	Los resultados se encuentran en la tabla \ref{table:crossover}.
+
+	\subsubsection{Análisis de resultados}
+	Después de probar con distintas configuraciones, notamos que sin el
+	operador de backpropagation no conseguimos buenos	resultados.
+	Entendemos que esto sucede porque el individuo es muy largo haciendo
+	que el algoritmo tarde mucho en encontrar un resultado útil.
+
+	\subsection{Con backpropagation}
+	En esta sección se prueban distintas configuraciones utilizando el
+	operador backpropagation.
 
 	\subsection{Elección del operador de Cruza}
 
@@ -115,61 +145,66 @@
 
 \section{Posibles mejoras}
 
-	Como posible mejora se concluye que el operador \textit{backpropagation} debe disminuir su probabilidad de acción a medida que se alcanza un fitness deseado. El motivo por el cual se desea disminuir esa probabilidad es para que comience a tener mas influencia los operadores de mutación y cruce. El deseo de que la mutación y cruce tenga más influencia a lo largo de las generaciones es porque se observó que el fitness en un punto se asintotiza al error cuadrático medio obtenido por \textit{backpropagation} en el Trabajo Práctico Especial 2.
+	Como posible mejora se concluye que el operador \textit{backpropagation}
+	podría disminuir su probabilidad de acción a medida que se alcanza un
+	fitness deseado.
+	El motivo por el cual se desea disminuir esa probabilidad es para que
+	comience a tener más influencia los operadores de mutación y cruce.
+	El deseo de que la mutación y cruce tenga más influencia a lo largo de
+	las generaciones es porque se observó que el fitness en un punto se
+	asintotiza al error cuadrático medio obtenido por \textit{backpropagation}
+	en el Trabajo Práctico Especial 2.
 
 \onecolumn
 
-% Table generated by Excel2LaTeX from sheet 'Sheet2'
 \begin{table}[htp]
 	\begin{center}
 	\begin{tabular}{|c|c|c|c|}
 		\hline
 	     Fitness & Generación & Corte & $p_{m}$ \\
 		\hline
-		0.22501570790437642 & 59 & Contenido & 0.05 \\
-		0.21842640558999668 & 59 & Contenido & 0.1 \\
-		0.22113522454399956 & 66 & Contenido & 0.3 \\ 
-		0.22050756611447994 & 71 & Contenido & 0.5 \\
+		0.22501570790437642 & 60 & Contenido & 0.05 \\
+		0.21842640558999668 & 60 & Contenido & 0.1 \\
+		0.22113522454399956 & 67 & Contenido & 0.3 \\ 
+		0.22050756611447994 & 72 & Contenido & 0.5 \\
 		\hline
 	\end{tabular}
 	\caption{Configuración simple variando la $p_m$}
-	\label{table:simple_mutation_prob} 
+	\label{table:simple_mutation_prob}
 	\end{center}
 \end{table}
 
-% Table generated by Excel2LaTeX from sheet 'Sheet2'
 \begin{table}[htp]
 	\begin{center}
 	\begin{tabular}{|c|c|c|c|c|p{1cm}|}
 		\hline
 	     Fitness & Generación & Corte & $p_{m}$ & decrecimiento (\%) & dec. gen. \\
 		\hline
-		0.21222349890474348 & 49 & Content & 0.6 & 0.05 & 30 \\
-		0.22795744299992385 & 76 & Content & 0.6 & 0.1  & 30 \\
-		0.21740760693242447 & 64 & Content & 0.6 & 0.15 & 30 \\
+		0.21222349890474348 & 50 & Content & 0.6 & 0.05 & 30 \\
+		0.22795744299992385 & 77 & Content & 0.6 & 0.1  & 30 \\
+		0.21740760693242447 & 65 & Content & 0.6 & 0.15 & 30 \\
 		\hline
 	\end{tabular}
 	\caption{Configuración simple método de mutación No Uniforme}
-	\label{table:simple_mutation_no_uniform} 
+	\label{table:simple_mutation_no_uniform}
 	\end{center}
 \end{table}
 
-% Table generated by Excel2LaTeX from sheet 'Sheet2'
 \begin{table}[htp]
 	\begin{center}
 	\begin{tabular}{|c|c|c|c|c|}
 		\hline
 	     Fitness & Generación & Corte & $p_{m}$ & Cruce \\
 		\hline
-		0.22501570790437642 & 59 & Contenido & 0.05 & Clásico \\
-		0.20662153685787393 & 49 & Contenido & 0.05 & Gene \\
-		0.21418198155450324 & 49 & Contenido & 0.05 & Multiples puntos con 2 \\
-		0.21674758534799746 & 69 & Contenido & 0.05 & Uniforme con 0.3 prob \\
-		0.20662153685787393 & 49 & Contenido & 0.05 & Anular \\
+		0.22501570790437642 & 60 & Contenido & 0.05 & Clásico \\
+		0.20662153685787393 & 50 & Contenido & 0.05 & Gene \\
+		0.21418198155450324 & 50 & Contenido & 0.05 & Multiples puntos con 2 \\
+		0.21674758534799746 & 70 & Contenido & 0.05 & Uniforme con 0.3 prob \\
+		0.20662153685787393 & 50 & Contenido & 0.05 & Anular \\
 		\hline
 	\end{tabular}
 	\caption{Configuración simple variando el método de cruce}
-	\label{table:simple_mutation_prob} 
+	\label{table:crossover}
 	\end{center}
 \end{table}
 
