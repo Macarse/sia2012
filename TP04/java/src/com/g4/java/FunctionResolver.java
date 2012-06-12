@@ -108,27 +108,33 @@ public class FunctionResolver {
 				generation.add(family[0]);
 				generation.add(family[1]);
 
-				Individual[] childs = crossover.cross(family);
-				sons.add(childs[0]);
-				sons.add(childs[1]);
+				if ( crossover.shouldApply() ) {
+				  Individual[] childs = crossover.cross(family);
+	        sons.add(childs[0]);
+	        sons.add(childs[1]);
+				} else {
+				  sons.add(family[0]);
+          sons.add(family[1]);
+				}
 			}
 
 			List<Individual> sonsToAdd = new ArrayList<Individual>();
 			for (Individual individual : sons) {
+			  Individual individualToAdd = individual;
+
 				if (mutation.shouldMutate()) {
 				  System.out.println("Mutation started");
-					sonsToAdd.add(mutation.mutate(individual, i));
-					individual.getData().dispose();
+				  individualToAdd = mutation.mutate(individualToAdd, i);
 					System.out.println("Mutation ended");
-				} else if ( backpropagation.shouldApply() ) {
-				  System.out.println("Backpropagation started");
-				  Individual backpropagated = backpropagation.run(individual);
-					sonsToAdd.add(backpropagated);
-					individual.getData().dispose();
-					System.out.println("Backpropagation ended");
-				} else {
-				  sonsToAdd.add(individual);
 				}
+
+				if ( backpropagation.shouldApply() ) {
+				  System.out.println("Backpropagation started");
+				  individualToAdd = backpropagation.run(individualToAdd);
+					System.out.println("Backpropagation ended");
+				}
+
+				sonsToAdd.add(individualToAdd);
 			}
 
 			sons.clear();
