@@ -8,66 +8,71 @@ import com.g4.java.model.Individual;
 import com.g4.java.util.RandomGenerator;
 
 public class MultipleCrossOver implements Crossover {
-  private int cutPointsCount;
+	private int cutPointsCount;
+	private double prob;
 
-  public MultipleCrossOver(int cutpointsCount) {
-    this.cutPointsCount = cutpointsCount;
-  }
+	public MultipleCrossOver(double prob, int cutPointsQty) {
+		this.cutPointsCount = cutPointsQty;
+		this.prob = prob;
+	}
 
-  @Override
-  public Individual[] cross(Individual[] entities) {
-    double[] dad = entities[0].getLupusArray();
-    double[] mom = entities[1].getLupusArray();
-    double[] son1 = new double[dad.length];
-    double[] son2 = new double[dad.length];
+	@Override
+	public Individual[] cross(Individual[] entities) {
+		double[] dad = entities[0].getLupusArray();
+		double[] mom = entities[1].getLupusArray();
+		double[] son1 = new double[dad.length];
+		double[] son2 = new double[dad.length];
 
-    int cutPoint = 1;
+		int cutPoint = 1;
 
-    List<Integer> cutPoints = new ArrayList<Integer>(cutPointsCount);
-    cutPoints.add(0);
-    do {
-      int auxCut = RandomGenerator.getInt(cutPoint, dad.length);
-      if (!cutPoints.contains(auxCut)) {
-        cutPoints.add(auxCut);
-      }
-    } while (cutPoints.size() <= cutPointsCount);
+		List<Integer> cutPoints = new ArrayList<Integer>(cutPointsCount);
+		cutPoints.add(0);
+		do {
+			int auxCut = RandomGenerator.getInt(cutPoint, dad.length);
+			if (!cutPoints.contains(auxCut)) {
+				cutPoints.add(auxCut);
+			}
+		} while (cutPoints.size() <= cutPointsCount);
 
-    Collections.sort(cutPoints);
+		Collections.sort(cutPoints);
 
-    int k = 0;
-    for (; k < cutPoints.size() -1 ; k++) {
-      if(k%2 ==0 ) {
-        for (int i = cutPoints.get(k); i < cutPoints.get(k+1) ; i++) {
-          son1[i] = dad[i];
-          son2[i] = mom[i];
-        }
-      } else {
-        for (int i = cutPoints.get(k); i < cutPoints.get(k+1) ; i++) {
-          son1[i] = mom[i];
-          son2[i] = dad[i];
-        }
-      }
-    }
+		int k = 0;
+		for (; k < cutPoints.size() - 1; k++) {
+			if (k % 2 == 0) {
+				for (int i = cutPoints.get(k); i < cutPoints.get(k + 1); i++) {
+					son1[i] = dad[i];
+					son2[i] = mom[i];
+				}
+			} else {
+				for (int i = cutPoints.get(k); i < cutPoints.get(k + 1); i++) {
+					son1[i] = mom[i];
+					son2[i] = dad[i];
+				}
+			}
+		}
 
-    if(k%2 ==0 ) {
-      for (int i = cutPoints.get(k); i < dad.length ; i++) {
-        son1[i] = dad[i];
-        son2[i] = mom[i];
-      }
-    } else {
-      for (int i = cutPoints.get(k); i < dad.length ; i++) {
-        son1[i] = mom[i];
-        son2[i] = dad[i];
-      }
-    }
+		if (k % 2 == 0) {
+			for (int i = cutPoints.get(k); i < dad.length; i++) {
+				son1[i] = dad[i];
+				son2[i] = mom[i];
+			}
+		} else {
+			for (int i = cutPoints.get(k); i < dad.length; i++) {
+				son1[i] = mom[i];
+				son2[i] = dad[i];
+			}
+		}
 
-    Individual indSon1 = Individual
-        .creator(entities[0].getData(), son1);
-    Individual indSon2 = Individual
-        .creator(entities[0].getData(), son2);
+		Individual indSon1 = Individual.creator(entities[0].getData(), son1);
+		Individual indSon2 = Individual.creator(entities[0].getData(), son2);
 
-    return new Individual[] { indSon1, indSon2 };
+		return new Individual[] { indSon1, indSon2 };
 
-  }
+	}
+
+	@Override
+	public boolean shouldApplied() {		
+		return RandomGenerator.getDouble() < this.prob;
+	}
 
 }

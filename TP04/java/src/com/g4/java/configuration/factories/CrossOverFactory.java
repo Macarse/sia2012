@@ -22,9 +22,14 @@ public class CrossOverFactory {
 		CrossOverEnum crossEnum = CrossOverEnum.getCrossOverEnum(properties
 				.getProperty("crossover"));
 		
+		double crossoverProbability = 0.1;
+		if (properties.getProperty("crossoverProbability") != null) {	
+			crossoverProbability  = Double.valueOf(properties.getProperty("crossoverProbability"));
+		}
+		
 		switch (crossEnum) {
 			case ANULAR:
-				crossover = new AnularCrossover();
+				crossover = new AnularCrossover(crossoverProbability );
 				break;
 			case MULTIPLE_POINT:
 				int cutPointsQty = 1;
@@ -32,7 +37,7 @@ public class CrossOverFactory {
 					cutPointsQty = Integer.valueOf(properties
 							.getProperty("MultiplePoint.cutPoints"));
 				}
-				crossover = new MultipleCrossOver(cutPointsQty);
+				crossover = new MultipleCrossOver(crossoverProbability, cutPointsQty);
 				break;
 			case UNIFORM:
 				double segmentedProb = 1;
@@ -40,13 +45,13 @@ public class CrossOverFactory {
 					segmentedProb = Double.valueOf(properties
 							.getProperty("Uniform.probability"));
 				}
-				crossover = new ParameterizedUniformCrossOver(segmentedProb);
+				crossover = new ParameterizedUniformCrossOver(crossoverProbability, segmentedProb);
 				break;
 			case CLASSIC:
-				crossover = new SinglePointCrossOver();
+				crossover = new SinglePointCrossOver(crossoverProbability);
 				break;
 			case GENE:
-				crossover = new GeneCrossOver();
+				crossover = new GeneCrossOver(crossoverProbability);
 				break;
 			}
 
