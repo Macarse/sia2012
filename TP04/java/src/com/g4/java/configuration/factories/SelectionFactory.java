@@ -25,8 +25,7 @@ public class SelectionFactory {
 		String [] selections = properties.getProperty("selection").split("/");
 		for (int i = 0; i < selections.length; i++) {
 			String selectedMethod = selections[i].trim().toUpperCase();
-//			System.err.println(SelectionEnum.ELITE.getName());
-//			System.err.println(selectedMethod);
+
 			if (selectedMethod.equals(SelectionEnum.ELITE.getName())) {
 				int toSelect = 1;
 				if( properties.getProperty("Elite.toSelect") != null ) 
