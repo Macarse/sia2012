@@ -22,7 +22,7 @@ public class ContentEnding implements EndingMethod {
 
 	@Override
 	public boolean shouldEnd(List<Individual> population, int iterations) {
-		Individual best = elite.select(population, 1).get(0);
+		Individual best = elite.select(population, 1, 0).get(0);
 
 		if (iterations < iterationsToImprove) {
 			stats.add(iterations, best.getApptitude());
