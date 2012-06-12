@@ -59,11 +59,11 @@ public class ReplacementFactory {
 				
 				double maxTemperature = 1000;
 				if( properties.getProperty("replacement.Boltzman.maxTemperature") != null ) 
-					maxTemperature = Integer.valueOf(properties.getProperty("replacement.Boltzman.maxTemperature"));
+					maxTemperature = Double.valueOf(properties.getProperty("replacement.Boltzman.maxTemperature"));
 				
 				double minTemperature = 100;
 				if( properties.getProperty("replacement.Boltzman.minTemperature") != null ) 
-					minTemperature = Integer.valueOf(properties.getProperty("replacement.Boltzman.minTemperature"));
+					minTemperature = Double.valueOf(properties.getProperty("replacement.Boltzman.minTemperature"));
 				
 				double decrement = 5;
 				if( properties.getProperty("replacement.Boltzman.decrement") != null ) 
