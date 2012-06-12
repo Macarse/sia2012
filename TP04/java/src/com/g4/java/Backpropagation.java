@@ -25,7 +25,8 @@ public class Backpropagation {
     try {
       matlabRet = ann.backpropagation(1, individual.getData(),
           InputValues.getInstance().getInputs(),
-          InputValues.getInstance().getExpectedOutputs(), iterations);
+          InputValues.getInstance().getExpectedOutputs(), iterations,
+          FunctionResolver.ARCHITECTURE);
     } catch (MWException e) {
     }
 

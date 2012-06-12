@@ -1,6 +1,6 @@
 /*
  * MATLAB Compiler: 4.13 (R2010a)
- * Date: Sat Jun  9 21:52:26 2012
+ * Date: Sun Jun 10 00:43:24 2012
  * Arguments: "-B" "macro_default" "-W" "java:com.g4.matlab.ann,ANN" "-T" "link:lib" "-d" 
  * "/Users/macarse/Documents/sia2012/TP04/matlab/com.g4.matlab.ann/src" "-w" 
  * "enable:specified_file_mismatch" "-w" "enable:repeated_file" "-w" 
@@ -39,7 +39,7 @@ public interface ANNRemote extends Poolable
 {
     /**
      * Provides the standard interface for calling the <code>backpropagation</code> 
-     * M-function with 4 input arguments.  
+     * M-function with 5 input arguments.  
      *
      * Input arguments to standard interface methods may be passed as sub-classes of 
      * <code>com.mathworks.toolbox.javabuilder.MWArray</code>, or as arrays of any 
@@ -67,7 +67,7 @@ public interface ANNRemote extends Poolable
     public Object[] backpropagation(int nargout, Object... rhs) throws RemoteException;
     /**
      * Provides the standard interface for calling the <code>createIndividual</code> 
-     * M-function with 4 input arguments.  
+     * M-function with 5 input arguments.  
      *
      * Input arguments to standard interface methods may be passed as sub-classes of 
      * <code>com.mathworks.toolbox.javabuilder.MWArray</code>, or as arrays of any 
@@ -95,7 +95,7 @@ public interface ANNRemote extends Poolable
     public Object[] createIndividual(int nargout, Object... rhs) throws RemoteException;
     /**
      * Provides the standard interface for calling the <code>evalANN</code> M-function 
-     * with 5 input arguments.  
+     * with 6 input arguments.  
      *
      * Input arguments to standard interface methods may be passed as sub-classes of 
      * <code>com.mathworks.toolbox.javabuilder.MWArray</code>, or as arrays of any 
@@ -106,10 +106,9 @@ public interface ANNRemote extends Poolable
      * All inputs to this method must implement either Serializable (pass-by-value) or 
      * Remote (pass-by-reference) as per the RMI specification.
      *
-     * M-documentation as provided by the author of the M function:
-     * <pre>
-     * %%%%% PARAMETERS DEFINED %%%%%
-     * </pre>
+     * No usage documentation is available for this function.  (To fix this, the function 
+     * author should insert a help comment at the beginning of their M code.  See the 
+     * MATLAB documentation for more details.)
      *
      * @param nargout Number of outputs to return.
      * @param rhs The inputs to the M function.

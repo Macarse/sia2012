@@ -20,7 +20,8 @@ public class Function {
           InputValues.getInstance().getInputs(),
           InputValues.getInstance().getExpectedOutputs(),
           InputValues.getInstance().getInputsTest(),
-          InputValues.getInstance().getExpectedOutputsTest());
+          InputValues.getInstance().getExpectedOutputsTest(),
+          FunctionResolver.ARCHITECTURE);
       retVal = ((MWNumericArray)ret[0]).getDouble(1);
     } catch (MWException e) {
       retVal =Double.MIN_VALUE;
