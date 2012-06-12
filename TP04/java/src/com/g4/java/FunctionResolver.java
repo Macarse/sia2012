@@ -80,7 +80,7 @@ public class FunctionResolver {
 		Mutation mutation = new ClassicMutation(0.01);
 		Crossover crossover = new GeneCrossOver();
 		Reproduction reproduction = new MonogamousReproduction();
-		Backpropagation backpropagation = new Backpropagation(ann, 10, 0.01);
+		Backpropagation backpropagation = new Backpropagation(ann, 30, 0.01);
 
 		for (int i = 0; i < MAX_GENERATIONS; ++i) {
 			List<Individual> best = selection.select(population, POP_SIZE / 2);
