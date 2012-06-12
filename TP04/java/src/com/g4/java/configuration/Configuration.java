@@ -20,22 +20,22 @@ import com.g4.java.selection.Selection;
 import com.mathworks.toolbox.javabuilder.MWException;
 
 public class Configuration {
-	
+
 	private Properties properties;
-	
-	private int architecture; 
-	private int popSize;  
-	
+
+	private int architecture;
+	private int popSize;
+	private double generationGap;
+
 	private EndingMethod ending;
 
 	private Mutation mutation;
 	private Backpropagation backpropagation;
-	
+
 	private List<Selection> selectionMethods;
-	
+
 	private List<Selection> replacementMethods;
-	private boolean replacementByPopulation = false;
-	
+
 	private Crossover crossOver;
 
 	private MutationFactory mutationFactory;
@@ -44,18 +44,20 @@ public class Configuration {
 	private CrossOverFactory crossOverFactory;
 	private EndingFactory endingFactory;
 	private BackpropagationFactory backpropagationFactory;
-	
-	public Configuration(String propertiesPath) throws FileNotFoundException, IOException, MWException {
+
+	public Configuration(String propertiesPath) throws FileNotFoundException,
+			IOException, MWException {
 		this.properties = new Properties();
 		this.mutationFactory = new MutationFactory(this.properties);
 		this.selectionFactory = new SelectionFactory(this.properties);
 		this.replacementFactory = new ReplacementFactory(this.properties);
 		this.crossOverFactory = new CrossOverFactory(this.properties);
 		this.endingFactory = new EndingFactory(this.properties);
-		this.backpropagationFactory = new BackpropagationFactory(this.properties);
-		
-		this.properties.load(new FileInputStream(System.getProperty("user.dir") + 
-				propertiesPath));
+		this.backpropagationFactory = new BackpropagationFactory(
+				this.properties);
+
+		this.properties.load(new FileInputStream(System.getProperty("user.dir")
+				+ propertiesPath));
 
 		loadGeneralData();
 		loadMutationData();
@@ -65,16 +67,20 @@ public class Configuration {
 		loadCrossOverData();
 		loadEndingData();
 	}
-	
+
 	private void loadGeneralData() {
-		this.architecture = Integer.valueOf(this.properties.getProperty("architecture"));
+		this.architecture = Integer.valueOf(this.properties
+				.getProperty("architecture"));
 		this.popSize = Integer.valueOf(this.properties.getProperty("popSize"));
+		this.generationGap = Double.valueOf(this.properties
+				.getProperty("generationGap"));
 	}
 
 	private void loadBackpropagationData() throws MWException {
-		this.backpropagation = this.backpropagationFactory.loadBackpropagation(); 
+		this.backpropagation = this.backpropagationFactory
+				.loadBackpropagation();
 	}
-	
+
 	private void loadEndingData() {
 		this.ending = this.endingFactory.loadEnding();
 	}
@@ -84,12 +90,8 @@ public class Configuration {
 	}
 
 	private void loadReplacementData() {
-		if (properties.getProperty("replacementOnlySuns") != null) {
-			this.replacementByPopulation = Boolean.valueOf(properties.getProperty("replacementOnlySuns"));
-		} else {
-			this.replacementByPopulation = false;
-		}
-		this.replacementMethods = this.replacementFactory.loadReplacementMethods();
+		this.replacementMethods = this.replacementFactory
+				.loadReplacementMethods();
 	}
 
 	private void loadSelectionData() {
@@ -103,21 +105,17 @@ public class Configuration {
 	public Mutation getMutation() {
 		return mutation;
 	}
-	
+
 	public Backpropagation getBackpropagation() {
 		return backpropagation;
 	}
-	
+
 	public List<Selection> getSelectionMethods() {
 		return selectionMethods;
 	}
-	
+
 	public List<Selection> getReplacementMethods() {
 		return replacementMethods;
-	}
-	
-	public boolean isReplacementByPopulation() {
-		return replacementByPopulation;
 	}
 
 	public Crossover getCrossOverMethods() {
@@ -127,10 +125,6 @@ public class Configuration {
 	public EndingMethod getEnding() {
 		return ending;
 	}
-	
-	public boolean replacementIsOnlySuns(){
-		return replacementByPopulation;
-	}
 
 	public int getArchitecture() {
 		return architecture;
@@ -139,5 +133,9 @@ public class Configuration {
 	public int getPopSize() {
 		return popSize;
 	}
-	
+
+	public double getGenerationGap() {
+		return generationGap;
+	}
+
 }

@@ -41,7 +41,7 @@ public class ParameterizedUniformCrossOver implements Crossover {
 
 	@Override
 	public boolean shouldApply() {
-		return RandomGenerator.getDouble() < crossProb;
+		return RandomGenerator.getDouble() < this.crossProb;
 	}
 
 }
