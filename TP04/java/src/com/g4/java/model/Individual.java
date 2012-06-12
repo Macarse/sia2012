@@ -1,5 +1,8 @@
 package com.g4.java.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mathworks.toolbox.javabuilder.MWArray;
 import com.mathworks.toolbox.javabuilder.MWCellArray;
 import com.mathworks.toolbox.javabuilder.MWClassID;
@@ -27,6 +30,18 @@ public class Individual {
 
   public void setApptitude(double apptitude) {
     this.apptitude = apptitude;
+  }
+
+  public List<double[][]> getLupusMatrix() {
+    List<double[][]> ret = new ArrayList<double[][]>();
+
+    for ( int i = 1 ; i <= data.numberOfElements() ; i++ ) {
+      MWNumericArray matrix = (MWNumericArray) data.getCell(i);
+      double[][] doubleMatrix = (double[][]) matrix.toArray();
+      ret.add(doubleMatrix);
+    }
+
+    return ret;
   }
 
   public double[] getLupusArray() {
