@@ -165,7 +165,7 @@ public class FunctionResolver {
 				individual.setApptitude(function.eval(individual));
 			}
 
-			int toSelectOld = (int) (POP_SIZE * (1 - this.generationGap));
+			int toSelectOld = POP_SIZE - toSelect;
 			population = replacement.select(population, i, toSelectOld);
 			population.addAll(sonsToAdd);
 
