@@ -105,3 +105,26 @@ donde <NOMBRE_IMAGEN> debe ser reemplazado por el nombre de la imagen deseada. w
 
 Si se quiere probar la red de manera sincrónica se debe cambiar en el archivo `testimage.m` `getOutput` por `getAsyncOutput`.
 
+
+TP04
+====
+
+Este TP corre en Java pero usa MATLAB Builder JA para correr código de
+Matlab desde Java.
+
+Para poder usar MATLAB Builder JA:
+
+1) Instalar el MATLAB Compiler Runtime. El instalador para mac se
+encuentra en:
+  <mcr_root>*/toolbox/compiler/deploy/maci64/MCRInstaller.dmg
+
+2) Es posible que tenga que modificar el path a javabuilder.jar
+Si el MATLAB Compiler Runtime se instala en macOS es path debería
+ser el correcto (/Applications/MATLAB/MATLAB_Compiler_Runtime/v713/toolbox/javabuilder/jar/javabuilder.jar)
+
+3) Agregar las siguientes variables de entorno:
+
+export DYLD_LIBRARY_PATH=/Applications/MATLAB/MATLAB_Compiler_Runtime/v713/runtime/maci64:/Applications/MATLAB/MATLAB_Compiler_Runtime/v713/sys/os/maci64:/Applications/MATLAB/MATLAB_Compiler_Runtime/v713/bin/maci64:/System/Library/Frameworks/JavaVM.framework/JavaVM:/System/Library/Frameworks/JavaVM.framework/Libraries
+
+export XAPPLRESDIR=/Applications/MATLAB/MATLAB_Compiler_Runtime/v713/X11/app-defaults
+
