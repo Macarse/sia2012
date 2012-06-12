@@ -17,6 +17,7 @@ public class MixEnding implements EndingMethod {
 
     for (EndingMethod endingMethod : endingMethods) {
       if ( endingMethod.shouldEnd(population, iterations) ) {
+        System.out.println("Ending with: " + endingMethod.getClass().getCanonicalName());
         return true;
       }
     }
