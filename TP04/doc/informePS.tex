@@ -45,7 +45,8 @@
 Se han implementado varios operadores genéticos , métodos de selección, condiciones de corte y demás configuraciones que se presentarán en las secciones a continuación. Con el objetivo de facilitar la configura se ha creado un archivo de configuración en el que se debe detallar como se desea entrenar la red. Un ejemplo de dicho archivo se puede observar en \ref{code:simple}.
 	\subsection{Operadores genéticos}
 	\subsubsection{Mutación}
-	Se han implementado las mutaciones clásicas como las no uniformes, la las cuales se les debe asignar cuando debe decrecer y cada cuantas generaciones debe hacerlo.
+	Las mutaciones se realizan tomando un número aleatorio definido entre $-1.5$ y $1.5$.
+	Se han implementado las mutaciones del tipo clásicas y no uniformes, la las cuales se les debe asignar cuando debe decrecer y cada cuantas generaciones debe hacerlo.
 	\subsubsection{Crossover}
 	Se han decidido implementar los siguientes algoritmos de entrecruzamiento:
 	\begin{itemize}
@@ -63,6 +64,7 @@ Se han implementado varios operadores genéticos , métodos de selección, condi
 		\item Método de torneos
 		 \item Método de Boltzman
 		 \item Método de selección universal estocástica
+		 \item Gene
 	\end{itemize}
 	\subsection{Distintas arquitecturas}
 
@@ -103,8 +105,8 @@ Con el objetivo de representar al individuo, se ha elegido transformar la matriz
 	\end{itemize}
 	
 \section{Resultados y Conclusiones}
-	Los resultados se van a presentar en dos secciones distintas.
-	La primera no utilizará el operador backpropagation y la segunda sí. \\
+	Los resultados se presentadan en dos secciones distintas.
+	En la primera no se utilizara el operador backpropagation y la segunda sí. \\
 
 	Con el fin de obtener resultados comparables entre sí se define un
 	contexto base para todas las pruebas de cada sección.
@@ -200,6 +202,10 @@ En otras palabras, en vez de fijar la probabilidad de mutación
 arbitrariamente, la probabilidad de mutación tiene libertad de
 moverse según mejor le convenga a cada individuo para mejorar su fitness.
 
+\section{Conclusiones}
+Finalmente, se llega a la conclusión de que, debido a la naturaleza del problema que se desea resolver,
+ es necesaria la utilización del operador \textit{backpropagation} 
+para llegar a resultados próximos a los deseados. 
 \onecolumn
 \begin{figure}[ht]
 		\includegraphics[scale=0.5]{./figures/matrix_to_array.png}
