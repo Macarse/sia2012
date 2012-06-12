@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.g4.java.crossover.Crossover;
-import com.g4.java.crossover.MultipleCrossOver;
+import com.g4.java.crossover.GeneCrossOver;
+import com.g4.java.ending.EndingMethod;
+import com.g4.java.ending.MaxGenerationEnding;
 import com.g4.java.model.Individual;
 import com.g4.java.mutation.ClassicMutation;
 import com.g4.java.mutation.Mutation;
@@ -22,7 +24,7 @@ public class FunctionResolver {
 
   public static final int ARCHITECTURE = 2;
 	private static final int POP_SIZE = 52;
-	private static final int MAX_GENERATIONS = 100;
+	private static final int MAX_GENERATIONS = 10;
 
 	private List<Individual> population = new ArrayList<Individual>(POP_SIZE);
 
@@ -79,11 +81,12 @@ public class FunctionResolver {
 
 		Selection selection = new EliteSelection();
 		Mutation mutation = new ClassicMutation(0.01);
-		Crossover crossover = new MultipleCrossOver(2);
+		Crossover crossover = new GeneCrossOver();
 		Reproduction reproduction = new MonogamousReproduction();
+		EndingMethod ending = new MaxGenerationEnding(MAX_GENERATIONS);
 		Backpropagation backpropagation = new Backpropagation(ann, 30, 0.05);
 
-		for (int i = 0; i < MAX_GENERATIONS; ++i) {
+		for (int i = 0; !ending.shouldEnd(population, i) ; ++i) {
 			List<Individual> best = selection.select(population, POP_SIZE / 2);
 			List<Individual[]> parents = reproduction.getParents(best);
 			List<Individual> generation = new ArrayList<Individual>();
