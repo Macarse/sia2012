@@ -2,10 +2,10 @@ package com.g4.java.configuration.factories;
 
 
 public enum EndingEnum {
-	MAXGENERATION("MaxGeneration"),
-	STRUCTURAL("Structural"),
-	CONTENT("Content"),
-	OPTIMUM("Optimum or fitness");
+	MAXGENERATION("MAXGENERATION"),
+	STRUCTURAL("STRUCTURAL"),
+	CONTENT("CONTENT"),
+	OPTIMUM("OPTIMUM");
 	
 	private String name;
 	

@@ -9,31 +9,37 @@ import com.g4.java.model.Individual;
 
 public class EliteSelection implements Selection {
 
-  private int toSelect;
-  
-  public EliteSelection(final int toSelect) {
-    this.toSelect = toSelect;
-  }
+	private int toSelect;
 
-  @Override
-  public List<Individual> select(List<Individual> population, int generation) {
-    List<Individual> ret = new ArrayList<Individual>(population);
-    Collections.sort(ret, new Comparator<Individual>() {
+	public EliteSelection(final int toSelect) {
+		this.toSelect = toSelect;
+	}
 
-      @Override
-      public int compare(Individual i1, Individual i2) {
-        final double i1Aptitude = i1.getApptitude();
-        final double i2Aptitude = i2.getApptitude();
+	@Override
+	public List<Individual> select(List<Individual> population, int generation) {
+		return select(population, generation, this.toSelect);
+	}
 
-        if (i1Aptitude < i2Aptitude) {
-          return 1;
-        } else if (i1Aptitude > i2Aptitude) {
-          return -1;
-        }
-        return 0;
-      }
-    });
+	@Override
+	public List<Individual> select(List<Individual> population, int generation,
+			int ggToSelect) {
+		List<Individual> ret = new ArrayList<Individual>(population);
+		Collections.sort(ret, new Comparator<Individual>() {
 
-    return ret.subList(0, toSelect);
-  }
+			@Override
+			public int compare(Individual i1, Individual i2) {
+				final double i1Aptitude = i1.getApptitude();
+				final double i2Aptitude = i2.getApptitude();
+
+				if (i1Aptitude < i2Aptitude) {
+					return 1;
+				} else if (i1Aptitude > i2Aptitude) {
+					return -1;
+				}
+				return 0;
+			}
+		});
+
+		return ret.subList(0, ggToSelect);
+	}
 }

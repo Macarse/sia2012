@@ -16,12 +16,18 @@ public class UniversalSelection implements Selection {
 
 	@Override
 	public List<Individual> select(List<Individual> population, int generation) {
+		return select(population, generation, this.toSelect);
+	}
+
+	@Override
+	public List<Individual> select(List<Individual> population, int generation,
+			int ggToSelect) {
 		List<Individual> newGeneration = new ArrayList<Individual>();
 
-        double distance = 1.0d / toSelect;
-        double r = RandomGenerator.getDouble() / toSelect;
+        double distance = 1.0d / ggToSelect;
+        double r = RandomGenerator.getDouble() / ggToSelect;
         
-        for (int i = 0; i < toSelect; i++) {
+        for (int i = 0; i < ggToSelect; i++) {
             double f = 0;
             int j = 0;
             Individual individual = null;
@@ -35,7 +41,6 @@ public class UniversalSelection implements Selection {
         }
 
         return newGeneration;
-
 	}
 
 }
