@@ -1,43 +1,43 @@
 package com.g4.java.selection;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
 import com.g4.java.model.Individual;
-import com.g4.java.util.Pair;
+import com.g4.java.util.RandomGenerator;
 
 public class RuletteSelection implements Selection {
+
+  protected double filterFitness(double fitness) {
+    return fitness;
+  }
 
   @Override
   public List<Individual> select(List<Individual> population,
       int toSelect) {
-    List<Pair<Individual, Double>> aptitudes = new ArrayList<Pair<Individual, Double>>();
-    double sum = 0;
-
-    for (Individual entity : population) {
-      double ap = entity.getApptitude();
-      sum += ap;
-      aptitudes.add(new Pair<Individual, Double>(entity, ap));
+    List<Individual> newGeneration = new ArrayList<Individual>(toSelect);
+    double fitnessSum = 0;
+    for (int i = 0; i < population.size(); i++) {
+        fitnessSum += filterFitness(population.get(i).getApptitude());
     }
 
-    List<Double> randoms = new ArrayList<Double>(toSelect);
-    for (int i = 0; i < toSelect; ++i) {
-      randoms.add(Math.random());
-    }
-    Collections.sort(randoms);
+    while (newGeneration.size() < toSelect) {
+      double r = fitnessSum * RandomGenerator.getDouble();
+      int j = 0;
+      double f = 0;
+      Individual individual = null;
+      do {
+          if (j >= population.size()) {
+              break;
+          }
 
-    List<Individual> selected = new ArrayList<Individual>(toSelect);
-    double acum = 0;
-    for (int i = 0, j = 0; i < toSelect; ++i) {
-      while (j < aptitudes.size()
-          && randoms.get(i) > acum + (aptitudes.get(j).getO2() / sum)) {
-        acum += aptitudes.get(j).getO2() / sum;
-        j++;
-      }
+          individual = population.get(j++);
+          f += filterFitness(individual.getApptitude());
+      } while (f < r);
+      newGeneration.add(individual);
+      System.out.println("Adding dude with: " + individual.getApptitude());
+  }
 
-      selected.add(aptitudes.get(j).getO1());
-    }
-
-    return selected;
+    return newGeneration;
   }
 }

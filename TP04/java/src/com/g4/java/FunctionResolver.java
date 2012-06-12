@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.g4.java.crossover.Crossover;
-import com.g4.java.crossover.GeneCrossOver;
+import com.g4.java.crossover.SinglePointCrossOver;
 import com.g4.java.ending.EndingMethod;
 import com.g4.java.ending.MaxGenerationEnding;
 import com.g4.java.model.Individual;
@@ -15,7 +15,6 @@ import com.g4.java.reproduction.Reproduction;
 import com.g4.java.selection.EliteSelection;
 import com.g4.java.selection.RuletteSelection;
 import com.g4.java.selection.Selection;
-import com.g4.java.selection.TournamentSelection;
 import com.g4.java.util.InputValues;
 import com.g4.matlab.ann.ANN;
 import com.mathworks.toolbox.javabuilder.MWArray;
@@ -83,7 +82,7 @@ public class FunctionResolver {
 
 		Selection selection = new RuletteSelection();
 		Mutation mutation = new ClassicMutation(0.01);
-		Crossover crossover = new GeneCrossOver();
+		Crossover crossover = new SinglePointCrossOver();
 		Reproduction reproduction = new MonogamousReproduction();
 		EndingMethod ending = new MaxGenerationEnding(MAX_GENERATIONS);
 		Backpropagation backpropagation = new Backpropagation(ann, 30, 0.05);

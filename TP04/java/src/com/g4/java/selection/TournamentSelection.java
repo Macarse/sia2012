@@ -36,5 +36,4 @@ public class TournamentSelection implements Selection {
 
     return selected;
   }
-
 }
