@@ -9,9 +9,9 @@ import com.g4.java.model.Individual;
 
 public class EliteSelection implements Selection {
 
-  public List<Individual> select(List<Individual> parents,
+  public List<Individual> select(List<Individual> population,
       final int toSelect) {
-    List<Individual> ret = new ArrayList<Individual>(parents);
+    List<Individual> ret = new ArrayList<Individual>(population);
     Collections.sort(ret, new Comparator<Individual>() {
 
       @Override
