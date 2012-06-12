@@ -128,6 +128,8 @@ export DYLD_LIBRARY_PATH=/Applications/MATLAB/MATLAB_Compiler_Runtime/v713/runti
 
 export XAPPLRESDIR=/Applications/MATLAB/MATLAB_Compiler_Runtime/v713/X11/app-defaults
 
+4) Es necesario que el eclipse se levante desde consola para que levante las variables de entorno seteadas en el punto anterior.
+
 ---------------------------------------------------------------------------------------------------------------------------------------------
 Archivo de configuración
 ---------------------------------------------------------------------------------------------------------------------------------------------
