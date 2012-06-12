@@ -5,7 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
-\hyphenation{li-neal co-rrec-ci\'on pro-ble-ma Back-propagation con-si-de-ra}
+\hyphenation{}
 
 \begin{document}
 
@@ -40,46 +40,49 @@
 	En la figura \ref{fig:function} se puede observar que los puntos de la entrada pertenecen al intervalo $[-3.5, 3.5]$ y la salida se encuentra en el intervalo $(0, 1)$.\\
 	El algoritmo genético se implementó en \textit{Java} y la red neuronal fue realizada en \textit{Matlab}. Utilizando el \textit{MATLAB Compiler Runtime} se realizan las pruebas pertinentes para verificar el funcionamiento de la red.\\
 
-\section{Nuevo Operador de Cruce}
+\section{Desarrollo y Problemas encontrados}
+
+	\subsection{Nuevo Operador de Cruce}
 
 	\begin{itemize}
 		\item \textit{Gene}: Funciona eligiendo las capas que se desean cambiar, a diferencia del clásico que toma un \textit{locus} y a partir del mismo en adelante los cruza.
 	\end{itemize}
 
-\section{Desarrollo y Problemas encontrados}
 
 	\subsection{Distintas arquitecturas}
 
-	Mediante el archivo de configuración se puede seleccionar la arquitectura que se desea utilizar para realizar las pruebas. Las arquitecturas elegidas son las siguientes:
+	Mediante el archivo de configuración se puede seleccionar la arquitectura que se desea utilizar para realizar las pruebas. Las arquitecturas a elegir son las siguientes:
 
 	\begin{center}
 		\begin{enumerate}
-			\item $[30\,20\,10\,1]$
-			\item $[10\,10\,1]$
-			\item $[10\,1]$
-			\item $[10\,10\,10\,10\,1]$
-			\item $[40\,20\,1]$
-			\item $[10\,10\,10\,1]$
-			\item $[5\,10\,20\,1]$
+			\item $[30\,\,20\,\,10\,\,1]$
+			\item $[10\,\,10\,\,1]$
+			\item $[10\,\,\,1]$
+			\item $[10\,\,10\,\,10\,\,10\,\,1]$
+			\item $[40\,\,20\,\,1]$
+			\item $[10\,\,10\,\,10\,\,1]$
+			\item $[5\,\,10\,\,20\,\,1]$
 		\end{enumerate}
 	\end{center}
 
 	\subsection{Representación del individuo}
 
-	La representación mas óptima del individuo fue representar a toda la red como un vector de números flotantes (Double). Esta representación no se adapta a la representación de la matriz en \textit{MATLAB}, por lo tanto se realiza una transformación del individuo. Esta transformación consiste en cambiar la cadena de Doubles a una matriz y viceversa.
+	La representación más óptima del individuo fue representar a toda la red como un vector de \textit{doubles}. Esta representación no se adapta a la representación de la matriz en \textit{MATLAB}, por lo tanto se realiza una transformación del individuo. Esta transformación consiste en cambiar el vector de doubles a una matriz y viceversa.
 
 	\subsubsection{Fidelidad del individuo}
 
 	\begin{itemize}
-		\item \textbf{Completitud}: Es completa ya que se puede representar todo el dominio del problema. Esto quiere decir que se pueden utilizar todas las cadenas de números para representar la red. 
 
-		\item \textbf{Coherencia}: Representa unicamente el dominio del problema, ya que ninguna representación puede pertenecer al un conjunto fuera del dominio.
+		\item \textbf{Completitud}: Es completa ya que se puede representar todo el dominio del problema.
 
-		\item \textbf{Uniformidad}: Podemos concluir que esta representación es uniforme ya que es imposible representar dos redes con la misma arquitectura de la misma forma, en caso que esto sucediera esa red es exactamente la misma.	
+		\item \textbf{Coherencia}: Representa únicamente el dominio del problema, ya que ninguna representación puede pertenecer a un conjunto fuera del dominio.
 
-		\item \textbf{Sencillez}: Es sencilla ya el individuo sabe que cantidad de neuronas que tiene en cada capa por lo tanto dividir un vector es sencillo del mismo modo que transformar una matriz en un vector.
+		\item \textbf{Uniformidad}: Se puede concluir que esta representación es uniforme ya que es imposible representar dos individuos distintos con la misma cadena, en caso que esto sucediera esa representación sería exactamente la misma que la otra.	
 
-		\item \textbf{Localidad}: Es local esta representación ya que al hacer pequeños cambios sobre la red, instantaneamente cambia la red.
+		\item \textbf{Sencillez}: Convertir matriz de pesos a un vector de doubles es una operación sencilla a nivel operacional, por lo tanto se concluye que la representación es sencilla.
+
+		\item \textbf{Localidad}: Es local dada que un cambio en un elemento del vector representa un cambio en el peso de la conexión que representa.
+
 	\end{itemize}
 	
 \section{Resultados y Conclusiones}
@@ -90,14 +93,14 @@
 
 	\begin{itemize}
 		\item Tamaño de la población es de 52 individuos.
-		\item La brecha generacional (\textit{G}) es de 0.5
+		\item La brecha generacional (\textit{G}) es de 0.5.
 		\item La arquitectura elegida para realizar las pruebas es la de [10 10 1].
 		\item El operador de mutación inicial es \textit{Clásico} con una probabilidad de 0.5 de mutar.
 		\item El operador de cruce inicial es \textit{Clásico} con una probabilidad de 1 de cruce.
 		\item El operador \textit{Backpropagation} se encuentra desactivado es decir que se ejecute con probabilidad 0.
-		\item El método de reemplazo es \textit{Elite}
-		\item El método de reemplazo es \textit{Elite} al igual que el de selección
-		\item Hay dos condiciones de corte, ya sea por \textit{Máxima cantidad de generaciones} y \textit{Contenido}, donde la última verifica que si en 50 épocas no mejoro mas de un 0.01 el fitness del individuo finaliza su ejecución.
+		\item El método de selección es \textit{Elite}.
+		\item El método de reemplazo es \textit{Elite} al igual que el de selección.
+		\item Hay dos condiciones de corte, ya sea por \textit{Máxima cantidad de generaciones} (500) y/o \textit{Contenido} (donde la última verifica que si en 50 épocas no mejoro mas de un 0.01 el fitness del individuo finaliza su ejecución).
 	\end{itemize}
 
 	Debe tenerse en cuenta que el hecho de prefijar algunos parámetros puede hacer que los distintos métodos y operadores a comparar se vean beneficiados o perjudicados por su funcionamiento en conjunto.
@@ -109,5 +112,66 @@
 	\subsection{Utilización de backpropagation}
 
 	\subsection{Elección del operador de Selección y reemplazo}
+
+\section{Posibles mejoras}
+
+	Como posible mejora se concluye que el operador \textit{backpropagation} debe disminuir su probabilidad de acción a medida que se alcanza un fitness deseado. El motivo por el cual se desea disminuir esa probabilidad es para que comience a tener mas influencia los operadores de mutación y cruce. El deseo de que la mutación y cruce tenga más influencia a lo largo de las generaciones es porque se observó que el fitness en un punto se asintotiza al error cuadrático medio obtenido por \textit{backpropagation} en el Trabajo Práctico Especial 2.
+
+\onecolumn
+
+% Table generated by Excel2LaTeX from sheet 'Sheet2'
+\begin{table}[htp]
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+	     Fitness & Generación & Corte & $p_{m}$ \\
+		\hline
+		0.22501570790437642 & 59 & Contenido & 0.05 \\
+		0.21842640558999668 & 59 & Contenido & 0.1 \\
+		0.22113522454399956 & 66 & Contenido & 0.3 \\ 
+		0.22050756611447994 & 71 & Contenido & 0.5 \\
+		\hline
+	\end{tabular}
+	\caption{Configuración simple variando la $p_m$}
+	\label{table:simple_mutation_prob} 
+	\end{center}
+\end{table}
+
+% Table generated by Excel2LaTeX from sheet 'Sheet2'
+\begin{table}[htp]
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|p{1cm}|}
+		\hline
+	     Fitness & Generación & Corte & $p_{m}$ & decrecimiento (\%) & dec. gen. \\
+		\hline
+		0.21222349890474348 & 49 & Content & 0.6 & 0.05 & 30 \\
+		0.22795744299992385 & 76 & Content & 0.6 & 0.1  & 30 \\
+		0.21740760693242447 & 64 & Content & 0.6 & 0.15 & 30 \\
+		\hline
+	\end{tabular}
+	\caption{Configuración simple método de mutación No Uniforme}
+	\label{table:simple_mutation_no_uniform} 
+	\end{center}
+\end{table}
+
+% Table generated by Excel2LaTeX from sheet 'Sheet2'
+\begin{table}[htp]
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+	     Fitness & Generación & Corte & $p_{m}$ & Cruce \\
+		\hline
+		0.22501570790437642 & 59 & Contenido & 0.05 & Clásico \\
+		0.20662153685787393 & 49 & Contenido & 0.05 & Gene \\
+		0.21418198155450324 & 49 & Contenido & 0.05 & Multiples puntos con 2 \\
+		0.21674758534799746 & 69 & Contenido & 0.05 & Uniforme con 0.3 prob \\
+		0.20662153685787393 & 49 & Contenido & 0.05 & Anular \\
+		\hline
+	\end{tabular}
+	\caption{Configuración simple variando el método de cruce}
+	\label{table:simple_mutation_prob} 
+	\end{center}
+\end{table}
+
 
 \end{document}
