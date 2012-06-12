@@ -3,6 +3,7 @@ package com.g4.java;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.g4.java.configuration.Configuration;
@@ -178,5 +179,11 @@ public class FunctionResolver {
 			System.out.println("Finish Generation " + i + " in " + (finish - initial)/1000 + " seconds");
 		}
 
+		EliteSelection bestSel = new EliteSelection(1);
+		Individual bestIndividual = bestSel.select(population, 0).get(0);
+		Date date = new Date();
+		String filename = "ind_"+date.toGMTString().replaceAll(" ", "-");
+		System.out.println("Saving configuration with filename: "+ filename);
+		ann.saveIndividual(bestIndividual.getData(), filename);
 	}
 }

@@ -73,6 +73,7 @@
     <c_include_dirs>$(PROJECTDIR)/../../../../TP02/TPE2</c_include_dirs>
     <c_include_dirs>$(PROJECTDIR)/../../../../TP02/TPE2</c_include_dirs>
     <c_include_dirs>$(PROJECTDIR)/../../../../TP02/TPE2</c_include_dirs>
+    <c_include_dirs>$(PROJECTDIR)/../../../../TP02/TPE2</c_include_dirs>
     <debug>false</debug>
     <warning shortcut="custom">
       <warn name="specified_file_mismatch">enable</warn>
@@ -90,6 +91,7 @@
       <file>$(PROJECTDIR)/../../../../TP02/TPE2/createIndividual.m</file>
       <file>$(PROJECTDIR)/../../../../TP02/TPE2/evalANN.m</file>
       <file>$(PROJECTDIR)/../../../../TP02/TPE2/generateInputFromFile.m</file>
+      <file>$(PROJECTDIR)/../../../../TP02/TPE2/saveIndividual.m</file>
     </category>
     <category name="Other files"/>
     <category name="C/C++ files"/>
