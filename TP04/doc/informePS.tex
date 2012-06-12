@@ -4,6 +4,7 @@
 \usepackage{graphics}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{listings}
 
 \hyphenation{o-pe-ra-do-res}
 
@@ -28,7 +29,7 @@
 
 \section{Introducción}
 
-	Se implementó un motor de algoritmo genéticos para obtener los pesos para la red neuronal construida en el Trabajo Práctico Especial Número 2.
+	Se implementa un motor de algoritmos genéticos para obtener los pesos para la red neuronal construida en el Trabajo Práctico Especial Número 2.
 	La red neuronal resuelve la función que se puede observar en la figura \ref{fig:function}.
 
 	\begin{figure}[!ht]
@@ -41,7 +42,28 @@
 	El algoritmo genético se implementó en \textit{Java} y la red neuronal fue realizada en \textit{Matlab}. Utilizando el \textit{MATLAB Compiler Runtime} se realizan las pruebas pertinentes para verificar el funcionamiento de la red.\\
 
 \section{Desarrollo y Problemas encontrados}
-
+Se han implementado varios operadores genéticos , métodos de selección, condiciones de corte y demás configuraciones que se presentarán en las secciones a continuación. Con el objetivo de facilitar la configura se ha creado un archivo de configuración en el que se debe detallar como se desea entrenar la red. Un ejemplo de dicho archivo se puede observar en \ref{code:simple}.
+	\subsection{Operadores genéticos}
+	\subsubsection{Mutación}
+	Se han implementado las mutaciones clásicas como las no uniformes, la las cuales se les debe asignar cuando debe decrecer y cada cuantas generaciones debe hacerlo.
+	\subsubsection{Crossover}
+	Se han decidido implementar los siguientes algoritmos de entrecruzamiento:
+	\begin{itemize}
+		\item cruce de un punto (clásica)
+		\item cruce de dos puntos
+		\item cruce anular
+		\item cruce uniforme parametrizado
+	\end{itemize}
+	\subsubsection{Backpropagation}
+	Otro operador Backpropagation se agrega al set de operadores al tratarse de un problema  que por sus características dicho algoritmos tiene una muy buena performance como ya pudo ser demostrado en coacciones anteriores. El mismo toma como parámetro la cantidad de épocas que debe entrenar la red.
+	\subsection{Métodos de selección y reemplazo}
+	Para ambos casos se han desarrollado los métodos descriptos a continuación, los cuales pueden ser combinados de a dos:
+	\begin{itemize}
+		\item Método de elitismo
+		\item Método de torneos
+		 \item Método de Boltzman
+		 \item Método de selección universal estocástica
+	\end{itemize}
 	\subsection{Distintas arquitecturas}
 
 	Mediante el archivo de configuración se puede seleccionar la arquitectura que se desea utilizar para realizar las pruebas. Las arquitecturas a elegir son las siguientes:
@@ -59,6 +81,7 @@
 	\end{center}
 
 	\subsection{Representación del individuo}
+Con el objetivo de representar al individuo, se ha elegido transformar la matriz a un vector de números  \textit{doubles} como se muestra en la imagen \ref{fig:indiv} y de esta forma poder aplicar los operadores  pertinentes de una forma rápida y sencilla.
 
 	La representación más óptima del individuo fue representar a toda la red como un vector de \textit{doubles}. Esta representación no se adapta a la representación de la matriz en \textit{MATLAB}, por lo tanto se realiza una transformación del individuo. Esta transformación consiste en cambiar el vector de doubles por una matriz y viceversa.
 
@@ -178,6 +201,11 @@ arbitrariamente, la probabilidad de mutación tiene libertad de
 moverse según mejor le convenga a cada individuo para mejorar su fitness.
 
 \onecolumn
+\begin{figure}[ht]
+		\includegraphics[scale=0.5]{./figures/matrix_to_array.png}
+  		\caption{Transformación de la matriz en vector}
+  		\label{fig:indiv}
+	\end{figure}
 
 \begin{table}[htp]
 	\begin{center}
@@ -248,6 +276,39 @@ moverse según mejor le convenga a cada individuo para mejorar su fitness.
 	\label{table:backpropagation}
 	\end{center}
 \end{table}
+
+\begin{lstlisting}[caption={Archivo de configuración simple},label={code:simple}]
+popSize = 52
+generationGap = 0.6
+architecture = 2
+
+mutation = Classic
+mutationProbability = 0.05
+
+Backpropagation.probability = 0.15
+Backpropagation.iterations = 30
+
+crossover = Classic
+crossoverProbability = 1
+
+selection = Elite / Rulette
+Elite.toSelect = 16
+Rulette.toSelect = 15
+
+replacement = Elite / Boltzman
+replacement.Elite.toSelect = 15
+replacement.Boltzman.toSelect = 6
+replacement.Boltzman.maxTemperature = 100
+replacement.Boltzman.minTemperature = 7
+replacement.Boltzman.decrement = 0.8
+
+
+ending = MaxGeneration / Content
+MaxGeneration.iterationToEnd = 100
+Content.improvement = 0.01
+Content.iterationToImprove = 15
+
+\end{lstlisting}
 
 
 \end{document}
