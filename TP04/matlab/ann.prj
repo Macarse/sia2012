@@ -29,6 +29,7 @@
    </MCCProperties>
    <file_info>
       <category name="ANN">
+         <file>/Users/macarse/Documents/sia2012/TP02/TPE2/backpropagation.m</file>
          <file>/Users/macarse/Documents/sia2012/TP02/TPE2/createIndividual.m</file>
          <file>/Users/macarse/Documents/sia2012/TP02/TPE2/evalANN.m</file>
          <file>/Users/macarse/Documents/sia2012/TP02/TPE2/generateInputFromFile.m</file>
