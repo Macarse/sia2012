@@ -133,16 +133,8 @@
 
 	\subsection{Con backpropagation}
 	En esta sección se prueban distintas configuraciones utilizando el
-	operador backpropagation.
-
-	\subsection{Elección del operador de Cruza}
-
-	\subsection{Elección del operador de Mutación}
-
-	\subsection{Utilización de backpropagation}
-
-	\subsection{Elección del operador de Selección y reemplazo}
-
+	operador backpropagation. Se puede observar en la tabla \ref{table:backpropagation} que la mejor configuración para los métodos de selección es con Elite y Boltzman. Para el reemplazo se decidió como métodos a Elite y Ruleta. Cabe destacar que el mejor operador de cruce fue \textbf{Gene} y de mutación el Clásico. Es importante remarcar que la diferencia entre la utilización del operador de \textit{backpropagation} y la no utlización, provoca una gran mejora.
+	
 \section{Posibles mejoras}
 
 	Como posible mejora se concluye que el operador \textit{backpropagation}
@@ -210,6 +202,25 @@
 	\end{tabular}
 	\caption{Configuración simple variando el método de cruce}
 	\label{table:crossover}
+	\end{center}
+\end{table}
+
+\begin{table}[htp]
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+	     Nombre .properties & Fitness & Generación & Corte \\
+		\hline
+		bp\_seb\_rer\_cg\_mc\_ec.properties 		& 16.720276062651436 	& 69 & Contenido \\
+		bp\_ser\_reb\_mc\_cc\_emc.properties 	& 11.941655508072634 	& 58 & Contenido \\
+		bp\_se\_re\_mc\_cc\_emc.properties 		& 4.825691593990156 	& 51 & Contenido \\
+		bp\_seb\_rer\_cmp\_mc\_emc.properties 	& 12.57897997517028 	& 36 & Contenido \\
+		bp\_seb\_rer\_mc\_ca\_emc.properties 	& 13.560979676949982 	& 50 & Contenido \\
+		bp\_seb\_rer\_mnu\_cc\_emc.properties 	& 12.992838764610976 	& 36 & Contenido \\
+		\hline
+	\end{tabular}
+	\caption{Distintas Configuraciones con backpropagation}
+	\label{table:backpropagation}
 	\end{center}
 \end{table}
 
