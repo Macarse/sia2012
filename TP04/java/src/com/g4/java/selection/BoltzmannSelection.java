@@ -14,7 +14,8 @@ public class BoltzmannSelection extends RuletteSelection {
 
 	public BoltzmannSelection(final double maxTemperature, 
 			final double minTemperature, 
-			final double decrement) {
+			final double decrement, final int toSelect) {
+	  super(toSelect);
 		this.maxTemperature = maxTemperature;
 		this.minTemperature = minTemperature;
 		this.decrement = decrement;
@@ -30,13 +31,13 @@ public class BoltzmannSelection extends RuletteSelection {
 	}
 	
 	@Override
-	public List<Individual> select(List<Individual> population, int toSelect, int generation) {
+	public List<Individual> select(List<Individual> population, int generation) {
 		calculateTemperature(generation);
 		this.varInTime = 0;
 		for (Individual ind : population) {
 			this.varInTime += Math.exp(ind.getApptitude()/this.temperature);
 		}
-		return super.select(population, toSelect, generation);
+		return super.select(population, generation);
 	}
 
 	private void calculateTemperature(int generation) {

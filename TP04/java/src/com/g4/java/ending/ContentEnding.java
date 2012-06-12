@@ -17,12 +17,12 @@ public class ContentEnding implements EndingMethod {
 	public ContentEnding(int iterationsToImprove, double improvement) {
 		this.iterationsToImprove = iterationsToImprove;
 		this.improvement = improvement;
-		this.elite = new EliteSelection();
+		this.elite = new EliteSelection(1);
 	}
 
 	@Override
 	public boolean shouldEnd(List<Individual> population, int iterations) {
-		Individual best = elite.select(population, 1, 0).get(0);
+		Individual best = elite.select(population, 0).get(0);
 
 		if (iterations < iterationsToImprove) {
 			stats.add(iterations, best.getApptitude());

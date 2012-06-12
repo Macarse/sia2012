@@ -7,13 +7,15 @@ import com.g4.java.model.Individual;
 public class TournamentSelection implements Selection {
 
   private int tSize;
+  private int toSelect;
 
-  public TournamentSelection(int tSize) {
+  public TournamentSelection(int tSize, final int toSelect) {
     this.tSize = tSize;
+    this.toSelect = toSelect;
   }
 
   @Override
-  public List<Individual> select(List<Individual> population, int toSelect, int generation) {
+  public List<Individual> select(List<Individual> population, int generation) {
     List<Individual> selected = new ArrayList<Individual>(toSelect);
 
     for (int i = 0; i < toSelect; ++i) {
