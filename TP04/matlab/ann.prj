@@ -33,6 +33,7 @@
          <file>/Users/macarse/Documents/sia2012/TP02/TPE2/createIndividual.m</file>
          <file>/Users/macarse/Documents/sia2012/TP02/TPE2/evalANN.m</file>
          <file>/Users/macarse/Documents/sia2012/TP02/TPE2/generateInputFromFile.m</file>
+         <file>/Users/macarse/Documents/sia2012/TP02/TPE2/saveIndividual.m</file>
       </category>
       <category name="Other files"><!--Do not modify the value of the name attribute, unless it is a class name.--></category>
       <category name="C/C++ files"><!--Do not modify the value of the name attribute, unless it is a class name.--></category>

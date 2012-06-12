@@ -1,12 +1,12 @@
 /*
  * MATLAB Compiler: 4.13 (R2010a)
- * Date: Mon Jun 11 11:26:49 2012
+ * Date: Tue Jun 12 12:39:35 2012
  * Arguments: "-B" "macro_default" "-W" "java:com.g4.matlab.ann,ANN" "-T" "link:lib" "-d" 
  * "/Users/macarse/Documents/sia2012/TP04/matlab/com.g4.matlab.ann/src" "-w" 
  * "enable:specified_file_mismatch" "-w" "enable:repeated_file" "-w" 
  * "enable:switch_ignored" "-w" "enable:missing_lib_sentinel" "-w" "enable:demo_license" 
  * "-v" 
- * "class{ANN:/Users/macarse/Documents/sia2012/TP02/TPE2/backpropagation.m,/Users/macarse/Documents/sia2012/TP02/TPE2/createIndividual.m,/Users/macarse/Documents/sia2012/TP02/TPE2/evalANN.m,/Users/macarse/Documents/sia2012/TP02/TPE2/generateInputFromFile.m}" 
+ * "class{ANN:/Users/macarse/Documents/sia2012/TP02/TPE2/backpropagation.m,/Users/macarse/Documents/sia2012/TP02/TPE2/createIndividual.m,/Users/macarse/Documents/sia2012/TP02/TPE2/evalANN.m,/Users/macarse/Documents/sia2012/TP02/TPE2/generateInputFromFile.m,/Users/macarse/Documents/sia2012/TP02/TPE2/saveIndividual.m}" 
  */
 
 package com.g4.matlab.ann;
@@ -24,6 +24,7 @@ import java.rmi.RemoteException;
  *  /Users/macarse/Documents/sia2012/TP02/TPE2/createIndividual.m
  *  /Users/macarse/Documents/sia2012/TP02/TPE2/evalANN.m
  *  /Users/macarse/Documents/sia2012/TP02/TPE2/generateInputFromFile.m
+ *  /Users/macarse/Documents/sia2012/TP02/TPE2/saveIndividual.m
  * </pre>
  * The {@link #dispose} method <b>must</b> be called on a <code>ANNRemote</code> instance 
  * when it is no longer needed to ensure that native resources allocated by this class 
@@ -152,6 +153,33 @@ public interface ANNRemote extends Poolable
      * in communication with the server.
      */
     public Object[] generateInputFromFile(int nargout, Object... rhs) throws RemoteException;
+    /**
+     * Provides the standard interface for calling the <code>saveIndividual</code> 
+     * M-function with 2 input arguments.  
+     *
+     * Input arguments to standard interface methods may be passed as sub-classes of 
+     * <code>com.mathworks.toolbox.javabuilder.MWArray</code>, or as arrays of any 
+     * supported Java type (i.e. scalars and multidimensional arrays of any numeric, 
+     * boolean, or character type, or String). Arguments passed as Java types are 
+     * converted to MATLAB arrays according to default conversion rules.
+     *
+     * All inputs to this method must implement either Serializable (pass-by-value) or 
+     * Remote (pass-by-reference) as per the RMI specification.
+     *
+     * No usage documentation is available for this function.  (To fix this, the function 
+     * author should insert a help comment at the beginning of their M code.  See the 
+     * MATLAB documentation for more details.)
+     *
+     * @param rhs The inputs to the M function.
+     *
+     * @return Array of length nargout containing the function outputs. Outputs are 
+     * returned as sub-classes of <code>com.mathworks.toolbox.javabuilder.MWArray</code>. 
+     * Each output array should be freed by calling its <code>dispose()</code> method.
+     *
+     * @throws java.jmi.RemoteException An error has occurred during the function call or 
+     * in communication with the server.
+     */
+    public Object[] saveIndividual(Object... rhs) throws RemoteException;
   
     /** Frees native resources associated with the remote server object */
     void dispose() throws RemoteException;
