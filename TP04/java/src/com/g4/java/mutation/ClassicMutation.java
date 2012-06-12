@@ -3,7 +3,7 @@ package com.g4.java.mutation;
 import com.g4.java.model.Individual;
 import com.g4.java.util.RandomGenerator;
 
-public class ClassicMutation {
+public class ClassicMutation implements Mutation {
 
 	protected double mutationPercentage;
 
