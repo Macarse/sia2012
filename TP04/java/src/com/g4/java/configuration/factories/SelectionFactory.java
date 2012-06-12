@@ -60,15 +60,15 @@ public class SelectionFactory {
 				
 				double maxTemperature = 1000;
 				if( properties.getProperty("Boltzman.maxTemperature") != null ) 
-					maxTemperature = Integer.valueOf(properties.getProperty("Boltzman.maxTemperature"));
+					maxTemperature = Double.valueOf(properties.getProperty("Boltzman.maxTemperature"));
 				
 				double minTemperature = 100;
 				if( properties.getProperty("Boltzman.minTemperature") != null ) 
-					minTemperature = Integer.valueOf(properties.getProperty("Boltzman.minTemperature"));
+					minTemperature = Double.valueOf(properties.getProperty("Boltzman.minTemperature"));
 				
 				double decrement = 5;
 				if( properties.getProperty("Boltzman.decrement") != null ) 
-					decrement = Integer.valueOf(properties.getProperty("Boltzman.decrement"));
+					decrement = Double.valueOf(properties.getProperty("Boltzman.decrement"));
 				
 				selected.add(new BoltzmannSelection(maxTemperature, minTemperature, decrement, toSelect));
 			}
