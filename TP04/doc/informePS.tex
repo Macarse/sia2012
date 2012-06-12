@@ -28,8 +28,8 @@
 
 \section{Introducción}
 
-	Se implementó un motor de algoritmo genéticos para obtener los pesos para la red neuronal construida en el Trabajo Práctico número 2.
-	La red neuronal resuelve la función que se puede observar en la figura \ref{fig:function}:
+	Se implementó un motor de algoritmo genéticos para obtener los pesos para la red neuronal construida en el Trabajo Práctico Especial Número 2.
+	La red neuronal resuelve la función que se puede observar en la figura \ref{fig:function}.
 
 	\begin{figure}[!ht]
 		\includegraphics[scale=0.5]{./figures/function.png}
@@ -60,7 +60,7 @@
 
 	\subsection{Representación del individuo}
 
-	La representación más óptima del individuo fue representar a toda la red como un vector de \textit{doubles}. Esta representación no se adapta a la representación de la matriz en \textit{MATLAB}, por lo tanto se realiza una transformación del individuo. Esta transformación consiste en cambiar el vector de doubles a una matriz y viceversa.
+	La representación más óptima del individuo fue representar a toda la red como un vector de \textit{doubles}. Esta representación no se adapta a la representación de la matriz en \textit{MATLAB}, por lo tanto se realiza una transformación del individuo. Esta transformación consiste en cambiar el vector de doubles por una matriz y viceversa.
 
 	\subsubsection{Fidelidad del individuo}
 
@@ -110,7 +110,10 @@
 		\item El operador \textit{Backpropagation} se encuentra desactivado es decir que se ejecute con probabilidad 0.
 		\item El método de selección es \textit{Elite}.
 		\item El método de reemplazo es \textit{Elite} al igual que el de selección.
-		\item Hay dos condiciones de corte, ya sea por \textit{Máxima cantidad de generaciones} (500) y/o \textit{Contenido} (donde la última verifica que si en 50 épocas no mejoro mas de un 0.01 el fitness del individuo finaliza su ejecución).
+		\item Hay dos condiciones de corte, ya sea por \textit{Máxima cantidad
+		de generaciones} (500) y/o \textit{Contenido} (donde la última verifica
+		que si en 50 épocas no mejoró más de un 0.01 el fitness del individuo
+		finaliza su ejecución).
 	\end{itemize}
 
 	\subsubsection{Mutación clásica}
@@ -127,16 +130,27 @@
 
 	\subsubsection{Análisis de resultados}
 	Después de probar con distintas configuraciones, notamos que sin el
-	operador de backpropagation no conseguimos buenos	resultados.
+	operador de backpropagation no conseguíamos buenos resultados.
+
 	Entendemos que esto sucede porque el individuo es muy largo haciendo
 	que el algoritmo tarde mucho en encontrar un resultado útil.
+	En la próxima sección analizaremos qué pasa cuando agregamos el operador
+	backpropagation.
 
 	\subsection{Con backpropagation}
 	En esta sección se prueban distintas configuraciones utilizando el
-	operador backpropagation. Se puede observar en la tabla \ref{table:backpropagation} que la mejor configuración para los métodos de selección es con Elite y Boltzman. Para el reemplazo se decidió como métodos a Elite y Ruleta. Cabe destacar que el mejor operador de cruce fue \textbf{Gene} y de mutación el Clásico. Es importante remarcar que la diferencia entre la utilización del operador de \textit{backpropagation} y la no utlización, provoca una gran mejora.
+	operador backpropagation.
+	Se puede observar en la tabla \ref{table:backpropagation} que la mejor
+	configuración para los métodos de selección es con Elite y Boltzman.
+	Para el reemplazo se decidió como métodos a Elite y Ruleta.
+	Cabe destacar que el mejor operador de cruce fue \textbf{Gene} y de
+	mutación el Clásico. Es importante remarcar que la diferencia entre
+	la utilización del operador de \textit{backpropagation} y la no
+	utlización, provoca una gran mejora.
 	
 \section{Posibles mejoras}
 
+\subsection{Mejoras a backpropagation}
 	Como posible mejora se concluye que el operador \textit{backpropagation}
 	podría disminuir su probabilidad de acción a medida que se alcanza un
 	fitness deseado.
@@ -147,10 +161,21 @@
 	asintotiza al error cuadrático medio obtenido por \textit{backpropagation}
 	en el Trabajo Práctico Especial 2.\\
 
+\subsection{Mejoras a criterios de selección y reemplazo}
 	En algunas corridas nos pasó que perdimos al mejor individuo entre
 	generaciones. Sería conveniente agregar un parámetro a los criterios
 	de selección y reemplazo para que siempre dejen el individuo con mejor
 	aptitud.
+
+\subsection{Mutación evolutiva}
+Se podría probar evolucionar la probabilidad de mutación de cada individuo
+de la población.
+En vez de tomarse una probabilidad de mutación global, se agrega al
+genotipo de cada individuo un gen que codifica la probabilidad
+de mutación del resto del cromosoma.
+En otras palabras, en vez de fijar la probabilidad de mutación
+arbitrariamente, la probabilidad de mutación tiene libertad de
+moverse según mejor le convenga a cada individuo para mejorar su fitness.
 
 \onecolumn
 
@@ -177,9 +202,9 @@
 		\hline
 	     Fitness & Generación & Corte & $p_{m}$ & decrecimiento (\%) & dec. gen. \\
 		\hline
-		0.21222349890474348 & 50 & Content & 0.6 & 0.05 & 30 \\
-		0.22795744299992385 & 77 & Content & 0.6 & 0.1  & 30 \\
-		0.21740760693242447 & 65 & Content & 0.6 & 0.15 & 30 \\
+		0.21222349890474348 & 50 & Content & 0.6 & 5 & 30 \\
+		0.22795744299992385 & 77 & Content & 0.6 & 10  & 30 \\
+		0.21740760693242447 & 65 & Content & 0.6 & 15 & 30 \\
 		\hline
 	\end{tabular}
 	\caption{Configuración simple método de mutación No Uniforme}
