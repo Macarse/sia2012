@@ -26,7 +26,7 @@ public class MixSelection implements Selection {
 	@Override
 	public List<Individual> select(List<Individual> population, int generation,
 			int ggToSelect) {
-		List<Individual> selected = new ArrayList<Individual>();
+		List<Individual> selected = new ArrayList<Individual>(ggToSelect);
 		for (Selection selection : selections) {
 			selected.addAll(selection.select(population, generation, ggToSelect));
 		}
