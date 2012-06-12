@@ -1,4 +1,4 @@
-package com.g4.java;
+package com.g4.java.util;
 
 import com.mathworks.toolbox.javabuilder.MWArray;
 
