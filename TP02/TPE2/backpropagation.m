@@ -6,7 +6,8 @@ function [outputs] = backpropagation(allWeights, inputs, expected_outputs, itera
 	params = conf.getParams();
 	eta = params.eta;
 	alpha = params.alpha;
-	momentumIsEnabled = params.momentumIsEnabled;	
+	momentumIsEnabled = params.momentumIsEnabled;
+	momentumIsEnabled = 0;
 
 	neurons_per_layer = conf.getConfiguration(index);
 	numberOfLayers = length(neurons_per_layer(1,:))-1;

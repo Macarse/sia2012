@@ -3,10 +3,9 @@
 <project>
 
   <MATLABPath>
-    <Directory>$(PROJECTDIR)/../../../../TP02/TPE2</Directory>
-    <Directory>$(PROJECTDIR)/../../../../TP02/TPE2</Directory>
-    <Directory>$(MATLABROOT)/toolbox/compiler/deploy</Directory>
     <Directory>$(PROJECTDIR)/../../../../../MATLAB</Directory>
+    <Directory>$(MATLABROOT)/toolbox/compiler/deploy</Directory>
+    <Directory>$(PROJECTDIR)/../../../../TP02/TPE2</Directory>
     <Directory>$(MATLABROOT)/toolbox/matlab/general</Directory>
     <Directory>$(MATLABROOT)/toolbox/matlab/ops</Directory>
     <Directory>$(MATLABROOT)/toolbox/matlab/lang</Directory>
