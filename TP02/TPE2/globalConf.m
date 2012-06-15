@@ -36,7 +36,7 @@ function [funcs] = getActivationFunction(numberOfLayers)
 	funcs(1,numberOfLayers) = {lineal_function};
 	funcs(2,numberOfLayers) = {lineal_function_deriv};
 
-	for i = 1:numberOfLayers-1
+	for i = 1:numberOfLayers
 	   funcs(1,i) = {g};
 	   funcs(2,i) = {g_deriv};
 	end

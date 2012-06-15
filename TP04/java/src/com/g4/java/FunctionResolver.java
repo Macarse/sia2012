@@ -84,7 +84,7 @@ public class FunctionResolver {
 	private void run() throws MWException {
 		// Create the input values based on samples3.txt
 		Object[] inputResult = ann.generateInputFromFile(4, "samples3.txt",
-				.80f, 0);
+				.40f, 0);
 		InputValues.getInstance().setInputs((MWArray) inputResult[0]);
 		InputValues.getInstance().setExpectedOutputs((MWArray) inputResult[1]);
 		InputValues.getInstance().setInputsTest((MWArray) inputResult[2]);
@@ -169,7 +169,13 @@ public class FunctionResolver {
 				individual.setApptitude(function.eval(individual));
 			}
 
-			int toSelectOld = POP_SIZE - toSelect;
+			StringBuilder sb = new StringBuilder();
+			for (Individual individual : population) {
+			  sb.append(" ");
+			  sb.append(individual.getApptitude());
+			}
+
+			System.out.println("aptitudes: " + sb);
 			population = replacement.select(population, i);
 			population.addAll(sonsToAdd);
 
@@ -178,7 +184,8 @@ public class FunctionResolver {
 
 			System.out.println("Best individual (Apptitude) " + bestList.get(0).getApptitude() 
 					+ " Worst individual (Apptitude) " + bestList.get(population.size()-1).getApptitude() + 
-					" SD: " + this.debugger.sdForIndividual(population) + " Median: " + this.debugger.medianForIndividual(population));
+					" SD: " + this.debugger.sdForIndividual(population) +
+					" MEAN: " + this.debugger.mean(population));
 			long finish = System.currentTimeMillis();
 			System.out.println("Finish Generation " + i + " in " + (finish - initial)/1000 + " seconds");
 		}

@@ -15,7 +15,7 @@ public class ClassicMutation implements Mutation {
 
 	public Individual mutate(Individual entity, int iteration) {
 		double[] bits = entity.getLupusArray();
-		
+
 		for (int i = 0; i < bits.length; ++i) {
 			double charProba = RandomGenerator.getDouble();
 			if (charProba < this.alleleProb) {

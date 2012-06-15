@@ -1,63 +1,77 @@
 package com.g4.java.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.g4.java.model.Individual;
 
 public class Printer {
 
-	public double sum(List<Double> a) {
-		if (a.size() > 0) {
-			int sum = 0;
-			for (Double i : a) {
-				sum += i;
-			}
-			return sum;
-		}
-		return 0.0;
-	}
+  public static double mean(double[] data) {
+    double mean = 0;
+    final int n = data.length;
+    if (n < 2) {
+      return Double.NaN;
+    }
+    for (int i = 0; i < n; i++) {
+      mean += data[i];
+    }
+    mean /= n;
 
-	public double mean(List<Double> a) {
-		double sum = sum(a);
-		double mean = 0;
-		if (sum > 0) {
-			mean = sum / (a.size() * 1.0);
-		}
-		return mean;
-	}
+    return mean;
+  }
+  public static double StandardDeviationMean(double[] data) {
+    // sd is sqrt of sum of (values-mean) squared divided by n - 1
+    // Calculate the mean
+    double mean = 0;
+    final int n = data.length;
+    if (n < 2) {
+      return Double.NaN;
+    }
+    for (int i = 0; i < n; i++) {
+      mean += data[i];
+    }
+    mean /= n;
+    // calculate the sum of squares
+    double sum = 0;
+    for (int i = 0; i < n; i++) {
+      final double v = data[i] - mean;
+      sum += v * v;
+    }
+    // Change to ( n - 1 ) to n if you have complete data instead of a sample.
+    return Math.sqrt(sum / (n - 1));
+  }
 
-	public double median(List<Double> a) {
-		int middle = a.size() / 2;
-		if (a.size() % 2 == 1) {
-			return a.get(middle);
-		} else {
-			return (a.get(middle - 1) + a.get(middle)) / 2.0;
-		}
-	}
+  public static double standardDeviationCalculate(double[] data) {
+    final int n = data.length;
+    if (n < 2) {
+      return Double.NaN;
+    }
+    double avg = data[0];
+    double sum = 0;
+    for (int i = 1; i < data.length; i++) {
+      double newavg = avg + (data[i] - avg) / (i + 1);
+      sum += (data[i] - avg) * (data[i] - newavg);
+      avg = newavg;
+    }
+    // Change to ( n - 1 ) to n if you have complete data instead of a sample.
+    return Math.sqrt(sum / (n - 1));
+  }
 
-	public double sd(List<Double> a) {
-		double sum = 0;
-		double mean = mean(a);
-		for (Double i : a)
-			sum += Math.pow((i - mean), 2);
-		return Math.sqrt(sum / (a.size() - 1)); // sample
-	}
-	
-	public double sdForIndividual(List<Individual> population){
-		List<Double> list = new ArrayList<Double>(population.size());
-		for (Individual individual : population) {
-			list.add(new Double(individual.getApptitude()));
-		}
-		return sd(list);
-	}
-	
-	public double medianForIndividual(List<Individual> population){
-		List<Double> list = new ArrayList<Double>(population.size());
-		for (Individual individual : population) {
-			list.add(new Double(individual.getApptitude()));
-		}
-		return median(list);
-	}
+  public double mean(List<Individual> population) {
+    double[]list = new double[population.size()];
+    for (int i = 0; i < list.length; i++) {
+      list[i] = population.get(i).getApptitude();
+    }
+
+    return mean(list);
+  }
+  public double sdForIndividual(List<Individual> population) {
+    double[]list = new double[population.size()];
+    for (int i = 0; i < list.length; i++) {
+      list[i] = population.get(i).getApptitude();
+    }
+
+    return standardDeviationCalculate(list);
+  }
 
 }
