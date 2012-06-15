@@ -173,9 +173,11 @@ public class FunctionResolver {
 			population = replacement.select(population, i);
 			population.addAll(sonsToAdd);
 
-			EliteSelection bestSel = new EliteSelection(1);
-			System.out.println("Best individual (Apptitude) " + bestSel.select(population, i).get(0).getApptitude() 
-					+ " Worst individual (Apptitude) " + population.get(population.size()-1).getApptitude() + 
+			EliteSelection bestSel = new EliteSelection(population.size());
+			List<Individual> bestList = bestSel.select(population, i);
+
+			System.out.println("Best individual (Apptitude) " + bestList.get(0).getApptitude() 
+					+ " Worst individual (Apptitude) " + bestList.get(population.size()-1).getApptitude() + 
 					" SD: " + this.debugger.sdForIndividual(population) + " Median: " + this.debugger.medianForIndividual(population));
 			long finish = System.currentTimeMillis();
 			System.out.println("Finish Generation " + i + " in " + (finish - initial)/1000 + " seconds");
