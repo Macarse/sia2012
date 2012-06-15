@@ -15,6 +15,11 @@ function [configuration] = getConfiguration(index)
 	neurons_per_layer_array{5} = [40 20 1];
 	neurons_per_layer_array{6} = [10 10 10 1];
 	neurons_per_layer_array{7} = [5 10 20 1];
+	neurons_per_layer_array{8} = [3 4 1];
+	neurons_per_layer_array{9} = [5 5 1];
+	neurons_per_layer_array{10} = [3 3 1];
+	neurons_per_layer_array{11} = [2 2 2 1];
+	neurons_per_layer_array{12} = [4 9 1];
 
 	configuration = [N neurons_per_layer_array{index}];
 end
