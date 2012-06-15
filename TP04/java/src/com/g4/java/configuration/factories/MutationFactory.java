@@ -23,9 +23,14 @@ public class MutationFactory {
 		if (properties.getProperty("mutationProbability") != null) {	
 			mutationProbability = Double.valueOf(properties.getProperty("mutationProbability"));
 		}
+		double  alleleProb = 0.01;
+		if (properties.getProperty("Mutation.alleleProb") != null) {	
+			alleleProb = Double.valueOf(properties.getProperty("Mutation.alleleProb"));
+		}
+		
 		switch (mutEnum) {
 			case CLASSIC:
-				mutation = new ClassicMutation(mutationProbability);
+				mutation = new ClassicMutation(mutationProbability, alleleProb);
 				break;
 			case NOT_UNIFORM:
 				double  decreaseConstant = 0.95;
@@ -36,7 +41,7 @@ public class MutationFactory {
 				if (properties.getProperty("NotUniform.generationToDecrease") != null) {	
 					generationToDecrease = Integer.valueOf(properties.getProperty("NotUniform.generationToDecrease"));
 				}
-				mutation = new NotUniformMutation(mutationProbability, generationToDecrease, decreaseConstant);
+				mutation = new NotUniformMutation(mutationProbability, generationToDecrease, decreaseConstant, alleleProb);
 				break;
 		}
 		return mutation;

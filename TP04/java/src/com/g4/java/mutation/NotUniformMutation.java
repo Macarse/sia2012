@@ -6,9 +6,8 @@ public class NotUniformMutation extends ClassicMutation {
   private int generationsToDecrease;
   private double decreaseConstant;
 
-  public NotUniformMutation(double mutationPercentage,
-      int generationsToDecrease, double decreaseConstant) {
-    super(mutationPercentage);
+  public NotUniformMutation(double mutationPercentage, int generationsToDecrease, double decreaseConstant, double alleleProb) {
+    super(mutationPercentage, alleleProb);
     this.generationsToDecrease = generationsToDecrease;
     this.decreaseConstant = decreaseConstant;
   }

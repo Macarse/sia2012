@@ -6,17 +6,19 @@ import com.g4.java.util.RandomGenerator;
 public class ClassicMutation implements Mutation {
 
 	protected double mutationPercentage;
+	private double alleleProb;
 
-	public ClassicMutation(double mutationPercentage) {
+	public ClassicMutation(double mutationPercentage, double alleleProb) {
 		this.mutationPercentage = mutationPercentage;
+		this.alleleProb = alleleProb;
 	}
 
 	public Individual mutate(Individual entity, int iteration) {
 		double[] bits = entity.getLupusArray();
-
+		
 		for (int i = 0; i < bits.length; ++i) {
 			double charProba = Math.random();
-			if (charProba < mutationPercentage * 2) {
+			if (charProba < this.alleleProb) {
 				bits[i] = RandomGenerator.getDouble(-1.5, 1.5);
 			}
 		}

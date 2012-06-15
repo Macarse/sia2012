@@ -3,7 +3,6 @@ package com.g4.java;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.g4.java.configuration.Configuration;
@@ -16,6 +15,7 @@ import com.g4.java.reproduction.Reproduction;
 import com.g4.java.selection.EliteSelection;
 import com.g4.java.selection.MixSelection;
 import com.g4.java.util.InputValues;
+import com.g4.java.util.Printer;
 import com.g4.matlab.ann.ANN;
 import com.mathworks.toolbox.javabuilder.MWArray;
 import com.mathworks.toolbox.javabuilder.MWCellArray;
@@ -38,6 +38,7 @@ public class FunctionResolver {
 	private MixSelection replacement;
 
 	private List<Individual> population = new ArrayList<Individual>(POP_SIZE);
+	private Printer debugger;
 
 	private ANN ann;
 
@@ -70,7 +71,8 @@ public class FunctionResolver {
 		resolver.replacement = new MixSelection(
 				resolver.configuration.getReplacementMethods());
 		resolver.ann = MatlabSingleton.getInstance().getAnn();
-
+		resolver.debugger = new Printer();
+		
 		try {
 			resolver.run();
 		} catch (MWException e) {
@@ -121,7 +123,7 @@ public class FunctionResolver {
 			mutation.updateMutationProbability(i);
 
 			int toSelect = (int) (POP_SIZE * this.generationGap);
-			List<Individual> best = selection.select(population, i, toSelect);
+			List<Individual> best = selection.select(population, i);
 			List<Individual[]> parents = reproduction.getParents(best);
 			List<Individual> generation = new ArrayList<Individual>();
 			List<Individual> sons = new ArrayList<Individual>();
@@ -145,15 +147,16 @@ public class FunctionResolver {
 				Individual individualToAdd = individual;
 
 				if (mutation.shouldMutate()) {
-					System.out.println("Mutation started");
+					
+//					System.out.println("Mutation started");
 					individualToAdd = mutation.mutate(individualToAdd, i);
-					System.out.println("Mutation ended");
+//					System.out.println("Mutation ended");
 				}
 
 				if (backpropagation.shouldApply()) {
-					System.out.println("Backpropagation started");
+//					System.out.println("Backpropagation started");
 					individualToAdd = backpropagation.run(individualToAdd);
-					System.out.println("Backpropagation ended");
+//					System.out.println("Backpropagation ended");
 				}
 
 				sonsToAdd.add(individualToAdd);
@@ -167,23 +170,16 @@ public class FunctionResolver {
 			}
 
 			int toSelectOld = POP_SIZE - toSelect;
-			population = replacement.select(population, i, toSelectOld);
+			population = replacement.select(population, i);
 			population.addAll(sonsToAdd);
 
 			EliteSelection bestSel = new EliteSelection(1);
-			System.out.println("Best individual (Apptitude) "
-					+ bestSel.select(population, i).get(0).getApptitude());
-			System.out.println("Worst individual (Apptitude) "
-					+ population.get(POP_SIZE - 1).getApptitude());
+			System.out.println("Best individual (Apptitude) " + bestSel.select(population, i).get(0).getApptitude() 
+					+ " Worst individual (Apptitude) " + population.get(population.size()-1).getApptitude() + 
+					" SD: " + this.debugger.sdForIndividual(population) + " Median: " + this.debugger.medianForIndividual(population));
 			long finish = System.currentTimeMillis();
 			System.out.println("Finish Generation " + i + " in " + (finish - initial)/1000 + " seconds");
 		}
 
-		EliteSelection bestSel = new EliteSelection(1);
-		Individual bestIndividual = bestSel.select(population, 0).get(0);
-		Date date = new Date();
-		String filename = "ind_"+date.toGMTString().replaceAll(" ", "-");
-		System.out.println("Saving configuration with filename: "+ filename);
-		ann.saveIndividual(bestIndividual.getData(), filename);
 	}
 }
