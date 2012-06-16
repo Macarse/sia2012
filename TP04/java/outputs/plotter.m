@@ -11,6 +11,7 @@ means = values(:,4);
 p = plot(generations, best, 'r', generations, worst, 'b', generations, means, 'g');
 ylabel('Fitness');
 xlabel('Generaciones');
-legend('Best', 'Worst', 'Median');
+leg = legend('Best', 'Worst', 'Median');
+set(leg, 'Location', 'NorthWest');
 
 end
