@@ -1,0 +1,14 @@
+%% plotter: function description
+function [] = plotter(values)
+
+generations = values(:,1);
+best = values(:,2);
+worst = values(:,3);
+means = values(:,4);
+
+p = plot(generations, best, 'r', generations, worst, 'b', generations, means, 'g');
+ylabel('Fitness');
+xlabel('Generaciones');
+legend('Best', 'Worst', 'Median');
+
+end
