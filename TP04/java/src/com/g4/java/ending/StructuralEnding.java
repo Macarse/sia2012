@@ -1,5 +1,6 @@
 package com.g4.java.ending;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.g4.java.model.Individual;
@@ -11,26 +12,36 @@ public class StructuralEnding implements EndingMethod {
 	private int iterationsToCheck;
 	private int toBeEqual;
 	private Selection elite;
+	private List<List<Individual>> lastIndividuals;
 	
 	public StructuralEnding(int iterationsToCheck, int percent, int popSize) {
 		this.iterationsToCheck = iterationsToCheck;
 		this.toBeEqual = (popSize*percent)/100;
 		this.elite = new EliteSelection(this.toBeEqual);
+		this.lastIndividuals = new ArrayList<List<Individual>>();
 	}
 	
 	@Override
 	public boolean shouldEnd(List<Individual> population, int iterations) {
+		System.out.println(iterations % iterationsToCheck );
 		if(iterations % iterationsToCheck != 0){
+			lastIndividuals.add(population);
 			return false;
 		}
 		
-		List<Individual> bests = elite.select(population, 0);
+		List<List<Individual>> bests = new ArrayList<List<Individual>>();
+		for (List<Individual> list : lastIndividuals) {
+			bests.add(elite.select(list, 0));
+		}
 		
-		for (Individual ind : bests) {
-			if(bests.get(0).getApptitude() != ind.getApptitude()){
+		for (int i = 0 ; i < this.toBeEqual ; i++) {
+			double firstApp = bests.get(0).get(i).getApptitude();
+			double lastApp = bests.get(bests.size()-1).get(i).getApptitude();
+			if (firstApp == lastApp ) {
 				return false;
 			}
 		}
+		
 		return true;
 	}
 
