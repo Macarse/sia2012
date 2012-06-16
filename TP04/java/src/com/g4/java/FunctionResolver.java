@@ -1,6 +1,9 @@
 package com.g4.java;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +42,8 @@ public class FunctionResolver {
 
 	private List<Individual> population = new ArrayList<Individual>(POP_SIZE);
 	private Printer debugger;
-
+	private static BufferedWriter outFile;
+	
 	private ANN ann;
 
 	public static void main(String[] args) throws FileNotFoundException,
@@ -72,6 +76,20 @@ public class FunctionResolver {
 				resolver.configuration.getReplacementMethods());
 		resolver.ann = MatlabSingleton.getInstance().getAnn();
 		resolver.debugger = new Printer();
+		try{
+			File file = new File(System.getProperty("user.dir") +args[0] );
+			String outFileName = file.getName();
+			file = new File(System.getProperty("user.dir") + "/outputs/" +outFileName+".out" );
+			file.delete();
+			
+			file.createNewFile();
+			  // Create file 
+			  FileWriter fstream = new FileWriter(file);
+			   outFile = new BufferedWriter(fstream);
+			  }catch (Exception e){//Catch exception if any
+			  System.err.println("Error: " + e.getMessage());
+			  }
+
 		
 		try {
 			resolver.run();
@@ -181,7 +199,14 @@ public class FunctionResolver {
 
 			EliteSelection bestSel = new EliteSelection(population.size());
 			List<Individual> bestList = bestSel.select(population, i);
-
+			try {
+				outFile.write(i + " " + bestList.get(0).getApptitude() + " " + bestList.get(population.size()-1).getApptitude() +
+						" " + this.debugger.mean(population) +" \n" );
+				outFile.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("Best individual (Apptitude) " + bestList.get(0).getApptitude() 
 					+ " Worst individual (Apptitude) " + bestList.get(population.size()-1).getApptitude() + 
 					" SD: " + this.debugger.sdForIndividual(population) +
