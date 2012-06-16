@@ -23,8 +23,7 @@ public class StructuralEnding implements EndingMethod {
 	
 	@Override
 	public boolean shouldEnd(List<Individual> population, int iterations) {
-		System.out.println(iterations % iterationsToCheck );
-		if(iterations % iterationsToCheck != 0){
+		if(iterations % iterationsToCheck != 0 || iterations == 0){
 			lastIndividuals.add(population);
 			return false;
 		}
@@ -34,15 +33,14 @@ public class StructuralEnding implements EndingMethod {
 			bests.add(elite.select(list, 0));
 		}
 		
+		boolean ret = false;
 		for (int i = 0 ; i < this.toBeEqual ; i++) {
 			double firstApp = bests.get(0).get(i).getApptitude();
 			double lastApp = bests.get(bests.size()-1).get(i).getApptitude();
-			if (firstApp == lastApp ) {
-				return false;
-			}
+			ret |= (firstApp == lastApp);
 		}
 		
-		return true;
+		return ret;
 	}
 
 }
