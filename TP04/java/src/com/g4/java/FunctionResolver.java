@@ -196,7 +196,11 @@ public class FunctionResolver {
 //			System.out.println("aptitudes: " + sb);
 			population = replacement.select(population, i);
 			population.addAll(sonsToAdd);
-
+			if(population.size() != POP_SIZE){
+				System.err.println("Population is " + population.size() + "and should be " + POP_SIZE + 
+						"Please check that select and replace add the total population size");
+				System.exit(-1);
+			}
 			EliteSelection bestSel = new EliteSelection(population.size());
 			List<Individual> bestList = bestSel.select(population, i);
 			try {
