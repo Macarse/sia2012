@@ -15,7 +15,7 @@ public class NotUniformMutation extends ClassicMutation {
   @Override
   public void updateMutationProbability(int iteration) {
     if (iteration % generationsToDecrease == 0 && iteration != 0) {
-      this.mutationPercentage *= decreaseConstant;
+      this.mutationPercentage *= (1 - decreaseConstant);
     }
   }
 
