@@ -187,13 +187,13 @@ public class FunctionResolver {
 				individual.setApptitude(function.eval(individual));
 			}
 
-			StringBuilder sb = new StringBuilder();
-			for (Individual individual : population) {
-			  sb.append(" ");
-			  sb.append(individual.getApptitude());
-			}
+//			StringBuilder sb = new StringBuilder();
+//			for (Individual individual : population) {
+//			  sb.append(" ");
+//			  sb.append(individual.getApptitude());
+//			}
 
-			System.out.println("aptitudes: " + sb);
+//			System.out.println("aptitudes: " + sb);
 			population = replacement.select(population, i);
 			population.addAll(sonsToAdd);
 
@@ -201,7 +201,7 @@ public class FunctionResolver {
 			List<Individual> bestList = bestSel.select(population, i);
 			try {
 				outFile.write(i + " " + bestList.get(0).getApptitude() + " " + bestList.get(population.size()-1).getApptitude() +
-						" " + this.debugger.mean(population) +" \n" );
+						" " + this.debugger.mean(population) + " " + this.debugger.sdForIndividual(population) + " \n" );
 				outFile.flush();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
