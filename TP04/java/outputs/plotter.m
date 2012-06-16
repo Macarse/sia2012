@@ -1,5 +1,7 @@
 %% plotter: function description
-function [] = plotter(values)
+function [] = plotter(namefile)
+
+values = load(namefile);
 
 generations = values(:,1);
 best = values(:,2);
