@@ -37,6 +37,7 @@ public class BoltzmannSelection extends RuletteSelection {
 		for (Individual ind : population) {
 			this.varInTime += Math.exp(ind.getApptitude()/this.temperature);
 		}
+		this.varInTime = this.varInTime / population.size();
 		return super.select(population, generation);
 	}
 
