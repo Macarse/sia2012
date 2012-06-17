@@ -27,201 +27,187 @@
 
 \maketitle
 
-\section{Introducción}
+% \section{Introducción}
 
-	Se implementa un motor de algoritmos genéticos para obtener los pesos para la red neuronal construida en el Trabajo Práctico Especial Número 2.
-	La red neuronal resuelve la función que se puede observar en la figura \ref{fig:function}.
+% 	Se implementa un motor de algoritmos genéticos para obtener los pesos para la red neuronal construida en el Trabajo Práctico Especial Número 2.
+% 	La red neuronal resuelve la función que se puede observar en la figura \ref{fig:function}.
 
-	\begin{figure}[!ht]
-		\includegraphics[scale=0.5]{./figures/function.png}
-  		\caption{Distribución de puntos dada}
-  		\label{fig:function}
-	\end{figure}
+% 	\begin{figure}[!ht]
+% 		\includegraphics[scale=0.5]{./figures/function.png}
+%   		\caption{Distribución de puntos dada}
+%   		\label{fig:function}
+% 	\end{figure}
 
-	En la figura \ref{fig:function} se puede observar que los puntos de la entrada pertenecen al intervalo $[-3.5, 3.5]$ y la salida se encuentra en el intervalo $(0, 1)$.\\
-	El algoritmo genético se implementó en \textit{Java} y la red neuronal fue realizada en \textit{Matlab}. Utilizando el \textit{MATLAB Compiler Runtime} se realizan las pruebas pertinentes para verificar el funcionamiento de la red.\\
+% 	En la figura \ref{fig:function} se puede observar que los puntos de la entrada pertenecen al intervalo $[-3.5, 3.5]$ y la salida se encuentra en el intervalo $(0, 1)$.\\
+% 	El algoritmo genético se implementó en \textit{Java} y la red neuronal fue realizada en \textit{Matlab}. Utilizando el \textit{MATLAB Compiler Runtime} se realizan las pruebas pertinentes para verificar el funcionamiento de la red.\\
 
-\section{Desarrollo y Problemas encontrados}
-Se han implementado varios operadores genéticos, métodos de selección, condiciones de corte y demás configuraciones que se presentarán en las secciones a continuación.
-Con el objetivo de facilitar la configuración se ha creado un archivo de
-\textit{properties} en el que se debe detallar como se desea entrenar la red.
-Un ejemplo de dicho archivo se puede observar en la lista \ref{code:simple}.
+% \section{Desarrollo y Problemas encontrados}
 
-	\subsection{Operadores genéticos}
-	\subsubsection{Mutación}
-	Las mutaciones se realizan tomando un número aleatorio definido entre $-1.5$ y $1.5$.
-	Se han implementado las mutaciones del tipo clásicas y no uniformes.
+% Se han implementado varios operadores genéticos, métodos de selección, condiciones de corte y demás configuraciones que se presentarán en las secciones a continuación.
+% Con el objetivo de facilitar la configuración se ha creado un archivo de \textit{properties} en el que se debe detallar como se desea entrenar la red.
+% Un ejemplo de dicho archivo se puede observar en la lista \ref{code:simple}.
 
-	\subsubsection{Crossover}
-	Se han decidido implementar los siguientes algoritmos de cruzamiento:
-	\begin{itemize}
-		\item cruce de un punto (clásica)
-		\item cruce de dos puntos
-		\item cruce anular
-		\item cruce uniforme parametrizado
-		\item Gene
-	\end{itemize}
+% 	\subsection{Operadores genéticos}
 
-	\textit{Gene} funciona de manera similar al cruce clásico pero en vez de
-	realizar el cruce en base a un \textit{locus} lo hace reemplazando
-	capas enteras.
+% 	\subsubsection{Mutación}
+% 	Las mutaciones se realizan tomando un número aleatorio definido entre $-1.5$ y $1.5$.
+% 	Se han implementado las mutaciones del tipo clásicas y no uniformes.
 
-	\subsubsection{Backpropagation}
-	Otro operador utilizado es \textit{Backpropagation}.
-	El mismo toma como parámetro la cantidad de épocas que debe entrenar la red.
+% 	\subsubsection{Crossover}
+% 	Se han decidido implementar los siguientes algoritmos de cruzamiento:
+% 	\begin{itemize}
+% 		\item cruce de un punto (clásica)
+% 		\item cruce de dos puntos
+% 		\item cruce anular
+% 		\item cruce uniforme parametrizado
+% 		\item Gene
+% 	\end{itemize}
 
-	\subsection{Métodos de selección y reemplazo}
-	Para ambos casos se han desarrollado los métodos descriptos a
-	continuación, los cuales pueden ser combinados:
-	\begin{itemize}
-		\item Método de elitismo
-		\item Método de torneos
-		 \item Método de Boltzman
-		 \item Método de selección universal estocástica
-	\end{itemize}
+% 	\subsubsection{Backpropagation}
+% 	Otro operador utilizado es \textit{Backpropagation}.
 
-	\subsection{Distintas arquitecturas}
-	Mediante el archivo de configuración se puede seleccionar la arquitectura que se desea utilizar para realizar las pruebas. Las arquitecturas a elegir son las siguientes:
+% 	El mismo toma como parámetro la cantidad de épocas que debe entrenar la red y la probabilidad con la que se debe aplicar.
 
-	\begin{center}
-		\begin{enumerate}
-			\item $[30\,\,20\,\,10\,\,1]$
-			\item $[10\,\,10\,\,1]$
-			\item $[10\,\,\,1]$
-			\item $[10\,\,10\,\,10\,\,10\,\,1]$
-			\item $[40\,\,20\,\,1]$
-			\item $[10\,\,10\,\,10\,\,1]$
-			\item $[5\,\,10\,\,20\,\,1]$
-		\end{enumerate}
-	\end{center}
+% 	\subsection{Métodos de selección y reemplazo}
 
-	\subsection{Representación del individuo}
-	Con el objetivo de representar al individuo, se ha elegido transformar
-	la matriz a un vector de números \textit{doubles} como se muestra en
-	la figura \ref{fig:indiv} y de esta forma poder aplicar los operadores
-	pertinentes de una forma rápida y sencilla.
-
-	Esta representación no se adapta a la representación de la matriz en
-	\textit{MATLAB}, por lo tanto se realiza una transformación del individuo.
-	Esta transformación consiste en cambiar el vector de doubles por una
-	matriz y viceversa.
-
-	\subsubsection{Fidelidad del individuo}
-
-	\begin{itemize}
-
-		\item \textbf{Completitud}: Es completa ya que se puede representar todo el dominio del problema.
-
-		\item \textbf{Coherencia}: Representa únicamente el dominio del problema, ya que ninguna representación puede pertenecer a un conjunto fuera del dominio.
-
-		\item \textbf{Uniformidad}: Se puede concluir que esta representación es uniforme ya que es imposible representar dos individuos distintos con la misma cadena, en caso que esto sucediera esa representación sería exactamente la misma que la otra.	
-
-		\item \textbf{Sencillez}: Convertir matriz de pesos a un vector de doubles es una operación simple.
-
-		\item \textbf{Localidad}: Es local dada que un cambio en un elemento
-		del vector genera un cambio en el peso de la conexión que representa.
-
-	\end{itemize}
+% 	Para ambos casos se han desarrollado los métodos descriptos a continuación, los cuales pueden ser combinados:
 	
-\section{Resultados y Conclusiones}
-	Los resultados se presentadan en dos secciones distintas.
-	En la primera no se utilizará el operador backpropagation y la segunda sí. \\
+% 	\begin{itemize}
+% 		\item Método de Elitismo
+% 		\item Método de Ruleta
+% 		\item Método de Torneos
+% 		\item Método de Boltzman
+% 		\item Método de selección universal estocástica
+% 	\end{itemize}
+
+% 	\subsection{Distintas arquitecturas}
+
+% 	Mediante el archivo de configuración se puede seleccionar la arquitectura que se desea utilizar para realizar las pruebas. Las arquitecturas a elegir son las siguientes:
+
+% 	\begin{center}
+% 		\begin{enumerate}
+% 			\item $[30\,\,20\,\,10\,\,1]$
+% 			\item $[10\,\,10\,\,1]$
+% 			\item $[10\,\,\,1]$
+% 			\item $[10\,\,10\,\,10\,\,10\,\,1]$
+% 			\item $[40\,\,20\,\,1]$
+% 			\item $[10\,\,10\,\,10\,\,1]$
+% 			\item $[5\,\,10\,\,20\,\,1]$
+% 		\end{enumerate}
+% 	\end{center}
+
+% 	\subsection{Representación del individuo}
+
+% 	Con el objetivo de representar al individuo, se ha elegido transformar
+% 	la matriz de pesos a un vector de números \textit{doubles} como se muestra en
+% 	la figura \ref{fig:indiv} y de esta forma poder aplicar los operadores
+% 	pertinentes de una forma rápida y sencilla. \\
+
+% 	Esta representación no se adapta a la representación de la matriz en
+% 	\textit{MATLAB}, por lo tanto se realiza una transformación del individuo.
+% 	Esta transformación consiste en cambiar el vector de doubles por una
+% 	matriz y viceversa. \\
+
+% 	\subsubsection{Fidelidad del individuo}
+
+% 	\begin{itemize}
+
+% 		\item \textbf{Completitud}: Es completa ya que se puede representar todo el dominio del problema.
+
+% 		\item \textbf{Coherencia}: Representa únicamente el dominio del problema, ya que ninguna representación puede pertenecer a un conjunto fuera del dominio.
+
+% 		\item \textbf{Uniformidad}: Se puede concluir que esta representación es uniforme ya que es imposible representar dos individuos distintos con la misma cadena, en caso que esto sucediera esa representación sería exactamente la misma que la otra.	
+
+% 		\item \textbf{Sencillez}: Convertir matriz de pesos a un vector de doubles es una operación simple.
+
+% 		\item \textbf{Localidad}: Es local dada que un cambio en un elemento
+% 		del vector genera un cambio en el peso de la conexión que representa.
+
+% 	\end{itemize}
+
+	\section{Consideraciones generales}
+
+		\subsection{Cálculo del Fitness}
+
+			El fitness del individuo es obtenido mediante una simple división del \textit{Error cuadrático medio} que se obtiene de la red al evaluar los puntos.
+			La fórmula para el mismo} es:
+
+			\begin{equation}
+				\textbf{Fitness} = \dfrac{1}{ECM}
+			\end{equation}
+
+			donde \textit{ECM} es el Error Cuadrático Medio.
+
+		\subsection{Selección de valores para Boltzman}
+
+			Para elegir los valores iniciales de las temperaturas que se utilizan en el algoritmo de Boltzman (Temperatura mínima, máxima y decremento por generación) se eligieron ciertos valores que cumplan con el siguiente criterio. Al inicio de la evolución todos los individuos deben tener una probabilidad similar de ser seleccionados entre toda la población y a medida que avanzan las generaciones los individuos con mayor \textit{fitness} deben tener mayor probabilidad de ser seleccionados.
+			Los valores que se eligieron de Boltzman para hacer las pruebas son variables dependiendo de la cantidad de iteraciones que se desea realizar, y suponiendo un \textit{fitness} en un rango determinado. Esto logra una gran diversidad en un comienzo, y luego va refinando la población descartando de a poco las opciones malas. 	\section{Resultados y Conclusiones}
 
 	Con el fin de obtener resultados comparables entre sí se define un
-	contexto base para todas las pruebas de cada sección.
-	Luego en cada prueba se reemplaza el caso base con lo que se desea.
-	Debe tenerse en cuenta que el hecho de prefijar algunos parámetros puede
-	hacer que los distintos métodos y operadores a comparar se vean
-	beneficiados o perjudicados por su funcionamiento en conjunto.
-
-
-	\subsection{Sin backpropagation}
-	Primero se intenta resolver el problema sin usar el operador backpropagation.
-	El contexto base usado en esta sección es el siguiente:
-
-	\begin{itemize}
-		\item Tamaño de la población es de 52 individuos.
-		\item La brecha generacional (\textit{G}) es de 0.5.
-		\item La arquitectura elegida para realizar las pruebas es la de [10 10 1].
-		\item El operador de mutación inicial es \textit{Clásico} con una probabilidad de 0.5 de mutar.
-		\item El operador de cruce inicial es \textit{Clásico} con una probabilidad de 1 de cruce.
-		\item El operador \textit{Backpropagation} se encuentra desactivado es decir que se ejecute con probabilidad 0.
-		\item El método de selección es \textit{Elite}.
-		\item El método de reemplazo es \textit{Elite} al igual que el de selección.
-		\item Hay dos condiciones de corte, ya sea por \textit{Máxima cantidad
-		de generaciones} (500) y/o \textit{Contenido} (donde la última verifica
-		que si en 50 épocas no mejoró más de un 0.01 el fitness del individuo
-		finaliza su ejecución).
-	\end{itemize}
-
-	\subsubsection{Mutación clásica}
-	Primero se prueba variar la probabilidad de la mutación clásica.
-	Los resultados se pueden observar en la tabla \ref{table:simple_mutation_prob}.
-
-	\subsubsection{Mutación no uniforme}
-	Luego se prueba variar la probabilidad de la mutación no uniforme.
-	Los resultados se pueden observar en la tabla \ref{table:simple_mutation_no_uniform}.
-
-	\subsubsection{Cruce}
-	Por último se corre el algoritmo usando distintos cruces.
-	Los resultados se encuentran en la tabla \ref{table:crossover}.
-
-	\subsubsection{Análisis de resultados}
-	Después de probar con distintas configuraciones, notamos que sin el
-	operador de backpropagation no conseguíamos buenos resultados.
-
-	Entendemos que esto sucede porque el individuo es muy largo haciendo
-	que el algoritmo tarde mucho en encontrar un resultado útil.
-	En la próxima sección analizaremos qué pasa cuando agregamos el operador
-	backpropagation.
-
-	\subsection{Con backpropagation}
-	En esta sección se prueban distintas configuraciones utilizando el
-	operador backpropagation.
-	Se puede observar en la tabla \ref{table:backpropagation} que la mejor
-	configuración para los métodos de selección es con Elite y Boltzman.
-	Para el reemplazo se decidió como métodos a Elite y Ruleta.
-	Cabe destacar que el mejor operador de cruce fue \textbf{Gene} y de
-	mutación el Clásico. Es importante remarcar que la diferencia entre
-	la utilización del operador de \textit{backpropagation} y la no
-	utlización, provoca una gran mejora.
+	contexto base para todas las pruebas, con la intención de obtener distintos 
+	resultados se realizan cambios sobre esta configuración:
 	
-\section{Posibles mejoras}
+	\begin{itemize}
+		\item \textbf{Cantidad de individuos:} 52.
+		\item \textbf{Mutación:} Clásica. Con una probabilidad de mutar un individuo de $0.5$ 
+		y de mutar un locus de $0.03$ donde tenemos una probabilidad de $0.015$ de mutar.
+		\item \textbf{Cruce:} Clásico.
+		\item \textibf{Backpropagation:} 0 (Desactivado)
+		\item \textbf{Selección:} Elite+Rulette (Seleccionando 5 para Elite y 23 para Rulette).
+		\item \textbf{Reemplazo:} Elite+Rulette (Seleccionando 6 para Elite y 18 para Rulette).
+		\item \textbf{Criterios de corte:} Máxima 500 generaciones o Contenido, si en 60 generaciones
+		no mejora un $1\%$ el mejor individuo corta.
+	\end{itemize}
+\subsection(Boltzman)
+Con el objetivo de analizar el desempeño de éste método de selección y reemplazo, se decidió probar con una configuración Boltzman-Boltzman (donde la selección y el reemplazo se realiza con dicho método) con una configuración como la siguiente:
+			
+			\begin{enumeration}			
+				\item \textit{Temperatura inicial}: 50
+				\item \textit{Temperatura mínima}: 0.5
+				\item \textit{Decremento por generación}: 0.5
+				\label{eq:boltz}
+			\end{enumeration}
 
-\subsection{Mejoras a backpropagation}
-	Como posible mejora se concluye que el operador \textit{backpropagation}
-	podría disminuir su probabilidad de acción a medida que se alcanza un
-	fitness deseado.
-	El motivo por el cual se desea disminuir esa probabilidad es para que
-	comience a tener más influencia los operadores de mutación y cruce.
-	El deseo de que la mutación y cruce tenga más influencia a lo largo de
-	las generaciones es porque se observó que el fitness en un punto se
-	asintotiza al error cuadrático medio obtenido por \textit{backpropagation}
-	en el Trabajo Práctico Especial 2.\\
+			Esto quiere decir que la temperatura mínima se alcanza en 100 generaciones aproximadamente, 	ósea que entre la primera y la generación número 100, se van seleccionando cada vez más proporción de individuos con \textit{fitness} más alto.\\
+			Como se puede observar en la figura  \ref{fig:boltzboltz}, tanto el valor medio como el mejor \textit{fitness} tienden a empeorar, comportarse de una forma bastante errática y luego comenzar a mejorar de a poco. Esto se debe a que, como se ha descripto anteriormente, en un comienzo se tiende a elegir de una manera casi totalmente random, pero a medida que se acerca y supera la generación 100 y se alcanza la temperatura mínima, la selección se realiza más a conciencia, dandole prioridad a los individuos con buen desempeño. 
+			\subsection{Mutación No uniforme}
+	Con el objetivo de comparar el comportamiento del sistema según como varía el decaimiento de la probabilidad de mutación a medida que las generaciones avanzan. Por lo tanto, se disidió comparar mutaciones no uniformes con decaimientos de $5\%$, $10\%$ y $15\%$ cada 30 generaciones. Los resultados se las mismas se pueden observar en las figuras \ref{fig:mut_no_un_5} , \ref{fig:mut_no_un_10} y \ref{fig:mut_no_un_15} respectivamente. De las mismas se puede observar a simple vista, en todos los casos termina por contexto (60 generaciones con un cambio menor a $1\%$, sin embargo, se puede ver como al ser el decremento mayor, el algoritmo termina antes. Esto se debe a que al haber muchas menos mutaciones, no hay introducción de elementos nuevos y no se llega a cambiar lo suficiente las redes como para obtener nuevas combinaciones y se consigan mejores resultados. Este estancamiento, también se evidencia en el menor desvío estándar.
+% \section{Posibles mejoras}
 
-\subsection{Mejoras a criterios de selección y reemplazo}
-	En algunas corridas nos pasó que perdimos al mejor individuo entre
-	generaciones. Sería conveniente agregar un parámetro a los criterios
-	de selección y reemplazo para que siempre dejen el individuo con mejor
-	aptitud.
+% \subsection{Mejoras a backpropagation}
+% 	Como posible mejora se concluye que el operador \textit{backpropagation}
+% 	podría disminuir su probabilidad de acción a medida que se alcanza un
+% 	fitness deseado.
+% 	El motivo por el cual se desea disminuir esa probabilidad es para que
+% 	comience a tener más influencia los operadores de mutación y cruce.
+% 	El deseo de que la mutación y cruce tenga más influencia a lo largo de
+% 	las generaciones es porque se observó que el fitness en un punto se
+% 	asintotiza al error cuadrático medio obtenido por \textit{backpropagation}
+% 	en el Trabajo Práctico Especial 2.\\
 
-\subsection{Mutación evolutiva}
-Se podría probar evolucionar la probabilidad de mutación de cada individuo
-de la población.
-En vez de tomarse una probabilidad de mutación global, se agrega al
-genotipo de cada individuo un gen que codifica la probabilidad
-de mutación del resto del cromosoma.
-En otras palabras, en vez de fijar la probabilidad de mutación
-arbitrariamente, la probabilidad de mutación tiene libertad de
-moverse según mejor le convenga a cada individuo para mejorar su fitness.
+% \subsection{Mejoras a criterios de selección y reemplazo}
+% 	En algunas corridas nos pasó que perdimos al mejor individuo entre
+% 	generaciones. Sería conveniente agregar un parámetro a los criterios
+% 	de selección y reemplazo para que siempre dejen el individuo con mejor
+% 	aptitud.
 
-\section{Conclusiones}
-Finalmente, se llega a la conclusión de que, debido a la naturaleza del
-problema que se desea resolver, es necesaria la utilización del
-operador \textit{backpropagation} para llegar a resultados deseados.
+% \subsection{Mutación evolutiva}
+% Se podría probar evolucionar la probabilidad de mutación de cada individuo
+% de la población.
+% En vez de tomarse una probabilidad de mutación global, se agrega al
+% genotipo de cada individuo un gen que codifica la probabilidad
+% de mutación del resto del cromosoma.
+% En otras palabras, en vez de fijar la probabilidad de mutación
+% arbitrariamente, la probabilidad de mutación tiene libertad de
+% moverse según mejor le convenga a cada individuo para mejorar su fitness.
 
-El hecho de correr \textit{backpropagation} generó mejores individuos que
-luego al aplicarle operadores genéticos mejoran notablemente.
+% \section{Conclusiones}
+% Finalmente, se llega a la conclusión de que, debido a la naturaleza del
+% problema que se desea resolver, es necesaria la utilización del
+% operador \textit{backpropagation} para llegar a resultados deseados.
+
+% El hecho de correr \textit{backpropagation} generó mejores individuos que
+% luego al aplicarle operadores genéticos mejoran notablemente.
 
 \onecolumn
 \begin{figure}[ht]
@@ -303,33 +289,32 @@ luego al aplicarle operadores genéticos mejoran notablemente.
 \newpage
 \begin{lstlisting}[caption={Archivo de configuración simple},label={code:simple}]
 popSize = 52
-generationGap = 0.6
 architecture = 2
+generationGap = 0.5
 
 mutation = Classic
-mutationProbability = 0.05
+mutationProbability = 0.5
+Mutation.alleleProb = 0.03
 
-Backpropagation.probability = 0.15
-Backpropagation.iterations = 30
+Backpropagation.probability = 0
 
 crossover = Classic
 crossoverProbability = 1
 
+
 selection = Elite / Rulette
-Elite.toSelect = 16
-Rulette.toSelect = 15
+Elite.toSelect = 5
+Rulette.toSelect = 23
 
-replacement = Elite / Boltzman
-replacement.Elite.toSelect = 15
-replacement.Boltzman.toSelect = 6
-replacement.Boltzman.maxTemperature = 100
-replacement.Boltzman.minTemperature = 7
-replacement.Boltzman.decrement = 0.8
-
+replacement = Elite / Rulette
+replacement.Elite.toSelect = 6
+replacement.Rulette.toSelect = 18
 
 ending = MaxGeneration / Content
-MaxGeneration.iterationToEnd = 100
+MaxGeneration.iterationToEnd = 500
+
 Content.improvement = 0.01
+Content.iterationToImprove = 60
 Content.iterationToImprove = 15
 
 \end{lstlisting}
