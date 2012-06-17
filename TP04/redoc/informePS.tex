@@ -185,6 +185,11 @@
 		
 		Con el objetivo de comparar el comportamiento del sistema según como varía el decaimiento de la probabilidad de mutación a medida que las generaciones avanzan. Por lo tanto, se decidió comparar mutaciones no uniformes con decaimientos de $5\%$, $10\%$ y $15\%$ cada 30 generaciones. Los resultados se las mismas se pueden observar en las figuras \ref{fig:mut_no_un_5} , \ref{fig:mut_no_un_10} y \ref{fig:mut_no_un_15} respectivamente. De las mismas se puede observar a simple vista, como en todos los casos termina por contexto (60 generaciones con un cambio menor a $1\%$), sin embargo, se puede ver como al ser el decremento mayor, el algoritmo termina antes. Esto se debe a que al haber muchas menos mutaciones, no hay introducción de elementos nuevos y no se llega a cambiar lo suficiente las redes como para obtener nuevas combinaciones y se consigan mejores resultados. Este estancamiento, también se evidencia en el menor desvío estándar.
 
+		\subsection{Crossover}
+		Se prueban distintas opciones de crossover.
+		Los resultados se pueden ver en la figura \ref{fig:crossover_comparison}.
+		Se puede observar en la figura \ref{fig:crossover_anular} que es el método
+		que llega al mejor fitness.
 
 % \section{Posibles mejoras}
 
@@ -236,6 +241,33 @@
 	\end{center}
 	\caption{Comparación entre Backpropagation y Algoritmo Genéticos con Backpropagation}
 	\label{fig:comparinBP}
+\end{figure}
+
+\begin{figure}[!ht]
+	\begin{center}
+		\hspace{20pt}
+		\subfigure[Crossover Classic]
+			{\label{fig:crossover_classic}\framebox{\includegraphics[scale=0.35]{./figures/crossover_classic.png}}}
+
+		\hspace{20pt}
+		\subfigure[Crossover Multiple Point con dos puntos]
+			{\label{fig:crossover_multipoint}\framebox{\includegraphics[scale=0.35]{./figures/crossover_multipoint.png}}}
+
+		\hspace{20pt}
+		\subfigure[Crossover Uniform]
+			{\label{fig:crossover_multipoint}\framebox{\includegraphics[scale=0.35]{./figures/crossover_uniform.png}}}
+
+		\hspace{20pt}
+		\subfigure[Crossover Anular]
+			{\label{fig:crossover_anular}\framebox{\includegraphics[scale=0.35]{./figures/crossover_anular.png}}}
+
+		\hspace{20pt}
+		\subfigure[Crossover Gene]
+			{\label{fig:crossover_gene}\framebox{\includegraphics[scale=0.35]{./figures/crossover_gene.png}}}
+
+	\end{center}
+	\caption{Comparación entre distintos métodos de crossover}
+	\label{fig:crossover_comparison}
 \end{figure}
 
 
