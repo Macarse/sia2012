@@ -165,7 +165,7 @@
 		\subsection{Backpropagation vs Algorítmo Genéticos con Backpropagation}
 
 
-		En las figuras \ref{fig:onlyBP} y \ref{fig:AGWithBP} se puede observar como mejora la \textit{Red neuronal} utilizando Algorítmos Genéticos. El primer punto a destacar es el comportamiento de la curva del \textit{Fitness}, en la figura \ref{fig:AGWithBP} se puede observar que se obtiene un mejor resultado que la figura \ref{fig:onlyBP} y ademas no posee esas oscilaciones que presenta la red al utilizar método Batch como corrección. Se puede observar que los dos algorítmos mejoran a traves del tiempo, solo que en la figura \ref{fig:AGWithBP} lo hace con mayor velocidad.
+		En las figuras \ref{fig:onlyBP} y \ref{fig:AGWithBP} se puede observar como mejora la \textit{Red neuronal} utilizando Algorítmos Genéticos. El primer punto a destacar es el comportamiento de la curva del \textit{Fitness}, en la figura \ref{fig:AGWithBP} se puede observar que se obtiene un mejor resultado que la figura \ref{fig:onlyBP} y además no posee esas oscilaciones que presenta la red al utilizar método Batch como corrección. Se puede observar que los dos algoritmos mejoran a traves del tiempo, sólo que en la figura \ref{fig:AGWithBP} lo hace con mayor velocidad.
 		
 		\subsection{Boltzman}
 
@@ -178,12 +178,12 @@
 			\label{eq:boltz}
 		\end{enumerate}
 
-		Esto quiere decir que la temperatura mínima se alcanza en 100 generaciones aproximadamente, 	ósea que entre la primera y la generación número 100, se van seleccionando cada vez más proporción de individuos con \textit{fitness} más alto.\\
-		Como se puede observar en la figura  \ref{fig:boltzboltz}, tanto el valor medio como el mejor \textit{fitness} tienden a empeorar, comportarse de una forma bastante errática y luego comenzar a mejorar de a poco. Esto se debe a que, como se ha descripto anteriormente, en un comienzo se tiende a elegir de una manera casi totalmente random, pero a medida que se acerca y supera la generación 100 y se alcanza la temperatura mínima, la selección se realiza más a conciencia, dandole prioridad a los individuos con buen desempeño. 
+		Esto quiere decir que la temperatura mínima se alcanza en 100 generaciones aproximadamente, 	o sea que entre la primera y la generación número 100, se van seleccionando cada vez más proporción de individuos con \textit{fitness} más alto.\\
+		Como se puede observar en la figura \ref{fig:boltzboltz}, tanto el valor medio como el mejor \textit{fitness} tienden a empeorar, comportarse de una forma bastante errática y luego comenzar a mejorar de a poco. Esto se debe a que, como se ha descripto anteriormente, en un comienzo se tiende a elegir de una manera casi totalmente aleatoria, pero a medida que se acerca y supera la generación 100 y se alcanza la temperatura mínima, la selección se realiza más a conciencia, dándole prioridad a los individuos con más aptitud. 
 		
 		\subsection{Mutación No uniforme}
 		
-		Con el objetivo de comparar el comportamiento del sistema según como varía el decaimiento de la probabilidad de mutación a medida que las generaciones avanzan. Por lo tanto, se disidió comparar mutaciones no uniformes con decaimientos de $5\%$, $10\%$ y $15\%$ cada 30 generaciones. Los resultados se las mismas se pueden observar en las figuras \ref{fig:mut_no_un_5} , \ref{fig:mut_no_un_10} y \ref{fig:mut_no_un_15} respectivamente. De las mismas se puede observar a simple vista, como en todos los casos termina por contexto (60 generaciones con un cambio menor a $1\%$), sin embargo, se puede ver como al ser el decremento mayor, el algoritmo termina antes. Esto se debe a que al haber muchas menos mutaciones, no hay introducción de elementos nuevos y no se llega a cambiar lo suficiente las redes como para obtener nuevas combinaciones y se consigan mejores resultados. Este estancamiento, también se evidencia en el menor desvío estándar.
+		Con el objetivo de comparar el comportamiento del sistema según como varía el decaimiento de la probabilidad de mutación a medida que las generaciones avanzan. Por lo tanto, se decidió comparar mutaciones no uniformes con decaimientos de $5\%$, $10\%$ y $15\%$ cada 30 generaciones. Los resultados se las mismas se pueden observar en las figuras \ref{fig:mut_no_un_5} , \ref{fig:mut_no_un_10} y \ref{fig:mut_no_un_15} respectivamente. De las mismas se puede observar a simple vista, como en todos los casos termina por contexto (60 generaciones con un cambio menor a $1\%$), sin embargo, se puede ver como al ser el decremento mayor, el algoritmo termina antes. Esto se debe a que al haber muchas menos mutaciones, no hay introducción de elementos nuevos y no se llega a cambiar lo suficiente las redes como para obtener nuevas combinaciones y se consigan mejores resultados. Este estancamiento, también se evidencia en el menor desvío estándar.
 
 
 % \section{Posibles mejoras}
@@ -228,13 +228,13 @@
 
 \begin{figure}[!ht]
 	\begin{center}
-		\subfigure[Unicamente Backpropagation]
+		\subfigure[Únicamente Backpropagation]
 			{\label{fig:onlyBP}\framebox{\includegraphics[scale=0.3]{./figures/OnlyBPFitness.png}}}
 		\hspace{20pt}
-		\subfigure[Algorítmo Genético con Backpropagation]
+		\subfigure[Algoritmo Genético con Backpropagation]
 			{\label{fig:AGWithBP}\framebox{\includegraphics[scale=0.5]{./figures/BPFitness.png}}}
 	\end{center}
-	\caption{Comparación entre Backpropagation y Algorítmo Genéticos con Backpropagation}
+	\caption{Comparación entre Backpropagation y Algoritmo Genéticos con Backpropagation}
 	\label{fig:comparinBP}
 \end{figure}
 
