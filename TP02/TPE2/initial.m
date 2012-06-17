@@ -8,7 +8,7 @@ N = 2;
 
 constant_seed();
 
-neurons_per_layer = [30 20 10 1];
+neurons_per_layer = [10 10 1];
 
 eta = 0.4;
 
@@ -18,9 +18,9 @@ g = @no_lineal_exp;
 
 g_deriv = @no_lineal_deriv_exp;
 
-lineal_function = @lineal;
+lineal_function = @no_lineal_exp;
 
-lineal_function_deriv = @lineal_deriv;
+lineal_function_deriv = @no_lineal_deriv_exp;
 
 M = 351;
 
@@ -30,9 +30,9 @@ etaIncrement = 0.1;
 
 k = 5;
 
-etaAdapIsEnabled = 1;
+etaAdapIsEnabled = 0;
 
-momentumIsEnabled = 1;
+momentumIsEnabled = 0;
 
 func = @evaluation_function;
 
@@ -56,7 +56,7 @@ allWeights = generateWeights(neurons_per_layer);
 
 lastWeights = allWeights;
 
-[inputs, expected_outputs, inputs_test, expected_outputs_test] = generateInputFromFile('samples3.txt', .80, 0);
+[inputs, expected_outputs, inputs_test, expected_outputs_test] = generateInputFromFile('samples3.txt', .40, 0);
 
 activationFunctions = cell(2, numberOfLayers);
 

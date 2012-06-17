@@ -5,6 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{listings}
+\usepackage{subfigure}
 
 \hyphenation{o-pe-ra-do-res}
 
@@ -130,7 +131,7 @@
 		\subsection{Cálculo del Fitness}
 
 			El fitness del individuo es obtenido mediante una simple división del \textit{Error cuadrático medio} que se obtiene de la red al evaluar los puntos.
-			La fórmula para el mismo} es:
+			La fórmula para el mismo es:
 
 			\begin{equation}
 				\textbf{Fitness} = \dfrac{1}{ECM}
@@ -141,37 +142,50 @@
 		\subsection{Selección de valores para Boltzman}
 
 			Para elegir los valores iniciales de las temperaturas que se utilizan en el algoritmo de Boltzman (Temperatura mínima, máxima y decremento por generación) se eligieron ciertos valores que cumplan con el siguiente criterio. Al inicio de la evolución todos los individuos deben tener una probabilidad similar de ser seleccionados entre toda la población y a medida que avanzan las generaciones los individuos con mayor \textit{fitness} deben tener mayor probabilidad de ser seleccionados.
-			Los valores que se eligieron de Boltzman para hacer las pruebas son variables dependiendo de la cantidad de iteraciones que se desea realizar, y suponiendo un \textit{fitness} en un rango determinado. Esto logra una gran diversidad en un comienzo, y luego va refinando la población descartando de a poco las opciones malas. 	\section{Resultados y Conclusiones}
+			Los valores que se eligieron de Boltzman para hacer las pruebas son variables dependiendo de la cantidad de iteraciones que se desea realizar, y suponiendo un \textit{fitness} en un rango determinado. Esto logra una gran diversidad en un comienzo, y luego va refinando la población descartando de a poco las opciones malas. 	
 
-	Con el fin de obtener resultados comparables entre sí se define un
-	contexto base para todas las pruebas, con la intención de obtener distintos 
-	resultados se realizan cambios sobre esta configuración:
-	
-	\begin{itemize}
-		\item \textbf{Cantidad de individuos:} 52.
-		\item \textbf{Mutación:} Clásica. Con una probabilidad de mutar un individuo de $0.5$ 
-		y de mutar un locus de $0.03$ donde tenemos una probabilidad de $0.015$ de mutar.
-		\item \textbf{Cruce:} Clásico.
-		\item \textibf{Backpropagation:} 0 (Desactivado)
-		\item \textbf{Selección:} Elite+Rulette (Seleccionando 5 para Elite y 23 para Rulette).
-		\item \textbf{Reemplazo:} Elite+Rulette (Seleccionando 6 para Elite y 18 para Rulette).
-		\item \textbf{Criterios de corte:} Máxima 500 generaciones o Contenido, si en 60 generaciones
-		no mejora un $1\%$ el mejor individuo corta.
-	\end{itemize}
-\subsection(Boltzman)
-Con el objetivo de analizar el desempeño de éste método de selección y reemplazo, se decidió probar con una configuración Boltzman-Boltzman (donde la selección y el reemplazo se realiza con dicho método) con una configuración como la siguiente:
+	\section{Resultados y Conclusiones}
+
+		Con el fin de obtener resultados comparables entre sí se define un
+		contexto base para todas las pruebas, con la intención de obtener distintos 
+		resultados se realizan cambios sobre esta configuración:
+
+		\begin{itemize}
+			\item \textbf{Cantidad de individuos:} 52.
+			\item \textbf{Mutación:} Clásica. Con una probabilidad de mutar un individuo de $0.5$ 
+			y de mutar un locus de $0.03$ donde tenemos una probabilidad de $0.015$ de mutar.
+			\item \textbf{Cruce:} Clásico.
+			\item \textbf{Backpropagation:} 0 (Desactivado)
+			\item \textbf{Selección:} Elite+Rulette (Seleccionando 5 para Elite y 23 para Rulette).
+			\item \textbf{Reemplazo:} Elite+Rulette (Seleccionando 6 para Elite y 18 para Rulette).
+			\item \textbf{Criterios de corte:} Máxima 500 generaciones o Contenido, si en 60 generaciones
+			no mejora un $1\%$ el mejor individuo corta.
+		\end{itemize}
+
+		\subsection{Backpropagation vs Algorítmo Genéticos con Backpropagation}
+
+
+		En las figuras \ref{fig:onlyBP} y \ref{fig:AGWithBP} se puede observar como mejora la \textit{Red neuronal} utilizando Algorítmos Genéticos. El primer punto a destacar es el comportamiento de la curva del \textit{Fitness}, en la figura \ref{fig:AGWithBP} se puede observar que se obtiene un mejor resultado que la figura \ref{fig:onlyBP} y ademas no posee esas oscilaciones que presenta la red al utilizar método Batch como corrección. Se puede observar que los dos algorítmos mejoran a traves del tiempo, solo que en la figura \ref{fig:AGWithBP} lo hace con mayor velocidad.
+		
+		\subsection{Boltzman}
+
+		Con el objetivo de analizar el desempeño de este método de selección y reemplazo, se decidió probar con una configuración Boltzman-Boltzman (donde la selección y el reemplazo se realiza con dicho método) con una configuración como la siguiente:
 			
-			\begin{enumeration}			
-				\item \textit{Temperatura inicial}: 50
-				\item \textit{Temperatura mínima}: 0.5
-				\item \textit{Decremento por generación}: 0.5
-				\label{eq:boltz}
-			\end{enumeration}
+		\begin{enumerate}			
+			\item \textit{Temperatura inicial}: 50
+			\item \textit{Temperatura mínima}: 0.5
+			\item \textit{Decremento por generación}: 0.5
+			\label{eq:boltz}
+		\end{enumerate}
 
-			Esto quiere decir que la temperatura mínima se alcanza en 100 generaciones aproximadamente, 	ósea que entre la primera y la generación número 100, se van seleccionando cada vez más proporción de individuos con \textit{fitness} más alto.\\
-			Como se puede observar en la figura  \ref{fig:boltzboltz}, tanto el valor medio como el mejor \textit{fitness} tienden a empeorar, comportarse de una forma bastante errática y luego comenzar a mejorar de a poco. Esto se debe a que, como se ha descripto anteriormente, en un comienzo se tiende a elegir de una manera casi totalmente random, pero a medida que se acerca y supera la generación 100 y se alcanza la temperatura mínima, la selección se realiza más a conciencia, dandole prioridad a los individuos con buen desempeño. 
-			\subsection{Mutación No uniforme}
-	Con el objetivo de comparar el comportamiento del sistema según como varía el decaimiento de la probabilidad de mutación a medida que las generaciones avanzan. Por lo tanto, se disidió comparar mutaciones no uniformes con decaimientos de $5\%$, $10\%$ y $15\%$ cada 30 generaciones. Los resultados se las mismas se pueden observar en las figuras \ref{fig:mut_no_un_5} , \ref{fig:mut_no_un_10} y \ref{fig:mut_no_un_15} respectivamente. De las mismas se puede observar a simple vista, en todos los casos termina por contexto (60 generaciones con un cambio menor a $1\%$, sin embargo, se puede ver como al ser el decremento mayor, el algoritmo termina antes. Esto se debe a que al haber muchas menos mutaciones, no hay introducción de elementos nuevos y no se llega a cambiar lo suficiente las redes como para obtener nuevas combinaciones y se consigan mejores resultados. Este estancamiento, también se evidencia en el menor desvío estándar.
+		Esto quiere decir que la temperatura mínima se alcanza en 100 generaciones aproximadamente, 	ósea que entre la primera y la generación número 100, se van seleccionando cada vez más proporción de individuos con \textit{fitness} más alto.\\
+		Como se puede observar en la figura  \ref{fig:boltzboltz}, tanto el valor medio como el mejor \textit{fitness} tienden a empeorar, comportarse de una forma bastante errática y luego comenzar a mejorar de a poco. Esto se debe a que, como se ha descripto anteriormente, en un comienzo se tiende a elegir de una manera casi totalmente random, pero a medida que se acerca y supera la generación 100 y se alcanza la temperatura mínima, la selección se realiza más a conciencia, dandole prioridad a los individuos con buen desempeño. 
+		
+		\subsection{Mutación No uniforme}
+		
+		Con el objetivo de comparar el comportamiento del sistema según como varía el decaimiento de la probabilidad de mutación a medida que las generaciones avanzan. Por lo tanto, se disidió comparar mutaciones no uniformes con decaimientos de $5\%$, $10\%$ y $15\%$ cada 30 generaciones. Los resultados se las mismas se pueden observar en las figuras \ref{fig:mut_no_un_5} , \ref{fig:mut_no_un_10} y \ref{fig:mut_no_un_15} respectivamente. De las mismas se puede observar a simple vista, en todos los casos termina por contexto (60 generaciones con un cambio menor a $1\%$, sin embargo, se puede ver como al ser el decremento mayor, el algoritmo termina antes. Esto se debe a que al haber muchas menos mutaciones, no hay introducción de elementos nuevos y no se llega a cambiar lo suficiente las redes como para obtener nuevas combinaciones y se consigan mejores resultados. Este estancamiento, también se evidencia en el menor desvío estándar.
+
+
 % \section{Posibles mejoras}
 
 % \subsection{Mejoras a backpropagation}
@@ -210,11 +224,20 @@ Con el objetivo de analizar el desempeño de éste método de selección y reemp
 % luego al aplicarle operadores genéticos mejoran notablemente.
 
 \onecolumn
-\begin{figure}[ht]
-		\includegraphics[scale=0.5]{./figures/matrix_to_array.png}
-  		\caption{Transformación de la matriz en vector}
-  		\label{fig:indiv}
-	\end{figure}
+
+
+\begin{figure}[!ht]
+	\begin{center}
+		\subfigure[Unicamente Backpropagation]
+			{\label{fig:onlyBP}\framebox{\includegraphics[scale=0.3]{./figures/OnlyBPFitness.png}}}
+		\hspace{20pt}
+		\subfigure[Algorítmo Genético con Backpropagation]
+			{\label{fig:AGWithBP}\framebox{\includegraphics[scale=0.5]{./figures/BPFitness.png}}}
+	\end{center}
+	\caption{Comparación entre Backpropagation y Algorítmo Genéticos con Backpropagation}
+	\label{fig:comparinBP}
+\end{figure}
+
 
 \begin{table}[htp]
 	\begin{center}
@@ -287,7 +310,9 @@ Con el objetivo de analizar el desempeño de éste método de selección y reemp
 \end{table}
 
 \newpage
+
 \begin{lstlisting}[caption={Archivo de configuración simple},label={code:simple}]
+
 popSize = 52
 architecture = 2
 generationGap = 0.5
