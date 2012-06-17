@@ -12,7 +12,7 @@ sd = values(:,5);
 p = plot(generations, best, 'r', generations, means, 'b', generations, sd, 'g');
 ylabel('Fitness');
 xlabel('Generaciones');
-leg = legend('Fitness', 'Median', 'Diversidad');
+leg = legend('Mejor', 'Medio', 'Desvio estandar');
 set(leg, 'Location', 'NorthWest');
 
 end
