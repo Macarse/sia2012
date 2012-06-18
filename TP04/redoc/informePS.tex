@@ -142,9 +142,9 @@
 		\subsection{Selección de valores para Boltzman}
 
 			Para elegir los valores iniciales de las temperaturas que se utilizan en el algoritmo de Boltzman (Temperatura mínima, máxima y decremento por generación) se eligieron ciertos valores que cumplan con el siguiente criterio. Al inicio de la evolución todos los individuos deben tener una probabilidad similar de ser seleccionados entre toda la población y a medida que avanzan las generaciones los individuos con mayor \textit{fitness} deben tener mayor probabilidad de ser seleccionados.
-			Los valores que se eligieron de Boltzman para hacer las pruebas son variables dependiendo de la cantidad de iteraciones que se desea realizar, y suponiendo un \textit{fitness} en un rango determinado. Esto logra una gran diversidad en un comienzo, y luego va refinando la población descartando de a poco las opciones malas. 	
+			Los valores que se eligieron de Boltzman para hacer las pruebas son variables dependiendo de la cantidad de iteraciones que se desea realizar, y suponiendo un \textit{fitness} en un rango determinado. Esto logra una gran diversidad en un comienzo, y luego va refinando la población descartando de a poco los individuos menos aptos. 	
 
-	\section{Resultados y Conclusiones}
+	\section{Resultados}
 
 		Con el fin de obtener resultados comparables entre sí se define un
 		contexto base para todas las pruebas, con la intención de obtener distintos 
@@ -162,11 +162,6 @@
 			no mejora un $1\%$ el mejor individuo corta.
 		\end{itemize}
 
-		\subsection{Backpropagation vs Algorítmo Genéticos con Backpropagation}
-
-
-		En las figuras \ref{fig:onlyBP} y \ref{fig:AGWithBP} se puede observar como mejora la \textit{Red neuronal} utilizando Algorítmos Genéticos. El primer punto a destacar es el comportamiento de la curva del \textit{Fitness}, en la figura \ref{fig:AGWithBP} se puede observar que se obtiene un mejor resultado que la figura \ref{fig:onlyBP} y además no posee esas oscilaciones que presenta la red al utilizar método Batch como corrección. Se puede observar que los dos algoritmos mejoran a traves del tiempo, sólo que en la figura \ref{fig:AGWithBP} lo hace con mayor velocidad.
-		
 		\subsection{Boltzman}
 
 		Con el objetivo de analizar el desempeño de este método de selección y reemplazo, se decidió probar con una configuración Boltzman-Boltzman (donde la selección y el reemplazo se realiza con dicho método) con una configuración como la siguiente:
@@ -193,8 +188,24 @@
 		\subsection{Selección y Reemplazo}
 
 		En esta sección se obtuvieron varios resultados donde se pueden sacar algunas conclusiones acerca de los métodos de selección y reemplazo.\\
-		En primer lugar el comportamiento del algorítmo utilizando como método de Selección y Reemplazo \textbf{Ruleta}, se puede observar como el \textit{fitness} tiende a oscilar. Este comportamiento es de esperar ya que este método no garantiza el mejor individuo para la próxima generación sino que tiene mas probabilidad de ser seleccionado.
+		En primer lugar el comportamiento del algoritmo utilizando como método de Selección y Reemplazo \textbf{Ruleta}, se puede observar como el \textit{fitness} tiende a oscilar. Este comportamiento es de esperar ya que este método no garantiza el mejor individuo para la próxima generación sino que tiene más probabilidad de ser seleccionado.
+
+		\subsection{Backpropagation vs Algoritmos Genéticos con Backpropagation}
+
+		En las figuras \ref{fig:onlyBP} y \ref{fig:AGWithBP} se puede observar como mejora la \textit{Red neuronal} utilizando Algoritmos Genéticos. El primer punto a destacar es el comportamiento de la curva del \textit{Fitness}, en la figura \ref{fig:AGWithBP} se puede observar que se obtiene un mejor resultado que la figura \ref{fig:onlyBP} y además no posee esas oscilaciones que presenta la red al utilizar método Batch como corrección. Se puede observar que los dos algoritmos mejoran a traves del tiempo, sólo que en la figura \ref{fig:AGWithBP} lo hace con mayor velocidad.
 		
+		\section{Conclusiones}
+		Dados los resultados obtenidos se puede concluir que el algoritmo
+		genético puede resolver el problema.
+		Sin la utilización del operador Backpropagation, encontrar un conjunto
+		de pesos que haga que el error cuadrático medio sea menor a $0.1$ puede
+		demorar varias generaciones.
+		Si en cambio, hacemos uso del operador Backpropagation, se ve como
+		el error cuadrático medio queda menor a $0.01$ en menos de $100$
+		generaciones.
+
+		
+
 % \section{Posibles mejoras}
 
 % \subsection{Mejoras a backpropagation}
@@ -237,20 +248,6 @@
 \onecolumn
 
 
-
-
-\begin{figure}[!ht]
-	\begin{center}
-		\subfigure[Únicamente Backpropagation]
-			{\label{fig:onlyBP}\framebox{\includegraphics[scale=0.27]{./figures/OnlyBPFitness.png}}}
-		\hspace{20pt}
-		\subfigure[Algoritmo Genético con Backpropagation]
-			{\label{fig:AGWithBP}\framebox{\includegraphics[scale=0.5]{./figures/BPFitness.png}}}
-	\end{center}
-	\caption{Comparación entre Backpropagation y Algoritmo Genéticos con Backpropagation}
-	\label{fig:comparinBP}
-\end{figure}
-
 \begin{figure}[!ht]
 	\begin{center}
 			\framebox{\includegraphics[scale=0.7]{./figures/boltzmanboltzman.png}}
@@ -258,7 +255,6 @@
 	\caption{Selección y reemplazo por método de Boltzman }
 	\label{fig:boltzboltz}
 \end{figure}
-
 
 \clearpage
 \begin{figure}[!ht]
@@ -332,6 +328,18 @@ Content.iterationToImprove = 60
 Content.iterationToImprove = 15
 
 \end{lstlisting}
+
+\begin{figure}[!ht]
+	\begin{center}
+		\subfigure[Únicamente Backpropagation]
+			{\label{fig:onlyBP}\framebox{\includegraphics[scale=0.27]{./figures/OnlyBPFitness.png}}}
+		\hspace{20pt}
+		\subfigure[Algoritmo Genético con Backpropagation]
+			{\label{fig:AGWithBP}\framebox{\includegraphics[scale=0.5]{./figures/BPFitness.png}}}
+	\end{center}
+	\caption{Comparación entre Backpropagation y Algoritmo Genéticos con Backpropagation}
+	\label{fig:comparinBP}
+\end{figure}
 
 
 \end{document}
