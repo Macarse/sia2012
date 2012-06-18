@@ -7,7 +7,7 @@
 \usepackage{listings}
 \usepackage{subfigure}
 
-\hyphenation{o-pe-ra-do-res con-fi-gu-ra-ción}
+\hyphenation{o-pe-ra-do-res con-fi-gu-ra-ción po-bla-ción com-por-ta-mien-to in-di-vi-duos}
 
 \begin{document}
 
@@ -188,23 +188,18 @@
 		\subsection{Selección y Reemplazo}
 
 		En esta sección se obtuvieron varios resultados donde se pueden sacar algunas conclusiones acerca de los métodos de selección y reemplazo.\\
-		En primer lugar el comportamiento del algoritmo utilizando como método de Selección y Reemplazo \textbf{Ruleta}, se puede observar como el \textit{fitness} tiende a oscilar. Este comportamiento es de esperar ya que este método no garantiza el mejor individuo para la próxima generación sino que tiene más probabilidad de ser seleccionado.
+		En primer lugar el comportamiento del algoritmo utilizando como método de Selección y Reemplazo \textbf{Ruleta}, se puede observar como el \textit{fitness} tiende a oscilar. Este comportamiento es de esperar ya que este método no garantiza el mejor individuo para la próxima generación sino que tiene más probabilidad de ser seleccionado. En la figura \ref{fig:rulette_rulette} se observa este comportamiento explicado.\\
+		Otro punto a destacar es que si utilizamos el método \textit{Elite} (como selección y reemplazo) no aporta diversidad a la población, dado que siempre selecciona los \textbf{N} mejores individuos para la siguiente generación. Por lo tanto la utilización de \textit{Elite} con \textit{Boltzmann} o \textit{Rulette} se obtienen buenos resultados. Esta mejora se produce ya que estos dos métodos aportan diversidad a la población. Estas comparaciones se pueden observar en las Figuras \ref{fig:elite_rulette2}, \ref{fig:elite_boltzman2} y \ref{fig:elite_elite}.
+
 
 		\subsection{Backpropagation vs Algoritmos Genéticos con Backpropagation}
 
 		En las figuras \ref{fig:onlyBP} y \ref{fig:AGWithBP} se puede observar como mejora la \textit{Red neuronal} utilizando Algoritmos Genéticos. El primer punto a destacar es el comportamiento de la curva del \textit{Fitness}, en la figura \ref{fig:AGWithBP} se puede observar que se obtiene un mejor resultado que la figura \ref{fig:onlyBP} y además no posee esas oscilaciones que presenta la red al utilizar método Batch como corrección. Se puede observar que los dos algoritmos mejoran a traves del tiempo, sólo que en la figura \ref{fig:AGWithBP} lo hace con mayor velocidad.
 		
 		\section{Conclusiones}
-		Dados los resultados obtenidos se puede concluir que el algoritmo
-		genético puede resolver el problema.
-		Sin la utilización del operador Backpropagation, encontrar un conjunto
-		de pesos que haga que el error cuadrático medio sea menor a $0.1$ puede
-		demorar varias generaciones.
-		Si en cambio, hacemos uso del operador Backpropagation, se ve como
-		el error cuadrático medio queda menor a $0.01$ en menos de $100$
-		generaciones.
-
 		
+		Se puede concluir que el algoritmo genético puede resolver el problema, sin la utilización del operador \textit{Backpropagation}. En cambio, sin embargo si el operador Backpropagation toma juego en el desarrollo del Algoritmo Genético, los resultados obtenidos son mejores con un mismo o menor costo computacional.\\
+
 
 % \section{Posibles mejoras}
 
@@ -252,8 +247,31 @@
 	\begin{center}
 			\framebox{\includegraphics[scale=0.7]{./figures/boltzmanboltzman.png}}
 	\end{center}
-	\caption{Selección y reemplazo por método de Boltzman }
+	\caption{Selección y reemplazo por método de Boltzman}
 	\label{fig:boltzboltz}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\begin{center}
+		\subfigure[Elite-Elite]
+			{\label{fig:elite_elite}\framebox{\includegraphics[scale=0.5]{./figures/elite_elite.png}}}
+		\hspace{20pt}
+		\subfigure[Elite/Ruleta - Elite/Ruleta]
+			{\label{fig:elite_rulette2}\framebox{\includegraphics[scale=0.5]{./figures/elite_rulette2.png}}}
+		\subfigure[Elite/Boltzmann - Elite/Boltzmann]
+			{\label{fig:elite_boltzman2}\framebox{\includegraphics[scale=0.5]{./figures/elite_boltzman2.png}}}	
+	\end{center}
+	\caption{Comparación Elite, Elite/Ruleta y Elite/Boltzmann}
+	\label{fig:comparisonElite}
+\end{figure}
+
+\begin{figure}[!ht]
+	\begin{center}
+			\framebox{\includegraphics[scale=0.7]{./figures/rulette_rulette.png}}
+	\end{center}
+	\caption{Selección y reemplazo por método de Ruleta}
+	\label{fig:rulette_rulette}
 \end{figure}
 
 \clearpage
@@ -294,6 +312,18 @@
 	\label{fig:crossover_comparison}
 \end{figure}
 
+\begin{figure}[!ht]
+	\begin{center}
+		\subfigure[Únicamente Backpropagation]
+			{\label{fig:onlyBP}\framebox{\includegraphics[scale=0.3]{./figures/OnlyBPFitness.png}}}
+		\hspace{20pt}
+		\subfigure[Algoritmo Genético con Backpropagation]
+			{\label{fig:AGWithBP}\framebox{\includegraphics[scale=0.5]{./figures/BPFitness.png}}}
+	\end{center}
+	\caption{Comparación entre Backpropagation y Algoritmo Genéticos con Backpropagation}
+	\label{fig:comparinBP}
+\end{figure}
+
 \clearpage
 
 \begin{lstlisting}[caption={Archivo de configuración simple},label={code:simple}]
@@ -328,18 +358,6 @@ Content.iterationToImprove = 60
 Content.iterationToImprove = 15
 
 \end{lstlisting}
-
-\begin{figure}[!ht]
-	\begin{center}
-		\subfigure[Únicamente Backpropagation]
-			{\label{fig:onlyBP}\framebox{\includegraphics[scale=0.27]{./figures/OnlyBPFitness.png}}}
-		\hspace{20pt}
-		\subfigure[Algoritmo Genético con Backpropagation]
-			{\label{fig:AGWithBP}\framebox{\includegraphics[scale=0.5]{./figures/BPFitness.png}}}
-	\end{center}
-	\caption{Comparación entre Backpropagation y Algoritmo Genéticos con Backpropagation}
-	\label{fig:comparinBP}
-\end{figure}
 
 
 \end{document}
