@@ -7,7 +7,7 @@
 \usepackage{listings}
 \usepackage{subfigure}
 
-\hyphenation{o-pe-ra-do-res}
+\hyphenation{o-pe-ra-do-res con-fi-gu-ra-ción}
 
 \begin{document}
 
@@ -238,7 +238,7 @@
 \begin{figure}[!ht]
 	\begin{center}
 		\subfigure[Únicamente Backpropagation]
-			{\label{fig:onlyBP}\framebox{\includegraphics[scale=0.3]{./figures/OnlyBPFitness.png}}}
+			{\label{fig:onlyBP}\framebox{\includegraphics[scale=0.27]{./figures/OnlyBPFitness.png}}}
 		\hspace{20pt}
 		\subfigure[Algoritmo Genético con Backpropagation]
 			{\label{fig:AGWithBP}\framebox{\includegraphics[scale=0.5]{./figures/BPFitness.png}}}
@@ -256,7 +256,7 @@
 			{\label{fig:crossover_multipoint}\framebox{\includegraphics[scale=0.35]{./figures/crossover_multipoint.png}}}
 
 		\subfigure[Crossover Uniform]
-			{\label{fig:crossover_multipoint}\framebox{\includegraphics[scale=0.35]{./figures/crossover_uniform.png}}}
+			{\label{fig:crossover_multipoint}\framebox{\includegraphics[scale=0.30]{./figures/crossover_uniform.png}}}
 
 		\subfigure[Crossover Anular]
 			{\label{fig:crossover_anular}\framebox{\includegraphics[scale=0.35]{./figures/crossover_anular.png}}}
@@ -266,78 +266,7 @@
 	\label{fig:crossover_comparison}
 \end{figure}
 
-
-\begin{table}[htp]
-	\begin{center}
-	\begin{tabular}{|c|c|c|c|}
-		\hline
-	     Fitness & Generación & Corte & $p_{m}$ \\
-		\hline
-		0.22501570790437642 & 60 & Contenido & 0.05 \\
-		0.21842640558999668 & 60 & Contenido & 0.1 \\
-		0.22113522454399956 & 67 & Contenido & 0.3 \\ 
-		0.22050756611447994 & 72 & Contenido & 0.5 \\
-		\hline
-	\end{tabular}
-	\caption{Configuración simple variando la $p_m$}
-	\label{table:simple_mutation_prob}
-	\end{center}
-\end{table}
-
-\begin{table}[htp]
-	\begin{center}
-	\begin{tabular}{|c|c|c|c|c|p{1cm}|}
-		\hline
-	     Fitness & Generación & Corte & $p_{m}$ & decrecimiento (\%) & dec. gen. \\
-		\hline
-		0.21222349890474348 & 50 & Content & 0.6 & 5 & 30 \\
-		0.22795744299992385 & 77 & Content & 0.6 & 10  & 30 \\
-		0.21740760693242447 & 65 & Content & 0.6 & 15 & 30 \\
-		\hline
-	\end{tabular}
-	\caption{Configuración simple método de mutación No Uniforme}
-	\label{table:simple_mutation_no_uniform}
-	\end{center}
-\end{table}
-
-\begin{table}[htp]
-	\begin{center}
-	\begin{tabular}{|c|c|c|c|c|}
-		\hline
-	     Fitness & Generación & Corte & $p_{m}$ & Cruce \\
-		\hline
-		0.22501570790437642 & 60 & Contenido & 0.05 & Clásico \\
-		0.20662153685787393 & 50 & Contenido & 0.05 & Gene \\
-		0.21418198155450324 & 50 & Contenido & 0.05 & Multiples puntos con 2 \\
-		0.21674758534799746 & 70 & Contenido & 0.05 & Uniforme con 0.3 prob \\
-		0.20662153685787393 & 50 & Contenido & 0.05 & Anular \\
-		\hline
-	\end{tabular}
-	\caption{Configuración simple variando el método de cruce}
-	\label{table:crossover}
-	\end{center}
-\end{table}
-
-\begin{table}[htp]
-	\begin{center}
-	\begin{tabular}{|c|c|c|c|}
-		\hline
-	     Nombre .properties & Fitness & Generación & Corte \\
-		\hline
-		bp\_seb\_rer\_cg\_mc\_ec.properties 		& 16.720276062651436 	& 69 & Contenido \\
-		bp\_ser\_reb\_mc\_cc\_emc.properties 	& 11.941655508072634 	& 58 & Contenido \\
-		bp\_se\_re\_mc\_cc\_emc.properties 		& 4.825691593990156 	& 51 & Contenido \\
-		bp\_seb\_rer\_cmp\_mc\_emc.properties 	& 12.57897997517028 	& 36 & Contenido \\
-		bp\_seb\_rer\_mc\_ca\_emc.properties 	& 13.560979676949982 	& 50 & Contenido \\
-		bp\_seb\_rer\_mnu\_cc\_emc.properties 	& 12.992838764610976 	& 36 & Contenido \\
-		\hline
-	\end{tabular}
-	\caption{Distintas Configuraciones con backpropagation}
-	\label{table:backpropagation}
-	\end{center}
-\end{table}
-
-\newpage
+\clearpage
 
 \begin{lstlisting}[caption={Archivo de configuración simple},label={code:simple}]
 
