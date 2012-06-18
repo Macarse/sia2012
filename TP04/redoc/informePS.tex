@@ -153,12 +153,12 @@
 		\begin{itemize}
 			\item \textbf{Cantidad de individuos:} 52.
 			\item \textbf{Mutación:} Clásica. Con una probabilidad de mutar un individuo de $0.5$ 
-			y de mutar un locus de $0.03$ donde tenemos una probabilidad de $0.015$ de mutar.
+			y de mutar un locus de $0.03$.
 			\item \textbf{Cruce:} Clásico.
 			\item \textbf{Backpropagation:} 0 (Desactivado)
 			\item \textbf{Selección:} Elite+Rulette (Seleccionando 5 para Elite y 23 para Rulette).
 			\item \textbf{Reemplazo:} Elite+Rulette (Seleccionando 6 para Elite y 18 para Rulette).
-			\item \textbf{Criterios de corte:} Máxima 500 generaciones o Contenido, si en 60 generaciones
+			\item \textbf{Criterios de corte:} Máxima 1000 generaciones o Contenido, si en 60 generaciones
 			no mejora un $1\%$ el mejor individuo corta.
 		\end{itemize}
 
@@ -172,14 +172,14 @@
 		Con el objetivo de analizar el desempeño de este método de selección y reemplazo, se decidió probar con una configuración Boltzman-Boltzman (donde la selección y el reemplazo se realiza con dicho método) con una configuración como la siguiente:
 			
 		\begin{enumerate}			
-			\item \textit{Temperatura inicial}: 50
-			\item \textit{Temperatura mínima}: 0.5
-			\item \textit{Decremento por generación}: 0.5
+			\item \textit{Temperatura inicial}: 40
+			\item \textit{Temperatura mínima}: 0.4
+			\item \textit{Decremento por generación}: 0.05
 			\label{eq:boltz}
 		\end{enumerate}
 
-		Esto quiere decir que la temperatura mínima se alcanza en 100 generaciones aproximadamente, 	o sea que entre la primera y la generación número 100, se van seleccionando cada vez más proporción de individuos con \textit{fitness} más alto.\\
-		Como se puede observar en la figura \ref{fig:boltzboltz}, tanto el valor medio como el mejor \textit{fitness} tienden a empeorar, comportarse de una forma bastante errática y luego comenzar a mejorar de a poco. Esto se debe a que, como se ha descripto anteriormente, en un comienzo se tiende a elegir de una manera casi totalmente aleatoria, pero a medida que se acerca y supera la generación 100 y se alcanza la temperatura mínima, la selección se realiza más a conciencia, dándole prioridad a los individuos con más aptitud. 
+		Esto quiere decir que la temperatura mínima se alcanza en 800 generaciones aproximadamente, 	o sea que entre la primera y la generación número 800, se van seleccionando cada vez más proporción de individuos con \textit{fitness} más alto.\\
+		Como se puede observar en la figura \ref{fig:boltzboltz}, tanto el valor medio como el mejor \textit{fitness} tienden a empeorar, comportarse de una forma bastante errática y luego comenzar a mejorar de a poco. Esto se debe a que, como se ha descripto anteriormente, en un comienzo se tiende a elegir de una manera casi totalmente aleatoria, pero a medida que se acerca y supera la generación 600 y aun más claramente cuando se alcanza la temperatura mínima, la selección se realiza más a conciencia, dándole prioridad a los individuos con más aptitud. 
 		
 		\subsection{Mutación No uniforme}
 		
@@ -232,8 +232,12 @@
 % El hecho de correr \textit{backpropagation} generó mejores individuos que
 % luego al aplicarle operadores genéticos mejoran notablemente.
 
+
 \clearpage
 \onecolumn
+
+
+
 
 \begin{figure}[!ht]
 	\begin{center}
@@ -246,6 +250,34 @@
 	\caption{Comparación entre Backpropagation y Algoritmo Genéticos con Backpropagation}
 	\label{fig:comparinBP}
 \end{figure}
+
+\begin{figure}[!ht]
+	\begin{center}
+			\framebox{\includegraphics[scale=0.7]{./figures/boltzmanboltzman.png}}
+	\end{center}
+	\caption{Selección y reemplazo por método de Boltzman }
+	\label{fig:boltzboltz}
+\end{figure}
+
+
+\clearpage
+\begin{figure}[!ht]
+	\begin{center}
+		\subfigure[Decaimiento de 5\% cada 30 generaciones ]
+			{\label{fig:mut_no_un_5}\framebox{\includegraphics[scale=0.44]{./figures/not_uniform_5.png}}}
+		\hspace{20pt}
+		\subfigure[Decaimiento de 10\% cada 30 generaciones ]
+			{\label{fig:mut_no_un_10}\framebox{\includegraphics[scale=0.45]{./figures/not_uniform_10.png}}}
+		\hspace{20pt}
+		\subfigure[Decaimiento de 15\% cada 30 generaciones ]
+			{\label{fig:mut_no_un_15}\framebox{\includegraphics[scale=0.45]{./figures/not_uniform_15.png}}}
+		\hspace{20pt}
+	\end{center}
+	\caption{Influencia del decaimiento en mutaciones no uniformes }
+	\label{fig:not_uniform}
+	
+\end{figure}
+\clearpage
 
 \begin{figure}[!ht]
 	\begin{center}
