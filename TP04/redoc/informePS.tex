@@ -189,20 +189,20 @@
 
 		En esta sección se obtuvieron varios resultados donde se pueden sacar algunas conclusiones acerca de los métodos de selección y reemplazo.\\
 		En primer lugar el comportamiento del algoritmo utilizando como método de Selección y Reemplazo \textbf{Ruleta}, se puede observar como el \textit{fitness} oscila. Este comportamiento es de esperar ya que este método no garantiza el mejor individuo para la próxima generación sino que tiene más probabilidad de ser seleccionado. En la figura \ref{fig:rulette_rulette} se observa este comportamiento explicado.\\
-		Otro punto a destacar es que si utilizamos el método \textit{Elite} (como selección y reemplazo) no aporta diversidad a la población, dado que siempre selecciona los \textbf{N} mejores individuos para la siguiente generación. Por lo tanto la utilización de \textit{Elite} con \textit{Boltzman} o \textit{Rulette} se obtienen buenos resultados. Esta mejora se produce ya que estos dos métodos aportan diversidad a la población. Estas comparaciones se pueden observar en las Figuras \ref{fig:elite_rulette2}, \ref{fig:elite_boltzman2} y \ref{fig:elite_elite}.
-
+		Otro punto a destacar es que si utilizamos el método \textit{Elite} (como selección y reemplazo) no aporta diversidad a la población, dado que siempre selecciona los \textbf{N} mejores individuos para la siguiente generación, provocando una prematura perdida de la diversidad y un amesetamiento de los resultados como se puede comprobar en la figura \ref{fig:elite_elite}. Por lo tanto la utilización de \textit{Elite} en conjunto con \textit{Boltzman} o \textit{Rulette} logran aportar diversidad a la población y de esta forma obtener mejores resultados como se pueden observar en las figuras \ref{fig:elite_boltzman2} y \ref{fig:elite_rulette2} respectivamente. Ésta última configuración genera los mejores resultados obtenidos sin la utilización del operador \textit{Backpropagation} obteniendo un \textit{fintess} de aproximadamente $7$.
 
 		\subsection{Backpropagation vs Algoritmos Genéticos con Backpropagation}
 
-		En las figuras \ref{fig:onlyBP} y \ref{fig:AGWithBP} se puede observar como mejora la \textit{Red neuronal} utilizando Algoritmos Genéticos utilizando el operador
-		Backpropagation.
+		En las figuras \ref{fig:onlyBP} y \ref{fig:AGWithBP} se puede observar como mejora el comportamiento de la \textit{Red neuronal} utilizando solo \textit{Backpropagation} y combinandolo con algoritmos genéticos  \\  respectivamente.
 		El primer punto a destacar es el comportamiento de la curva del \textit{Fitness}.
-		En la figura \ref{fig:AGWithBP} se puede observar que se obtiene un mejor resultado que la figura \ref{fig:onlyBP} y además no posee esas oscilaciones que presenta la red al utilizar método Batch como corrección. Se puede observar que los dos algoritmos mejoran a traves del tiempo, sólo que con el operador Backpropagation lo hace con mayor velocidad.
+		Se puede observar que ambas configuraciones brindar un buen desempeño. Por un lado, usando únicamente \textit{Backpropagation} la curva posee más oscilaciones. Esto se debe a que por la naturaleza del algoritmo, no se guarda la red de mayor desempeño entre épocas, habiendo probabilidad de perder la misma como se puede observar en las caídas del \textit{fitness} en la figura  \ref{fig:onlyBP}.\\
+		Por otro lado, al combinar dicho método con algoritmos genéticos y los correctos métodos de selección y reemplazo, podemos mantener siempre al mejor individuo, generando una curva del mejor desempeño monótona creciente y a su vez, gracias a los cruces y mutaciones, obtener un \textit{fitness} mayor como se puede comprobar en la figura   \ref{fig:AGWithBP}.
+		
 		
 		\section{Conclusiones}
 		
-		Se puede concluir que el algoritmo genético puede resolver el problema sin la utilización del operador \textit{Backpropagation}.
-		Sin embargo si se utiliza el operador Backpropagation, los resultados obtenidos son mejores con un mismo o menor costo computacional.
+		Se puede concluir que el algoritmo genético puede resolver el problema sin la utilización del operador \textit{Backpropagation}, sin embargo si se utiliza dicho operador, los resultados obtenidos son mejores.
+		A su vez, es importante destacar que la combinación entre algoritmos genéticos y \textit{Backpropagation} tiene un mejor desempeño que al utilizar este último solo.
 
 \clearpage
 \onecolumn
@@ -281,10 +281,10 @@
 \begin{figure}[!ht]
 	\begin{center}
 		\subfigure[Únicamente Backpropagation]
-			{\label{fig:onlyBP}\framebox{\includegraphics[scale=0.3]{./figures/OnlyBPFitness.png}}}
+			{\label{fig:onlyBP}\framebox{\includegraphics[scale=0.4]{./figures/OnlyBPFitness.png}}}
 		\hspace{20pt}
 		\subfigure[Algoritmo Genético con Backpropagation]
-			{\label{fig:AGWithBP}\framebox{\includegraphics[scale=0.5]{./figures/BPFitness.png}}}
+			{\label{fig:AGWithBP}\framebox{\includegraphics[scale=0.7]{./figures/BPFitness.png}}}
 	\end{center}
 	\caption{Comparación entre Backpropagation y Algoritmo Genéticos con Backpropagation}
 	\label{fig:comparinBP}
