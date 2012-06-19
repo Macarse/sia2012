@@ -178,66 +178,31 @@
 		
 		\subsection{Mutación No uniforme}
 		
-		Con el objetivo de comparar el comportamiento del sistema según como varía el decaimiento de la probabilidad de mutación a medida que las generaciones avanzan. Por lo tanto, se decidió comparar mutaciones no uniformes con decaimientos de $5\%$, $10\%$ y $15\%$ cada 30 generaciones. Los resultados de las mismas se pueden observar en las figuras \ref{fig:mut_no_un_5} , \ref{fig:mut_no_un_10} y \ref{fig:mut_no_un_15} respectivamente. De las mismas se puede observar a simple vista, como en todos los casos termina por contexto (60 generaciones con un cambio menor a $1\%$), sin embargo, se puede ver como al ser el decremento mayor, el algoritmo termina antes. Esto se debe a que al haber muchas menos mutaciones, no hay introducción de elementos nuevos y no se llega a cambiar lo suficiente las redes como para obtener nuevas combinaciones y se consigan mejores resultados. Este estancamiento, también se evidencia en el menor desvío estándar.
+		Con el objetivo de comparar el comportamiento del sistema según el decaimiento de la probabilidad de mutación a medida que las generaciones avanzan. Por lo tanto, se decidió comparar mutaciones no uniformes con decaimientos de $5\%$, $10\%$ y $15\%$ cada 30 generaciones. Los resultados de las mismas se pueden observar en las figuras \ref{fig:mut_no_un_5} , \ref{fig:mut_no_un_10} y \ref{fig:mut_no_un_15} respectivamente. De las mismas se puede observar a simple vista, como en todos los casos termina por contexto (60 generaciones con un cambio menor a $1\%$), sin embargo, se puede ver como al ser el decremento mayor, el algoritmo termina antes. Esto se debe a que al haber muchas menos mutaciones, no hay introducción de elementos nuevos y no se llega a cambiar lo suficiente las redes como para obtener nuevas combinaciones y se consigan mejores resultados. Este estancamiento, también se evidencia en el menor desvío estándar.
 
 		\subsection{Crossover}
 
-		Se realizaron varias corridas distintas en donde se modifica unicamente el método de \textit{cruce}. En la figura \ref{fig:crossover_comparison} se pueden observar los 4 métodos distintos. Se observa en esta comparación que el mejor resultado obtenido es con el método de cruce \textit{Uniforme} pero esto no permite sacar una conclusión definitiva. \\
-		Lo que si aporta esto es que el método de cruce aporta diversidad a la población para poder explorar mayor espacio de individuos.
+		Se realizaron varias corridas distintas en donde se modifica unicamente el método de \textit{cruce}. En la figura \ref{fig:crossover_comparison} se pueden observar los cuatro métodos distintos. Se observa en esta comparación que el mejor resultado obtenido es con el método de cruce \textit{Uniforme}.\\
+		El método de cruce aporta diversidad a la población para poder explorar mayor espacio de individuos.
 
 		\subsection{Selección y Reemplazo}
 
 		En esta sección se obtuvieron varios resultados donde se pueden sacar algunas conclusiones acerca de los métodos de selección y reemplazo.\\
-		En primer lugar el comportamiento del algoritmo utilizando como método de Selección y Reemplazo \textbf{Ruleta}, se puede observar como el \textit{fitness} tiende a oscilar. Este comportamiento es de esperar ya que este método no garantiza el mejor individuo para la próxima generación sino que tiene más probabilidad de ser seleccionado. En la figura \ref{fig:rulette_rulette} se observa este comportamiento explicado.\\
-		Otro punto a destacar es que si utilizamos el método \textit{Elite} (como selección y reemplazo) no aporta diversidad a la población, dado que siempre selecciona los \textbf{N} mejores individuos para la siguiente generación. Por lo tanto la utilización de \textit{Elite} con \textit{Boltzmann} o \textit{Rulette} se obtienen buenos resultados. Esta mejora se produce ya que estos dos métodos aportan diversidad a la población. Estas comparaciones se pueden observar en las Figuras \ref{fig:elite_rulette2}, \ref{fig:elite_boltzman2} y \ref{fig:elite_elite}.
+		En primer lugar el comportamiento del algoritmo utilizando como método de Selección y Reemplazo \textbf{Ruleta}, se puede observar como el \textit{fitness} oscila. Este comportamiento es de esperar ya que este método no garantiza el mejor individuo para la próxima generación sino que tiene más probabilidad de ser seleccionado. En la figura \ref{fig:rulette_rulette} se observa este comportamiento explicado.\\
+		Otro punto a destacar es que si utilizamos el método \textit{Elite} (como selección y reemplazo) no aporta diversidad a la población, dado que siempre selecciona los \textbf{N} mejores individuos para la siguiente generación. Por lo tanto la utilización de \textit{Elite} con \textit{Boltzman} o \textit{Rulette} se obtienen buenos resultados. Esta mejora se produce ya que estos dos métodos aportan diversidad a la población. Estas comparaciones se pueden observar en las Figuras \ref{fig:elite_rulette2}, \ref{fig:elite_boltzman2} y \ref{fig:elite_elite}.
 
 
 		\subsection{Backpropagation vs Algoritmos Genéticos con Backpropagation}
 
-		En las figuras \ref{fig:onlyBP} y \ref{fig:AGWithBP} se puede observar como mejora la \textit{Red neuronal} utilizando Algoritmos Genéticos. El primer punto a destacar es el comportamiento de la curva del \textit{Fitness}, en la figura \ref{fig:AGWithBP} se puede observar que se obtiene un mejor resultado que la figura \ref{fig:onlyBP} y además no posee esas oscilaciones que presenta la red al utilizar método Batch como corrección. Se puede observar que los dos algoritmos mejoran a traves del tiempo, sólo que en la figura \ref{fig:AGWithBP} lo hace con mayor velocidad.
+		En las figuras \ref{fig:onlyBP} y \ref{fig:AGWithBP} se puede observar como mejora la \textit{Red neuronal} utilizando Algoritmos Genéticos utilizando el operador
+		Backpropagation.
+		El primer punto a destacar es el comportamiento de la curva del \textit{Fitness}.
+		En la figura \ref{fig:AGWithBP} se puede observar que se obtiene un mejor resultado que la figura \ref{fig:onlyBP} y además no posee esas oscilaciones que presenta la red al utilizar método Batch como corrección. Se puede observar que los dos algoritmos mejoran a traves del tiempo, sólo que con el operador Backpropagation lo hace con mayor velocidad.
 		
 		\section{Conclusiones}
 		
-		Se puede concluir que el algoritmo genético puede resolver el problema, sin la utilización del operador \textit{Backpropagation}. En cambio, sin embargo si el operador Backpropagation toma juego en el desarrollo del Algoritmo Genético, los resultados obtenidos son mejores con un mismo o menor costo computacional.\\
-
-
-% \section{Posibles mejoras}
-
-% \subsection{Mejoras a backpropagation}
-% 	Como posible mejora se concluye que el operador \textit{backpropagation}
-% 	podría disminuir su probabilidad de acción a medida que se alcanza un
-% 	fitness deseado.
-% 	El motivo por el cual se desea disminuir esa probabilidad es para que
-% 	comience a tener más influencia los operadores de mutación y cruce.
-% 	El deseo de que la mutación y cruce tenga más influencia a lo largo de
-% 	las generaciones es porque se observó que el fitness en un punto se
-% 	asintotiza al error cuadrático medio obtenido por \textit{backpropagation}
-% 	en el Trabajo Práctico Especial 2.\\
-
-% \subsection{Mejoras a criterios de selección y reemplazo}
-% 	En algunas corridas nos pasó que perdimos al mejor individuo entre
-% 	generaciones. Sería conveniente agregar un parámetro a los criterios
-% 	de selección y reemplazo para que siempre dejen el individuo con mejor
-% 	aptitud.
-
-% \subsection{Mutación evolutiva}
-% Se podría probar evolucionar la probabilidad de mutación de cada individuo
-% de la población.
-% En vez de tomarse una probabilidad de mutación global, se agrega al
-% genotipo de cada individuo un gen que codifica la probabilidad
-% de mutación del resto del cromosoma.
-% En otras palabras, en vez de fijar la probabilidad de mutación
-% arbitrariamente, la probabilidad de mutación tiene libertad de
-% moverse según mejor le convenga a cada individuo para mejorar su fitness.
-
-% \section{Conclusiones}
-% Finalmente, se llega a la conclusión de que, debido a la naturaleza del
-% problema que se desea resolver, es necesaria la utilización del
-% operador \textit{backpropagation} para llegar a resultados deseados.
-
-% El hecho de correr \textit{backpropagation} generó mejores individuos que
-% luego al aplicarle operadores genéticos mejoran notablemente.
-
+		Se puede concluir que el algoritmo genético puede resolver el problema sin la utilización del operador \textit{Backpropagation}.
+		Sin embargo si se utiliza el operador Backpropagation, los resultados obtenidos son mejores con un mismo o menor costo computacional.
 
 \clearpage
 \onecolumn
@@ -249,29 +214,6 @@
 	\end{center}
 	\caption{Selección y reemplazo por método de Boltzman}
 	\label{fig:boltzboltz}
-\end{figure}
-
-
-\begin{figure}[!ht]
-	\begin{center}
-		\subfigure[Elite-Elite]
-			{\label{fig:elite_elite}\framebox{\includegraphics[scale=0.5]{./figures/elite_elite.png}}}
-		\hspace{20pt}
-		\subfigure[Elite/Ruleta - Elite/Ruleta]
-			{\label{fig:elite_rulette2}\framebox{\includegraphics[scale=0.5]{./figures/elite_rulette2.png}}}
-		\subfigure[Elite/Boltzmann - Elite/Boltzmann]
-			{\label{fig:elite_boltzman2}\framebox{\includegraphics[scale=0.5]{./figures/elite_boltzman2.png}}}	
-	\end{center}
-	\caption{Comparación Elite, Elite/Ruleta y Elite/Boltzmann}
-	\label{fig:comparisonElite}
-\end{figure}
-
-\begin{figure}[!ht]
-	\begin{center}
-			\framebox{\includegraphics[scale=0.7]{./figures/rulette_rulette.png}}
-	\end{center}
-	\caption{Selección y reemplazo por método de Ruleta}
-	\label{fig:rulette_rulette}
 \end{figure}
 
 \clearpage
@@ -291,8 +233,8 @@
 	\label{fig:not_uniform}
 	
 \end{figure}
-\clearpage
 
+\clearpage
 \begin{figure}[!ht]
 	\begin{center}
 		\subfigure[Crossover Classic]
@@ -311,6 +253,30 @@
 	\caption{Comparación entre distintos métodos de crossover}
 	\label{fig:crossover_comparison}
 \end{figure}
+
+\clearpage
+\begin{figure}[!ht]
+	\begin{center}
+			\framebox{\includegraphics[scale=0.7]{./figures/rulette_rulette.png}}
+	\end{center}
+	\caption{Selección y reemplazo por método de Ruleta}
+	\label{fig:rulette_rulette}
+\end{figure}
+
+\begin{figure}[!ht]
+	\begin{center}
+		\subfigure[Elite-Elite]
+			{\label{fig:elite_elite}\framebox{\includegraphics[scale=0.5]{./figures/elite_elite.png}}}
+		\hspace{20pt}
+		\subfigure[Elite/Ruleta - Elite/Ruleta]
+			{\label{fig:elite_rulette2}\framebox{\includegraphics[scale=0.5]{./figures/elite_rulette2.png}}}
+		\subfigure[Elite/Boltzman - Elite/Boltzman]
+			{\label{fig:elite_boltzman2}\framebox{\includegraphics[scale=0.5]{./figures/elite_boltzman2.png}}}	
+	\end{center}
+	\caption{Comparación Elite, Elite/Ruleta y Elite/Boltzman}
+	\label{fig:comparisonElite}
+\end{figure}
+
 
 \begin{figure}[!ht]
 	\begin{center}
